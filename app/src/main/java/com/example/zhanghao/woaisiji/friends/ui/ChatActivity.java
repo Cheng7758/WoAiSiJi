@@ -15,7 +15,7 @@ import com.hyphenate.util.EasyUtils;
 //TODO  会话activity
 public class ChatActivity extends BaseActivity {
     public static ChatActivity activityInstance;
-    private EaseChatFragment chatFragment;
+    private ChatFragment chatFragment;
     public String toChatUsername;
 
     @Override
@@ -28,9 +28,8 @@ public class ChatActivity extends BaseActivity {
         Log.d("======toChatUsername",toChatUsername);
         //use EaseChatFratFragment
         chatFragment = new ChatFragment();
-
+        chatFragment.setParams(getIntent().getExtras());
         //pass parameters to chat fragment
-        chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
     }
 
@@ -50,6 +49,12 @@ public class ChatActivity extends BaseActivity {
             finish();
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        chatFragment.setParams(null);
     }
 
     @Override

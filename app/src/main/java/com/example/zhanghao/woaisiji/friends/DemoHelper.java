@@ -352,6 +352,8 @@ public class DemoHelper {
                     intent = new Intent(appContext, VoiceCallActivity.class);
                 } else {
                     ChatType chatType = message.getChatType();
+                    String userName = message.getUserName();
+                    intent.putExtra("username",userName);
                     if (chatType == ChatType.Chat) { // single chat message
                         intent.putExtra("userId", message.getFrom());
                         intent.putExtra("chatType", Constant.CHATTYPE_SINGLE);

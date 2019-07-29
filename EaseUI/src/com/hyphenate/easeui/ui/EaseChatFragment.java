@@ -119,7 +119,6 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        fragmentArgs = getArguments();
         // check if single chat or group chat
         chatType = fragmentArgs.getInt(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
         // userId you are chat with or group id
@@ -235,7 +234,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         setRefreshLayoutListener();
         
         // show forward message if the message is not null
-        String forward_msg_id = getArguments().getString("forward_msg_id");
+        String forward_msg_id = fragmentArgs.getString("forward_msg_id");
         if (forward_msg_id != null) {
             forwardMessage(forward_msg_id);
         }

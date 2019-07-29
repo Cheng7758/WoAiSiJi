@@ -336,11 +336,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            }
 //        }
         //存储token
-        Log.e("-----token1",WoAiSiJiApp.token.toString());
-        mSharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString("token",WoAiSiJiApp.token);
-        editor.commit();//这是将数据提交
+//        Log.e("-----token1",WoAiSiJiApp.token.toString());
+//        mSharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = mSharedPreferences.edit();
+//        editor.putString("token",WoAiSiJiApp.token);
+//        editor.commit();//这是将数据提交
 
         if (TextUtils.isEmpty(WoAiSiJiApp.getUid())) {
             vp_main_switch_function.setCurrentItem(0, false);

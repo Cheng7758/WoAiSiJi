@@ -138,6 +138,7 @@ public class SetUserInfoUtils {
                                 }
 
                                 String headpic = jsonObject.getString("headpic");
+                                if (ivHeadPic != null)
                                 Glide.with(context.getApplicationContext()).load("http://wasj.zhangtongdongli.com" + headpic).into(ivHeadPic);
 
                             } catch (JSONException e) {

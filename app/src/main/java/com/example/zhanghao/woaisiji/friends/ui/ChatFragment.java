@@ -87,7 +87,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
      */
     private boolean isRobot;
     private String name;
-
+    private Bundle params = null;
+    //当前与聊天的用户id 用户名 头像
+    public static String toUID,toNickName,toPic;
+    public void setParams(Bundle bundle){
+        this.params = bundle;
+fragmentArgs = bundle;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);

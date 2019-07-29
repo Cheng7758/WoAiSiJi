@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.http;
 
 import com.hyphenate.easeui.bean.FriendsBean;
+import com.hyphenate.easeui.utils.SetUserInfoUtils;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public interface Myserver {
     String url = "http://wasj.zhangtongdongli.com";
 
     //获取会员信息
-    @POST("/APP/Member/user_info")
+    @POST("/APP/Xuser/touxiang")
     @FormUrlEncoded
-    Observable<FriendsBean> getFriendsBean(@FieldMap Map<String, String> map);
+    Observable<SetUserInfoUtils.Bean> getFriendsBean(@FieldMap Map<String, String> map);
 }

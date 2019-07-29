@@ -21,6 +21,9 @@ import com.hyphenate.easeui.domain.MemberShipInfosBean;
 import com.hyphenate.easeui.http.Myserver;
 import com.hyphenate.easeui.http.NetManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,35 +105,48 @@ public class SetUserInfoUtils {
             }
         };
         requestQueue.add(getFriendsInfo);*/
+<<<<<<< HEAD
         SharedPreferences sharedPreferences = context.getSharedPreferences("token",0);
+=======
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("token", MODE_PRIVATE);
+>>>>>>> 8848aeeae6a59399364b0bdaaea3045f7ee8c96f
         String token = sharedPreferences.getString("token", "");
         Log.e("-----token2", token.toString());
         Map<String, String> params = new HashMap<>();
         params.put("uid", uid);
-        params.put("token", token.toString());
         NetManager.getNetManager().getMyService(Myserver.url)
                 .getFriendsBean(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<FriendsBean>() {
+                .subscribe(new Observer<Bean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(FriendsBean value) {
-                        Log.e("-----username", value.getData().toString());
-                        if (value.getCode() == 200) {
-                            if (tvName != null) {
-                                tvName.setText(value.getData().getNickname());
-                            }
+                    public void onNext(Bean value) {
+                        Log.e("-----username",value.toString());
 
-                            final String headPic = value.getData().getPic();
-                            Glide.with(context).load("http://wasj.zhangtongdongli.com" + headPic).into(ivHeadPic);
-                        } else {
-                            return;
-                        }
+                        if (value.code == 200) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(value.toString());
+                                jsonObject = jsonObject.getJSONObject("data");
+                                jsonObject = jsonObject.getJSONObject(uid);
+
+                                if (tvName != null) {
+                                    String nickname = jsonObject.getString("nickname");
+                                    tvName.setText(nickname);
+                                }
+
+                                String headpic = jsonObject.getString("headpic");
+                                Glide.with(context.getApplicationContext()).load("http://wasj.zhangtongdongli.com" + headpic).into(ivHeadPic);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            }
                     }
 
                     @Override
@@ -144,5 +160,31 @@ public class SetUserInfoUtils {
                     }
                 });
     }
-
+    public static class Bean{
+        public int code;
+        public String msg;
+        public Object data;
+        public String getNickName(String uid){
+            return get(uid, "nickname");
+        }
+        public String getPic(String uid){
+            return get(uid,"headpic");
+        }
+        public String getUid(String uid){
+            return get(uid,"uid");
+        }
+        private String get(String uid,String key){
+            try {
+                JSONObject jsonObject = new JSONObject(String.valueOf(data)).getJSONObject(uid);
+                return jsonObject.getString(key);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+        @Override
+        public String toString() {
+            return MGson.toJson(this);
+        }
+    }
 }

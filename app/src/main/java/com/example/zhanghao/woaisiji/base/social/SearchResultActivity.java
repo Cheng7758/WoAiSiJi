@@ -297,7 +297,11 @@ public class SearchResultActivity extends Activity implements PullToRefreshLayou
                 public void onClick(View view) {
                     String username = item.uid;
                     // demo中直接进入聊天页面，实际一般是进入用户详情页
-                    startActivity(new Intent(SearchResultActivity.this, ChatActivity.class).putExtra("userId", username));
+                    Intent intent = new Intent(SearchResultActivity.this, ChatActivity.class);
+                    intent.putExtra("userId", item.uid);
+                    intent.putExtra("username", item.nickname);
+                    intent.putExtra("pic", item.headpic);
+                    startActivity(intent);
                 }
             });
             return view;

@@ -1,5 +1,8 @@
 package com.example.zhanghao.woaisiji.serverdata;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -55,6 +58,8 @@ public class GetToken {
                 RespData tokenRsp = gson.fromJson(response, RespData.class);
                 if (tokenRsp.getCode() == 200) {
                     WoAiSiJiApp.token = tokenRsp.getData();
+                    SharedPreferences token = WoAiSiJiApp.getContext().getSharedPreferences("token", Context.MODE_PRIVATE);
+                    token.edit().putString("token",WoAiSiJiApp.token).commit();
                     if (callBack!=null)
                         callBack.getToken(true);
                 }else {

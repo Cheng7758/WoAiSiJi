@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhanghao.woaisiji.R;
@@ -37,10 +38,12 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.MemberShipInfosBean;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
+import com.hyphenate.easeui.utils.SetUserInfoUtils;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.util.EasyUtils;
+
 import java.util.List;
 import java.util.Map;
 
@@ -87,11 +90,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private String name;
     private Bundle params = null;
     //当前与聊天的用户id 用户名 头像
-    public static String toUID,toNickName,toPic;
-    public void setParams(Bundle bundle){
+    public static String toUID, toNickName, toPic;
+
+    public void setParams(Bundle bundle) {
         this.params = bundle;
-fragmentArgs = bundle;
+        fragmentArgs = bundle;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -122,7 +127,7 @@ fragmentArgs = bundle;
 //                    titleBar.setTitle(data.nickname+"----");
 //                    name = (data.nickname);
                     TextView titleText = titleBar.getTitleText();
-                    SetUserInfoUtils.setUserInfo(getContext(), WoAiSiJiApp.getUid(),titleText,null);
+                    SetUserInfoUtils.setUserInfo(getContext(), WoAiSiJiApp.getUid(), titleText, null);
                     name = (ServerAddress.SERVER_ROOT + WoAiSiJiApp.getCurrentUserInfo().getPic());
                 }
             });
@@ -309,7 +314,7 @@ fragmentArgs = bundle;
                 return;
             }
             startActivityForResult((new Intent(getActivity(), GroupDetailsActivity.class)
-                            .putExtra("groupId", toChatUsername)), REQUEST_CODE_GROUP_DETAIL);
+                    .putExtra("groupId", toChatUsername)), REQUEST_CODE_GROUP_DETAIL);
         } else if (chatType == Constant.CHATTYPE_CHATROOM) {
             //群聊
             startActivityForResult(new Intent(getActivity(), ChatRoomDetailsActivity.class)

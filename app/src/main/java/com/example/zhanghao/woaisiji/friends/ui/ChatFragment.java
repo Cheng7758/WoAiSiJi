@@ -43,6 +43,7 @@ import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.util.EasyUtils;
+
 import java.util.List;
 import java.util.Map;
 
@@ -89,11 +90,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private String name;
     private Bundle params = null;
     //当前与聊天的用户id 用户名 头像
-    public static String toUID,toNickName,toPic;
-    public void setParams(Bundle bundle){
+    public static String toUID, toNickName, toPic;
+
+    public void setParams(Bundle bundle) {
         this.params = bundle;
-fragmentArgs = bundle;
+        fragmentArgs = bundle;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -124,7 +127,11 @@ fragmentArgs = bundle;
 //                    titleBar.setTitle(data.nickname+"----");
 //                    name = (data.nickname);
                     TextView titleText = titleBar.getTitleText();
+<<<<<<< HEAD
+                    SetUserInfoUtils.setUserInfo(getContext(), WoAiSiJiApp.getUid(), titleText, null);
+=======
                     SetUserInfoUtils.setUserInfo(getContext(), params.getString("userId"),titleText,null);
+>>>>>>> 44c05f87c6af179bf8f8fa3686b306e3c07e2082
                     name = (ServerAddress.SERVER_ROOT + WoAiSiJiApp.getCurrentUserInfo().getPic());
                 }
             });
@@ -311,7 +318,7 @@ fragmentArgs = bundle;
                 return;
             }
             startActivityForResult((new Intent(getActivity(), GroupDetailsActivity.class)
-                            .putExtra("groupId", toChatUsername)), REQUEST_CODE_GROUP_DETAIL);
+                    .putExtra("groupId", toChatUsername)), REQUEST_CODE_GROUP_DETAIL);
         } else if (chatType == Constant.CHATTYPE_CHATROOM) {
             //群聊
             startActivityForResult(new Intent(getActivity(), ChatRoomDetailsActivity.class)

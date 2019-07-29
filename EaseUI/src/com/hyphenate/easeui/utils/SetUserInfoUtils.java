@@ -105,12 +105,8 @@ public class SetUserInfoUtils {
             }
         };
         requestQueue.add(getFriendsInfo);*/
-<<<<<<< HEAD
-        SharedPreferences sharedPreferences = context.getSharedPreferences("token",0);
-=======
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("token", MODE_PRIVATE);
->>>>>>> 8848aeeae6a59399364b0bdaaea3045f7ee8c96f
+        SharedPreferences sharedPreferences = context.getSharedPreferences("token",0);
         String token = sharedPreferences.getString("token", "");
         Log.e("-----token2", token.toString());
         Map<String, String> params = new HashMap<>();

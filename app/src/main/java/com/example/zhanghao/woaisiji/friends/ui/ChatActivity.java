@@ -28,14 +28,11 @@ public class ChatActivity extends BaseActivity {
         Log.d("======toChatUsername",toChatUsername);
         //use EaseChatFratFragment
         chatFragment = new ChatFragment();
-<<<<<<< HEAD
-
         //pass parameters to chat fragment  传递参数到聊天片段
         chatFragment.setArguments(getIntent().getExtras());
-=======
+
         chatFragment.setParams(getIntent().getExtras());
         //pass parameters to chat fragment
->>>>>>> 8848aeeae6a59399364b0bdaaea3045f7ee8c96f
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
     }
 

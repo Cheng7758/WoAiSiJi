@@ -119,12 +119,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-<<<<<<< HEAD
         fragmentArgs = getArguments();
         // check if single chat or group chat   检查是单独聊天还是小组聊天
-=======
-        // check if single chat or group chat
->>>>>>> 8848aeeae6a59399364b0bdaaea3045f7ee8c96f
         chatType = fragmentArgs.getInt(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
         // userId you are chat with or group id 正在聊天的用户或组
         toChatUsername = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);

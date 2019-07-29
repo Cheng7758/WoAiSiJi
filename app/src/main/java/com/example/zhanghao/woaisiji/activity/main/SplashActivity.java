@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity {
         //取消状态栏
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         mAnimation = AnimationUtils.loadAnimation(

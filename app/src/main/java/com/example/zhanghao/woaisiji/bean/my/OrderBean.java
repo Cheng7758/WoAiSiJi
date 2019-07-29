@@ -1,12 +1,16 @@
 package com.example.zhanghao.woaisiji.bean.my;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Cheng on 2019/7/1.
  */
 
-public class OrderBean {
+public class OrderBean implements Parcelable {
 
     /**
      * code : 200
@@ -32,7 +36,9 @@ public class OrderBean {
         this.data = data;
     }
 
-    public static class DataBean {
+
+    public static class DataBean implements Parcelable {
+
         /**
          * id : 2713
          * ordernum : 20190717110145
@@ -196,5 +202,97 @@ public class OrderBean {
         public void setSymbol(String symbol) {
             this.symbol = symbol;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.id);
+            dest.writeString(this.ordernum);
+            dest.writeString(this.goods_id);
+            dest.writeString(this.goods_name);
+            dest.writeString(this.goods_num);
+            dest.writeString(this.goods_price);
+            dest.writeString(this.wuliu);
+            dest.writeString(this.wuliunum);
+            dest.writeString(this.discount);
+            dest.writeInt(this.pay_price);
+            dest.writeInt(this.status_o);
+            dest.writeString(this.status_m);
+            dest.writeString(this.goods_img);
+            dest.writeInt(this.store_id);
+            dest.writeString(this.store_name);
+            dest.writeString(this.symbol);
+        }
+
+        public DataBean() {
+        }
+
+        protected DataBean(Parcel in) {
+            this.id = in.readString();
+            this.ordernum = in.readString();
+            this.goods_id = in.readString();
+            this.goods_name = in.readString();
+            this.goods_num = in.readString();
+            this.goods_price = in.readString();
+            this.wuliu = in.readString();
+            this.wuliunum = in.readString();
+            this.discount = in.readString();
+            this.pay_price = in.readInt();
+            this.status_o = in.readInt();
+            this.status_m = in.readString();
+            this.goods_img = in.readString();
+            this.store_id = in.readInt();
+            this.store_name = in.readString();
+            this.symbol = in.readString();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel source) {
+                return new DataBean(source);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.code);
+        dest.writeList(this.data);
+    }
+
+    public OrderBean() {
+    }
+
+    protected OrderBean(Parcel in) {
+        this.code = in.readInt();
+        this.data = new ArrayList<DataBean>();
+        in.readList(this.data, DataBean.class.getClassLoader());
+    }
+
+    public static final Creator<OrderBean> CREATOR = new Creator<OrderBean>
+            () {
+        @Override
+        public OrderBean createFromParcel(Parcel source) {
+            return new OrderBean(source);
+        }
+
+        @Override
+        public OrderBean[] newArray(int size) {
+            return new OrderBean[size];
+        }
+    };
 }

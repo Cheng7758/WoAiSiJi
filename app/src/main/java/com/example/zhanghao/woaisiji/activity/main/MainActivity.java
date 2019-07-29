@@ -117,7 +117,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         /*if (!TextUtils.isEmpty(WoAiSiJiApp.getUid())) {
             qianbao();
         }*/
-
         if (getIntent().getBooleanExtra(Constant.ACCOUNT_CONFLICT, false) && !isConflictDialogShow) {
             showConflictDialog();
         } else if (getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) && !isAccountRemovedDialogShow) {

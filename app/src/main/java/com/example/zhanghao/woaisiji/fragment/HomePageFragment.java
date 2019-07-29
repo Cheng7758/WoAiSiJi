@@ -493,7 +493,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     private List<ImageView> mImageViewList;
 
     public void HomePagerAdvertisement(final String url) {
-        int method = (!TextUtils.isEmpty(url) && (URL_GLOBAL_SLIDE_SHOW).equals(url)) ? Request.Method.GET : Request.Method.POST;
+        int method = (!TextUtils.isEmpty(url) && (URL_GLOBAL_SLIDE_SHOW).equals(url)) ?
+                Request.Method.GET : Request.Method.POST;
         //网络请求
         StringRequest HomePagerAdvertisementRequest = new StringRequest(method, url, new Response.Listener<String>() {
             //请求网络数据成功

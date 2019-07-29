@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhanghao.woaisiji.R;
@@ -38,13 +37,10 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.MemberShipInfosBean;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
-import com.hyphenate.easeui.utils.SetUserInfoUtils;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.util.EasyUtils;
-import com.tencent.mm.sdk.modelmsg.WXEmojiObject;
-
 import java.util.List;
 import java.util.Map;
 

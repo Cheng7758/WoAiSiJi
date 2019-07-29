@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <include layout="@layout/title_bar_view_layout" />
+
+    <ListView
+        android:id="@+id/lv_personal_harvest_address_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:dividerHeight="10dp"
+        android:layout_weight="1"></ListView>
+    <TextView
+        android:id="@+id/tv_personal_harvest_address_no_data"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="暂无收货地址"></TextView>
+
+    <Button
+        android:id="@+id/btn_personal_harvest_address_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/btn_green_noraml"
+        android:textColor="#fff"
+        android:text="添加新地址"
+        android:textSize="16sp" />
+</LinearLayout>

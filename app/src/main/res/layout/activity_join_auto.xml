@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical"
+    tools:context=".activity.send.JoinAutoActivity">
+
+    <include layout="@layout/title_bar_view_layout" />
+
+    <LinearLayout
+        android:id="@+id/ll_sliver_integral_store_location"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_sliver_integral_store_province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="省份" />
+
+            <TextView
+                android:id="@+id/tv_sliver_integral_store_province"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ccc"
+                android:drawableRight="@mipmap/drop_down_unselected_icon"
+                android:ellipsize="end"
+                android:lines="1"
+                android:paddingLeft="@dimen/dp_2"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sliver_integral_store_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="城市" />
+
+            <TextView
+                android:id="@+id/tv_sliver_integral_store_city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ccc"
+                android:drawableRight="@mipmap/drop_down_unselected_icon"
+                android:paddingLeft="@dimen/dp_2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sliver_integral_store_country"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="区县" />
+
+            <TextView
+                android:id="@+id/tv_sliver_integral_store_country"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ccc"
+                android:drawableRight="@mipmap/drop_down_unselected_icon"
+                android:paddingLeft="@dimen/dp_2" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_sliver_integral_store_more_condition"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/xiaoxiquan"
+            android:text="" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.zhanghao.woaisiji.view.SiJiWenDaListView
+            android:id="@+id/lv_join_auto_us_show_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="#f4f4f4"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"></com.example.zhanghao.woaisiji.view.SiJiWenDaListView>
+
+        <RelativeLayout
+            android:id="@+id/relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_recruitment_province_city_country_root"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消" />
+
+            <TextView
+                android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="确定" />
+        </RelativeLayout>
+        <!--省市县三级联动-->
+        <LinearLayout
+            android:id="@+id/ll_recruitment_province_city_country_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <com.wx.wheelview.widget.WheelView
+                android:id="@+id/wheelview_recruitment_province"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.wx.wheelview.widget.WheelView
+                android:id="@+id/wheelview_recruitment_city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.wx.wheelview.widget.WheelView
+                android:id="@+id/wheelview_recruitment_country"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,150 @@
+package com.hyphenate.easeui.utils;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.hyphenate.easeui.bean.FriendsBean;
+import com.hyphenate.easeui.domain.ImageUrlBean;
+import com.hyphenate.easeui.domain.MemberShipInfosBean;
+import com.hyphenate.easeui.http.Myserver;
+import com.hyphenate.easeui.http.NetManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+import static android.content.Context.MODE_PRIVATE;
+
+/**
+ * Created by zzz on 2016/11/30.
+ */
+
+public class SetUserInfoUtils {
+
+    private static String url = "http://www.woaisiji.com/APP/Member/info";
+    private static String imgUrl = "http://www.woaisiji.com/APP/Public/get_img_path";
+    private static RequestQueue requestQueue;
+    private static MemberShipInfosBean memberShipInfosBean;
+    private static Gson gson;
+
+    public static void setUserInfo(final Context context, final String uid, final TextView tvName, final ImageView ivHeadPic) {
+        /*requestQueue = Volley.newRequestQueue(context);
+        // 获取会员信息
+        StringRequest getFriendsInfo = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                gson =  new Gson();
+                memberShipInfosBean =  gson.fromJson(response,MemberShipInfosBean.class);
+
+//                Log.d("EaseConversation",uid+"-->"+memberShipInfosBean.info.headpic+"");
+                if (memberShipInfosBean.code == 200){
+                    if (tvName != null){
+                        tvName.setText(memberShipInfosBean.info.nickname);
+                    }
+
+                    final String  headPic = memberShipInfosBean.info.headpic;
+                    //                            Log.d("setUserInfoUtils",imageUrl.path);
+//                            Glide.with(context).load("http://www.woaisiji.com"+imageUrl.path).into(ivHeadPic);
+                    StringRequest getImgRequest = new StringRequest(Request.Method.POST, imgUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("imageLoads+__", "onResponse: ");
+                            ImageUrlBean imageUrl = gson.fromJson(response,ImageUrlBean.class);
+//                            ImageLoader.getInstance().displayImage("http://www.woaisiji.com"+imageUrl.path,ivHeadPic);
+//                            Log.d("setUserInfoUtils",imageUrl.path);
+                            Glide.with(context).load("http://www.woaisiji.com"+imageUrl.path).into(ivHeadPic);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("img_id", headPic);
+                            return params;
+                        }
+                    };
+                    requestQueue.add(getImgRequest);
+                }
+//
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("uid",uid);
+                return params;
+            }
+        };
+        requestQueue.add(getFriendsInfo);*/
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("token",0);
+        String token = sharedPreferences.getString("token", "");
+        Log.e("-----token2", token.toString());
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", uid);
+        params.put("token", token.toString());
+        NetManager.getNetManager().getMyService(Myserver.url)
+                .getFriendsBean(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FriendsBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(FriendsBean value) {
+                        Log.e("-----username", value.getData().toString());
+                        if (value.getCode() == 200) {
+                            if (tvName != null) {
+                                tvName.setText(value.getData().getNickname());
+                            }
+
+                            final String headPic = value.getData().getPic();
+                            Glide.with(context).load("http://wasj.zhangtongdongli.com" + headPic).into(ivHeadPic);
+                        } else {
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override   //请求成功
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+}

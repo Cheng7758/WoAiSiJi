@@ -23,13 +23,13 @@ public class ChatActivity extends BaseActivity {
         super.onCreate(arg0);
         setContentView(R.layout.em_activity_chat);
         activityInstance = this;
-        //get user id or group id
+        //get user id or group id 获取用户id或者群id
         toChatUsername = getIntent().getExtras().getString("userId");
         Log.d("======toChatUsername",toChatUsername);
         //use EaseChatFratFragment
         chatFragment = new ChatFragment();
 
-        //pass parameters to chat fragment
+        //pass parameters to chat fragment  传递参数到聊天片段
         chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
     }
@@ -42,7 +42,7 @@ public class ChatActivity extends BaseActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        // make sure only one chat activity is opened
+        // make sure only one chat activity is opened   确保只打开一个聊天活动
         String username = intent.getStringExtra("userId");
         if (toChatUsername.equals(username))
             super.onNewIntent(intent);
@@ -86,7 +86,7 @@ public class ChatActivity extends BaseActivity {
     protected void onRestart() {
         chatFragment = new ChatFragment();
 
-        //pass parameters to chat fragment
+        //pass parameters to chat fragment  传递参数到聊天片段
         chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
         super.onRestart();

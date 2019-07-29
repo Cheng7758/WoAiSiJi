@@ -87,7 +87,6 @@ public class SetUserInfoUtils {
                     };
                     requestQueue.add(getImgRequest);
                 }
-//
             }
         }, new Response.ErrorListener() {
             @Override
@@ -103,7 +102,6 @@ public class SetUserInfoUtils {
             }
         };
         requestQueue.add(getFriendsInfo);*/
-
         SharedPreferences sharedPreferences = context.getSharedPreferences("token",0);
         String token = sharedPreferences.getString("token", "");
         Log.e("-----token2", token.toString());

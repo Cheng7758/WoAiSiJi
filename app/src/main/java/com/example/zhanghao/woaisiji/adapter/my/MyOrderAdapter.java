@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
+import com.example.zhanghao.woaisiji.activity.MyEvaluateActivity;
 import com.example.zhanghao.woaisiji.activity.OrderPreviewActivity;
 import com.example.zhanghao.woaisiji.activity.PaymentMainActivity;
 import com.example.zhanghao.woaisiji.activity.my.CheckBogisticsActivity;
@@ -70,7 +71,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
         Glide.with(mContext).load(ServerAddress.SERVER_ROOT + bean.getSymbol()).into(holder.symbol);
         holder.goods_price.setText(bean.getGoods_price());  //单价
         holder.goods_num.setText("×" + bean.getGoods_num());    //数量
-        holder.pay_price.setText("共" + bean.getGoods_num() + "件商品，合计：￥" + bean.getPay_price()   //需支付
+        holder.pay_price.setText("共" + bean.getGoods_num() + "件商品，合计：￥" + bean.getPay_price()
+                //需支付
                 + "(含运费￥0.00)");
 
         if (bean.getStatus_o() == -1 || bean.getStatus_o() == -2) {
@@ -171,6 +173,16 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                 mContext.startActivity(intent);
             }
         });
+
+        //　评价
+        holder.evaluate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MyEvaluateActivity.class);
+                intent.putExtra("bean", bean);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -233,7 +245,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                         if (value == null) {
                             return;
                         } else {
-                            Toast.makeText(mContext, "" + value.getMsg(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "" + value.getMsg(), Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     }
 
@@ -270,7 +283,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                         if (value == null) {
                             return;
                         } else {
-                            Toast.makeText(mContext, "" + value.getMsg(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "" + value.getMsg(), Toast.LENGTH_SHORT)
+                                    .show();
                             mList.remove(value);
                             notifyDataSetChanged();
                         }
@@ -310,7 +324,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                         if (value == null) {
                             return;
                         } else {
-                            Toast.makeText(mContext, "" + value.getMsg(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "" + value.getMsg(), Toast.LENGTH_SHORT)
+                                    .show();
                             mList.remove(value);
                             notifyDataSetChanged();
                         }

@@ -104,7 +104,7 @@ public class SendSilverActivity extends AppCompatActivity {
         }
     }
 
-    //接口转账
+    //银积分转账接口
     private void goldBuy() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ServerAddress.URL_GLOD_SEND,
                 new Response.Listener<String>() {

@@ -110,7 +110,6 @@ public class SliverIntegralStoreAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-
         return convertView;
     }
 

@@ -3,6 +3,7 @@ package com.example.zhanghao.woaisiji.friends.ui;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.util.EasyUtils;
+
 import java.util.List;
 import java.util.Map;
 
@@ -302,7 +304,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 return;
             }
             startActivityForResult((new Intent(getActivity(), GroupDetailsActivity.class)
-                            .putExtra("groupId", toChatUsername)), REQUEST_CODE_GROUP_DETAIL);
+                    .putExtra("groupId", toChatUsername)), REQUEST_CODE_GROUP_DETAIL);
         } else if (chatType == Constant.CHATTYPE_CHATROOM) {
             //群聊
             startActivityForResult(new Intent(getActivity(), ChatRoomDetailsActivity.class)
@@ -383,7 +385,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 intent2.putExtra("name", name);
                 startActivityForResult(intent2, 0);
                 break;
-            case RECORDS:
+            case RECORDS:   //记录
 //                EMMessage message = EMMessage.createTxtSendMessage("分享的扩展消息",toChatUsername);
 //                message.setChatType(EMMessage.ChatType.GroupChat);
 //                message.setAttribute("nameTitle", "金币转让");
@@ -454,7 +456,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     }
 
     /**
-     * make a video call
+     * make a video call    视频电话
      */
     protected void startVideoCall() {
         if (!EMClient.getInstance().isConnected())
@@ -468,17 +470,17 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     }
 
     /**
-     * chat row provider
+     * chat row provider    聊天行的提供者
      */
     private final class CustomChatRowProvider implements EaseCustomChatRowProvider {
         @Override
         public int getCustomChatRowTypeCount() {
             //here the number is the message type in EMMessage::Type
-            //which is used to count the number of different chat row
+            //which is used to count the number of different chat row   用来计算不同聊天行数的
             return 8;
         }
 
-        @Override
+        @Override   //获取自定义聊天行类型
         public int getCustomChatRowType(EMMessage message) {
             if (message.getType() == EMMessage.Type.TXT) {
                 //voice call

@@ -127,7 +127,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 //                    titleBar.setTitle(data.nickname+"----");
 //                    name = (data.nickname);
                     TextView titleText = titleBar.getTitleText();
+<<<<<<< HEAD
                     SetUserInfoUtils.setUserInfo(getContext(), WoAiSiJiApp.getUid(), titleText, null);
+=======
+                    SetUserInfoUtils.setUserInfo(getContext(), params.getString("userId"),titleText,null);
+>>>>>>> 44c05f87c6af179bf8f8fa3686b306e3c07e2082
                     name = (ServerAddress.SERVER_ROOT + WoAiSiJiApp.getCurrentUserInfo().getPic());
                 }
             });

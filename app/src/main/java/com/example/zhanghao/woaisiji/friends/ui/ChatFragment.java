@@ -477,7 +477,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 message.setAttribute("nameTitle", "银积分转让");
 //                message.setAttribute("nameTitle2", "转给" + name);
                 message.setAttribute("nameTitle2", "转给" + UserManager.toName);
-                message.setAttribute("goldStr", "1个金积分");
+                message.setAttribute("goldStr", "1金积分");
                 message.setAttribute("records", true);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {
                     message.setChatType(EMMessage.ChatType.GroupChat);

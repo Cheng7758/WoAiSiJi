@@ -63,7 +63,8 @@ public class PersonalRecommendCodeActivity extends BaseActivity implements View.
      */
     private void initData() {
         showProgressDialog();
-        StringRequest registerRequest = new StringRequest(Request.Method.POST, ServerAddress.URL_MY_PERSONAL_INFO_REFERRAL_CODE, new Response.Listener<String>() {
+        StringRequest registerRequest = new StringRequest(Request.Method.POST, ServerAddress.
+                URL_MY_PERSONAL_INFO_REFERRAL_CODE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgressDialog();
@@ -74,7 +75,7 @@ public class PersonalRecommendCodeActivity extends BaseActivity implements View.
                 if (respPersonalRecommendCode.getCode() == 200) {
                     tv_personal_recommend_code_my_code.setText(respPersonalRecommendCode.getData().getRecommend_code());
                     tv_personal_recommendation_code_nick.setText(respPersonalRecommendCode.getData().getNickname());
-                    tv_personal_recommendation_code_referrer.setText(respPersonalRecommendCode.getData().getPid());
+                    tv_personal_recommendation_code_referrer.setText("推荐人:" + respPersonalRecommendCode.getData().getName());
                     if (WoAiSiJiApp.getCurrentUserInfo() != null)
                         Picasso.with(PersonalRecommendCodeActivity.this).load(ServerAddress.SERVER_ROOT
                                 + WoAiSiJiApp.getCurrentUserInfo().getPic())

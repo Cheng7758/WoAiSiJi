@@ -119,7 +119,7 @@ public class SendGoldActivity extends AppCompatActivity {
                             Log.d("123", num + uid + userid);
                             intent.setClass(SendGoldActivity.this, ChatActivity.class);
                             Bundle bundle2 = new Bundle();
-                            bundle2.putString("goldStr", num + "个金积分");
+                            bundle2.putString("goldStr", num + "金积分");
                             bundle2.putString("uid", uid);
                             bundle2.putString("toChatUsername", userid);
                             bundle2.putString("nameTitle2", "转给"+ UserManager.toName);

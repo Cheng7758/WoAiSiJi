@@ -117,7 +117,7 @@ public class SendSilverActivity extends AppCompatActivity {
                     Log.d("123", num + uid + userid);
                     intent.setClass(SendSilverActivity.this, ChatActivity.class);
                     Bundle bundle2 = new Bundle();
-                    bundle2.putString("goldStr", num + "个银积分");
+                    bundle2.putString("goldStr", num + "银积分");
                     bundle2.putString("uid", uid);
                     bundle2.putString("toChatUsername", userid);
                     bundle2.putString("nameTitle2", "转给"+ UserManager.toName);

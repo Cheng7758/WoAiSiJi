@@ -74,6 +74,7 @@ import com.example.zhanghao.woaisiji.resp.RespGlobalSlideShow;
 import com.example.zhanghao.woaisiji.resp.RespHomePagerJXGG;
 import com.example.zhanghao.woaisiji.tools.CircleCornerTransform;
 import com.example.zhanghao.woaisiji.utils.DensityUtils;
+import com.example.zhanghao.woaisiji.utils.FunctionUtils;
 import com.example.zhanghao.woaisiji.utils.http.NetManager;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
@@ -112,6 +113,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     protected static final String TAG = "MainActivity";
     List<View> views = new ArrayList<>();
     private int currentItem = 0; // 当前图片的索引号
+
     private ConversationListFragment conversationListFragment;
     private ContactListFragment contactListFragment;
 
@@ -149,9 +151,11 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     private int REQUEST_CODE_SCAN = 111;
     private int flags = 1;
     private HomeSearch.DataBean mData;
+    private int mCheckPermission;
 
     @Override
-    public View initBaseFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View initBaseFragmentView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         View view = inflater.inflate(R.layout.view_page_home_page, container, false);
         constructionMethod(view);
         return view;
@@ -174,10 +178,13 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
             WoAiSiJiApp.isUpdateTip = true;
         }
         if (Build.VERSION.SDK_INT >= 23) {
-            int checkPermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
+            int checkPermission = ContextCompat.checkSelfPermission(getActivity(), Manifest
+                    .permission.ACCESS_COARSE_LOCATION);
             if (checkPermission != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission
+                        .ACCESS_COARSE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission
+                        .ACCESS_FINE_LOCATION}, 1);
                 Log.d("TTTT", "弹出提示");
             }
         }
@@ -193,10 +200,14 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     //控件初始化
     private void initView(View rootView) {
         //八个选项
-        ll_home_page_fbh_store = (LinearLayout) rootView.findViewById(R.id.ll_home_page_fbh_store);//司机商城
-        ll_home_page_silver_store = (LinearLayout) rootView.findViewById(R.id.ll_home_page_silver_store);//银币商城
-        ll_home_page_search_vip = (LinearLayout) rootView.findViewById(R.id.ll_home_page_search_vip);//搜索会员
-        ll_home_page_join_us = (LinearLayout) rootView.findViewById(R.id.ll_home_page_join_us);//加入我们
+        ll_home_page_fbh_store = (LinearLayout) rootView.findViewById(R.id
+                .ll_home_page_fbh_store);//司机商城
+        ll_home_page_silver_store = (LinearLayout) rootView.findViewById(R.id
+                .ll_home_page_silver_store);//银币商城
+        ll_home_page_search_vip = (LinearLayout) rootView.findViewById(R.id
+                .ll_home_page_search_vip);//搜索会员
+        ll_home_page_join_us = (LinearLayout) rootView.findViewById(R.id.ll_home_page_join_us);
+        //加入我们
 
         imageButton = (ImageView) rootView.findViewById(R.id.imageButton);//左上角汽车按钮
         et_home_page_search = (EditText) rootView.findViewById(R.id.et_home_page_search);//搜索框
@@ -236,9 +247,11 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     handled = true;
                     /*隐藏软键盘*/
-                    InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (inputMethodManager.isActive()) {
-                        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus
+                                ().getWindowToken(), 0);
                     }
                     searchFunction();
                 }
@@ -249,7 +262,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
 
     //轮播效果的实现
     private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
                     currentItem = (currentItem + 1) % TopCarousel.size();
@@ -260,7 +273,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     };
 
     private void startAd() {
-        ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService scheduledExecutorService = Executors
+                .newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(new ScrollTask(), 1, 3, TimeUnit.SECONDS);
         //scheduledExecutorService.scheduleAtFixedRate(new ScrollTask02(), 1, 3, TimeUnit.SECONDS);
     }
@@ -309,10 +323,13 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
             case R.id.ll_home_page_silver_store://银积分商城
 //                if (!TextUtils.isEmpty((WoAiSiJiApp.getUid()))) {
                 if (Build.VERSION.SDK_INT >= 23) {
-                    int checkPermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
-                    if (checkPermission != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                    int mCheckPermission = ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION);
+                    if (mCheckPermission != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest
+                                .permission.ACCESS_COARSE_LOCATION}, 1);
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest
+                                .permission.ACCESS_FINE_LOCATION}, 1);
                         Log.d("TTTT", "弹出提示");
                     }
                 }
@@ -335,15 +352,19 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
             case R.id.ll_home_page_join_us://加盟商家
 //                if (!TextUtils.isEmpty((WoAiSiJiApp.getUid()))) {
                 if (Build.VERSION.SDK_INT >= 23) {
-                    int checkPermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
+                    int checkPermission = ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION);
                     if (checkPermission != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest
+                                .permission.ACCESS_COARSE_LOCATION}, 1);
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest
+                                .permission.ACCESS_FINE_LOCATION}, 1);
                         Log.d("TTTT", "弹出提示");
                     }
                 }
                 //跳转到加盟商家页面
-                startActivity(new Intent(getActivity(), JoinAutoActivity.class));
+                FunctionUtils.requestFranchisee(getActivity());
+
                 /*} else {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                 }*/
@@ -361,7 +382,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                         // 客服ID
                         Toast.makeText(getActivity(), "自己不能与自己聊天", Toast.LENGTH_SHORT).show();
                     } else {
-                        startActivity(new Intent(getActivity(), ChatActivity.class).putExtra("userId", username));
+                        startActivity(new Intent(getActivity(), ChatActivity.class).putExtra
+                                ("userId", username));
                     }
                 } else {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -369,7 +391,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.imageButton://扫一扫按钮
                 new IntentIntegrator(getActivity())
-                        .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)// 扫码的类型,可选：一维码，二维码，一/二维码
+                        .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)// 扫码的类型,
+                        // 可选：一维码，二维码，一/二维码
                         //.setPrompt("请对准二维码")// 设置提示语
                         .setCameraId(0)// 选择摄像头,可使用前置或者后置
                         .setBeepEnabled(true)// 是否开启声音,扫完码之后会"哔"的一声
@@ -394,7 +417,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         Map<EncodeHintType, String> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
         try {
-            BitMatrix encode = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, width, height, hints);
+            BitMatrix encode = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, width, height,
+                    hints);
             int[] pixels = new int[width * height];
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
@@ -479,7 +503,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         int unreadMsgCountTotal = 0;
         int chatroomUnreadMsgCount = 0;
         unreadMsgCountTotal = EMClient.getInstance().chatManager().getUnreadMsgsCount();
-        for (EMConversation conversation : EMClient.getInstance().chatManager().getAllConversations().values()) {
+        for (EMConversation conversation : EMClient.getInstance().chatManager()
+                .getAllConversations().values()) {
             if (conversation.getType() == EMConversation.EMConversationType.ChatRoom)
                 chatroomUnreadMsgCount = chatroomUnreadMsgCount + conversation.getUnreadMsgCount();
         }
@@ -492,10 +517,11 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     private List<ImageView> mImageViewList;
 
     public void HomePagerAdvertisement(final String url) {
-        int method = (!TextUtils.isEmpty(url) && (URL_GLOBAL_SLIDE_SHOW).equals(url)) ?
-                Request.Method.GET : Request.Method.POST;
+        int method = (!TextUtils.isEmpty(url) && (URL_GLOBAL_SLIDE_SHOW).equals(url)) ? Request
+                .Method.GET : Request.Method.POST;
         //网络请求
-        StringRequest HomePagerAdvertisementRequest = new StringRequest(method, url, new Response.Listener<String>() {
+        StringRequest HomePagerAdvertisementRequest = new StringRequest(method, url, new Response
+                .Listener<String>() {
             //请求网络数据成功
             @Override
             public void onResponse(String response) {
@@ -517,7 +543,10 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                                 .into(new SimpleTarget<GlideDrawable>() {
                                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                                     @Override
-                                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                    public void onResourceReady(GlideDrawable resource,
+                                                                GlideAnimation<? super
+                                                                        GlideDrawable>
+                                                                        glideAnimation) {
                                         imageView.setBackground(resource);
                                     }
                                 });
@@ -532,7 +561,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                         //司机公告
                         noticeListData.clear();
                     views.clear();
-                    if (homePagerJXGG.getData().getGonggao() != null && homePagerJXGG.getData().getGonggao().size() > 0)
+                    if (homePagerJXGG.getData().getGonggao() != null && homePagerJXGG.getData()
+                            .getGonggao().size() > 0)
                         noticeListData.addAll(homePagerJXGG.getData().getGonggao());
                     setView(noticeListData);//中有点击事件
                     upview1.setViews(views);
@@ -563,8 +593,10 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                             @Override
                             public void onClick(View view) {
                                 //六张点击跳到图文详情
-                                Intent intent = new Intent(getActivity(), ProductDetailActivity2.class);
+                                Intent intent = new Intent(getActivity(),
+                                        ProductDetailActivity2.class);
                                 intent.putExtra("id", BottomGoods.get(count).getId());
+                                intent.putExtra("type",0);
                                 startActivity(intent);
                             }
                         });
@@ -587,7 +619,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         for (int i = 0; i < notice.size(); i++) {
             final int position = i;
             //设置滚动的单个布局
-            LinearLayout moreView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.itme_upmarquee, null);
+            LinearLayout moreView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R
+                    .layout.itme_upmarquee, null);
             //初始化布局的控件
             TextView tv1 = (TextView) moreView.findViewById(R.id.tv1);
             //进行对控件赋值
@@ -599,7 +632,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         upview1.setOnItemClickListener(new UPMarqueeView.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                //                Intent intent = new Intent(getActivity(), AdvertisementWebViewActivity.class);
+                //                Intent intent = new Intent(getActivity(),
+                // AdvertisementWebViewActivity.class);
                 Intent intent = new Intent(getActivity(), AnnouncementDetailsActivity.class);
                 intent.putExtra("id", notice.get(position).getNid());
 //                intent.putExtra("content", notice.get(position).getTitle());
@@ -614,7 +648,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         final int length = mImageViewList.size();
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
             }
 
             @Override
@@ -642,7 +677,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onClick(View view) {
                         //顶部轮播点击进广告网站
-                        Intent intent = new Intent(getActivity(), AdvertisementWebViewActivity.class);
+                        Intent intent = new Intent(getActivity(), AdvertisementWebViewActivity
+                                .class);
                         intent.putExtra("content", TopCarousel.get(position).getTzurl());
                         startActivity(intent);
                     }
@@ -666,7 +702,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
             ImageView point = new ImageView(getActivity());
             point.setImageResource(R.drawable.shape_point_gray);
             // 初始化参数布局
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup
+                    .LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             if (i > 0) {
                 // 从第二个设置左边距
                 params.leftMargin = DensityUtils.dip2px(10, getActivity());

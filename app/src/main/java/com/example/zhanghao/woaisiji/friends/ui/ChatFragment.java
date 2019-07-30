@@ -128,7 +128,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 //                    titleBar.setTitle(data.nickname+"----");
 //                    name = (data.nickname);
                     TextView titleText = titleBar.getTitleText();
-                    SetUserInfoUtils.setUserInfo(getContext(), params.getString("userId"),titleText,null);
+                    SetUserInfoUtils.setUserInfo(getContext(), params.getString("userId"), titleText, null);
                     name = (ServerAddress.SERVER_ROOT + WoAiSiJiApp.getCurrentUserInfo().getPic());
                 }
             });
@@ -200,6 +200,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.e("------send", data.getDataString());
         if (0 == requestCode) {
             if (0 == resultCode) {
 //                intent.putExtra("goldStr", num);
@@ -218,7 +219,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 message.setAttribute("nameTitle2", "转给" + pid);
                 message.setAttribute("goldStr", goldStr);
                 message.setAttribute("records", true);
-
+                Log.e("----nameTitle", nameTitle);
+                Log.e("----nameTitle2", "转给" + pid);
+                Log.e("----goldStr", goldStr);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {
                     message.setChatType(EMMessage.ChatType.GroupChat);
                 } else if (chatType == EaseConstant.CHATTYPE_CHATROOM) {
@@ -366,8 +369,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
     @Override
     public void onMessageBubbleLongClick(EMMessage message) {
-        // no message forward when in chat room
-        startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message", message)
+        // no message forward when in chat room在聊天室里没有消息转发
+        startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class))
+                        .putExtra("message", message)
                         .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
                 REQUEST_CODE_CONTEXT_MENU);
     }
@@ -411,7 +415,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 message.setAttribute("nameTitle2", "转给" + name);
                 message.setAttribute("goldStr", "1个金积分");
                 message.setAttribute("records", true);
-
+                Log.e("=====nameTitle", "银积分转让");
+                Log.e("=====nameTitle2", "转给" + name);
+                Log.e("=====goldStr", "1个金积分");
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {
                     message.setChatType(EMMessage.ChatType.GroupChat);
                 } else if (chatType == EaseConstant.CHATTYPE_CHATROOM) {

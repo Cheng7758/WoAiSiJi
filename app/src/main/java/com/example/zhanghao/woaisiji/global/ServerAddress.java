@@ -11,6 +11,9 @@ public class ServerAddress {
     //    public final static String URL_SERVER = "http://www.woaisiji.com/APP/User/";
     public final static String URL_SERVER = "http://wasj.zhangtongdongli.com/";//新的
 
+    //加盟商家地址列表
+    public final static String URL_JOIN_PARTNER_REQUEST_ADDRESS_LIST = SERVER_ROOT + "/APP/Xone/screening";
+
     //获取Token
     public final static String URL_GET_TOKEN = SERVER_ROOT + "/APP/Public/get_token";
     //发送验证码

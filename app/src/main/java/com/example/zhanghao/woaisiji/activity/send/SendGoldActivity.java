@@ -137,6 +137,7 @@ public class SendGoldActivity extends AppCompatActivity {
                             bundle2.putString("nameTitle", "金积分转让");
                             intent.putExtra("bundle2", bundle2);
                             setResult(0, intent);
+                            Log.e("-----bundle",bundle2.toString());
                             SendGoldActivity.this.finish();
                             //                    intent.putExtra("goldStr", num);
 //                    intent.putExtra("uid", uid);

@@ -34,6 +34,7 @@ import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.my.ShopsRuzhuBean;
 import com.example.zhanghao.woaisiji.resp.RespMerchantList;
 import com.example.zhanghao.woaisiji.resp.RespSearchDataList;
+import com.example.zhanghao.woaisiji.utils.FunctionUtils;
 import com.example.zhanghao.woaisiji.utils.PrefUtils;
 import com.example.zhanghao.woaisiji.view.SiJiWenDaListView;
 import com.example.zhanghao.woaisiji.widget.PickerView.Pickers;
@@ -63,16 +64,21 @@ public class JoinAutoActivity extends BaseActivity {
     //Title
     private ImageView iv_title_bar_view_left_left;
     private TextView tv_title_bar_view_centre_title;
-    private TextView tv_sliver_integral_store_province, tv_sliver_integral_store_city, tv_sliver_integral_store_country;
+    private TextView tv_sliver_integral_store_province, tv_sliver_integral_store_city,
+            tv_sliver_integral_store_country;
     private LinearLayout ll_sliver_integral_store_location, ll_sliver_integral_store_province,
-            ll_sliver_integral_store_city, ll_sliver_integral_store_country, ll_recruitment_province_city_country_root;
+            ll_sliver_integral_store_city, ll_sliver_integral_store_country,
+            ll_recruitment_province_city_country_root;
     private ImageView iv_sliver_integral_store_more_condition;
 
     //省的WheelView控件/市的WheelView控件//区的WheelView控件/
-    private WheelView wheelview_recruitment_province, wheelview_recruitment_city, wheelview_recruitment_country;
+    private WheelView wheelview_recruitment_province, wheelview_recruitment_city,
+            wheelview_recruitment_country;
     private List<String> provinceData = new ArrayList<>();  //省份
-    private HashMap<String, List<String>> cityDataHash = new HashMap<String, List<String>>(); //省份下面的市数据
-    private HashMap<String, List<String>> provinceDataHash = new HashMap<String, List<String>>(); //市添加区
+    private HashMap<String, List<String>> cityDataHash = new HashMap<String, List<String>>();
+    //省份下面的市数据
+    private HashMap<String, List<String>> provinceDataHash = new HashMap<String, List<String>>();
+    //市添加区
 
     private List<ShopsRuzhuBean.DataBean.ShengBean> mShengBeans;
     private List<ShopsRuzhuBean.DataBean.DpflBean> mDpflBeanList;
@@ -91,6 +97,8 @@ public class JoinAutoActivity extends BaseActivity {
     private List<SearchResult> mResultArrayList;
     private double mLatitude;
     private double mLongitude;
+    private ShopsRuzhuBean.DataBean.ShiBean mShiBean;
+    private ShopsRuzhuBean.DataBean.XianBean mXianBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +107,8 @@ public class JoinAutoActivity extends BaseActivity {
         ButterKnife.inject(this);
         searchWord = getIntent().getStringExtra("SearchWord");  //首页搜索的数据
         getDataFromServer();
+
+        initData();
         initView();
         initListener();
     }
@@ -106,7 +116,7 @@ public class JoinAutoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
+
         initLocation();
     }
 
@@ -152,24 +162,32 @@ public class JoinAutoActivity extends BaseActivity {
             public void onClick(View view) {
                 relative.setVisibility(View.GONE);
                 ll_recruitment_province_city_country_root.setVisibility(View.GONE);
-                ShopsRuzhuBean.DataBean.ShiBean shiBean = mShengBeans.get
+                mShiBean = mShengBeans.get
                         (wheelview_recruitment_province.getCurrentPosition()).getShi()
                         .get(wheelview_recruitment_city.getCurrentPosition());
-                if (shiBean.getXian() != null) {
-                    currentXian = shiBean.getXian().get(wheelview_recruitment_country.getCurrentPosition()).getRegion_name();
+                if (mShiBean.getXian() != null) {
+                    mXianBean = mShiBean.getXian().get
+                            (wheelview_recruitment_country
+                                    .getCurrentPosition());
+                    currentXian = mXianBean.getRegion_name();
                 } else {
                     currentXian = "";
                 }
-                tv_sliver_integral_store_province.setText(provinceData.get(wheelview_recruitment_province.getCurrentPosition()));   //省
-                tv_sliver_integral_store_city.setText(shiBean.getRegion_name());    //市
+
+                tv_sliver_integral_store_province.setText(provinceData.get
+                        (wheelview_recruitment_province.getCurrentPosition()));   //省
+                tv_sliver_integral_store_city.setText(mShiBean.getRegion_name());    //市
                 tv_sliver_integral_store_country.setText(currentXian);  //区县
+
+                getAddressDataFromServer();
             }
         });
     }
 
     //初始化滚动选择器
     private void initWheelView() {
-        wheelview_recruitment_province = (WheelView) findViewById(R.id.wheelview_recruitment_province);
+        wheelview_recruitment_province = (WheelView) findViewById(R.id
+                .wheelview_recruitment_province);
         wheelview_recruitment_province.setWheelAdapter(new ArrayWheelAdapter(this));    //滚动选择器用的适配器
         wheelview_recruitment_province.setSkin(WheelView.Skin.Holo);
         if (provinceData != null && provinceData.size() > 0)
@@ -195,7 +213,8 @@ public class JoinAutoActivity extends BaseActivity {
         wheelview_recruitment_province.join(wheelview_recruitment_city);
         wheelview_recruitment_province.joinDatas(provinceDataHash);
 
-        wheelview_recruitment_country = (WheelView) findViewById(R.id.wheelview_recruitment_country);
+        wheelview_recruitment_country = (WheelView) findViewById(R.id
+                .wheelview_recruitment_country);
         wheelview_recruitment_country.setWheelAdapter(new ArrayWheelAdapter(this));
         wheelview_recruitment_country.setSkin(WheelView.Skin.Holo);
         List<String> strings1 = new ArrayList<>();
@@ -215,10 +234,13 @@ public class JoinAutoActivity extends BaseActivity {
    /* private void initLocation() {
         mLocClient = new LocationClient(this);
         if (Build.VERSION.SDK_INT >= 23) {
-            int checkPermission = ContextCompat.checkSelfPermission(JoinAutoActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
+            int checkPermission = ContextCompat.checkSelfPermission(JoinAutoActivity.this,
+            Manifest.permission.ACCESS_COARSE_LOCATION);
             if (checkPermission != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(JoinAutoActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                ActivityCompat.requestPermissions(JoinAutoActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(JoinAutoActivity.this, new String[]{Manifest
+                .permission.ACCESS_COARSE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(JoinAutoActivity.this, new String[]{Manifest
+                .permission.ACCESS_FINE_LOCATION}, 1);
             }
             LocationClientOption option = new LocationClientOption();
             option.setOpenGps(true); // 打开gps
@@ -231,9 +253,11 @@ public class JoinAutoActivity extends BaseActivity {
     }*/
 
     private void getDataFromServer() {
-        String url = !TextUtils.isEmpty(searchWord) ? ServerAddress.URL_JOIN_PARTNER_SEARCH_DATA :  //搜索时要显示的数据
+        String url = !TextUtils.isEmpty(searchWord) ? ServerAddress.URL_JOIN_PARTNER_SEARCH_DATA
+                :  //搜索时要显示的数据
                 ServerAddress.URL_JOIN_PARTNER_REQUEST_JOIN_LIST;   //加盟商家列表数据
-        StringRequest questionRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest questionRequest = new StringRequest(Request.Method.POST, url, new Response
+                .Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (TextUtils.isEmpty(response))
@@ -257,15 +281,19 @@ public class JoinAutoActivity extends BaseActivity {
                         }
                         /*respSearchDataList = gson.fromJson(response, RespSearchDataList.class);
                         if (respSearchDataList.getCode() == 200) {
-                            if (respSearchDataList.getData() != null && respSearchDataList.getData().getStore() != null &&
+                            if (respSearchDataList.getData() != null && respSearchDataList
+                            .getData().getStore() != null &&
                                     respSearchDataList.getData().getStore().size() > 0) {
                                 adapter.getDataSource().clear();
-                                adapter.getDataSource().addAll(respSearchDataList.getData().getStore());
+                                adapter.getDataSource().addAll(respSearchDataList.getData()
+                                .getStore());
                                 adapter.notifyDataSetChanged();
-                            } else if (respSearchDataList.getData() != null && respSearchDataList.getData().getGoods() != null &&
+                            } else if (respSearchDataList.getData() != null && respSearchDataList
+                            .getData().getGoods() != null &&
                                     respSearchDataList.getData().getGoods().size() > 0) {
                                 adapter.getDataGoods().clear();
-                                adapter.getDataGoods().addAll(respSearchDataList.getData().getGoods());
+                                adapter.getDataGoods().addAll(respSearchDataList.getData()
+                                .getGoods());
                                 adapter.notifyDataSetChanged();
                             }
                         }*/
@@ -301,12 +329,64 @@ public class JoinAutoActivity extends BaseActivity {
                 else {
                     params.put("pageno", "1");
                     params.put("pagesize", "200");
+
                 }
                 return params;
             }
         };
         WoAiSiJiApp.mRequestQueue.add(questionRequest);
     }
+
+    /**
+     * 通过地址获得加盟商家列表
+     */
+    private void getAddressDataFromServer() {
+        String url = ServerAddress.URL_JOIN_PARTNER_REQUEST_ADDRESS_LIST;  //加盟商家列表数据
+        StringRequest questionRequest = new StringRequest(Request.Method.POST, url, new Response
+                .Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (TextUtils.isEmpty(response))
+                    return;
+                Gson gson = new Gson();
+                respMerchantDetail = gson.fromJson(response, RespMerchantList.class);
+                if (respMerchantDetail.getCode() == 200) {
+                    if (respMerchantDetail.getData() != null) {
+                        adapter.getDataSource().clear();
+                        adapter.getDataSource().addAll(respMerchantDetail.getData());
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        listView.removeAllViewsInLayout();
+                        Toast.makeText(getApplicationContext(), "暂无数据", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (respMerchantDetail.getCode() == 400) {
+                    listView.removeAllViewsInLayout();
+                    Toast.makeText(getApplicationContext(), "暂无数据", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("sheng", mShiBean.getParent_id());
+                params.put("shi", mShiBean.getRegion_id());
+
+                if (mShiBean.getXian() != null) {
+                    params.put("xian", mXianBean.getRegion_id());
+                } else {
+                    params.put("xian", "");
+                }
+                return params;
+            }
+        };
+        WoAiSiJiApp.mRequestQueue.add(questionRequest);
+    }
+
 
     private void initData() {
         currentDpflPickers = new Pickers();
@@ -317,13 +397,16 @@ public class JoinAutoActivity extends BaseActivity {
         String flbq = PrefUtils.getString(this, "RecruitFlbq", "");
         Gson gson = new Gson();
         if (!TextUtils.isEmpty(flbq))
-            mFlbqBeanList = gson.fromJson(flbq, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean.FlbqBean>>() {
+            mFlbqBeanList = gson.fromJson(flbq, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean
+                    .FlbqBean>>() {
             }.getType());
         if (!TextUtils.isEmpty(dpfl))
-            mDpflBeanList = gson.fromJson(dpfl, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean.DpflBean>>() {
+            mDpflBeanList = gson.fromJson(dpfl, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean
+                    .DpflBean>>() {
             }.getType());
         if (!TextUtils.isEmpty(shengStr))
-            mShengBeans = gson.fromJson(shengStr, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean.ShengBean>>() {
+            mShengBeans = gson.fromJson(shengStr, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean
+                    .ShengBean>>() {
             }.getType());
         if (mShengBeans != null && mShengBeans.size() > 0) {
             for (int i = 0; i < mShengBeans.size(); i++) {
@@ -351,14 +434,17 @@ public class JoinAutoActivity extends BaseActivity {
     }
 
     private void initView() {
-        tv_title_bar_view_centre_title = (TextView) findViewById(R.id.tv_title_bar_view_centre_title);
+        tv_title_bar_view_centre_title = (TextView) findViewById(R.id
+                .tv_title_bar_view_centre_title);
         tv_title_bar_view_centre_title.setText("加盟商家");
         iv_title_bar_view_left_left = (ImageView) findViewById(R.id.iv_title_bar_view_left_left);
         iv_title_bar_view_left_left.setVisibility(View.VISIBLE);
 
-        tv_sliver_integral_store_province = (TextView) findViewById(R.id.tv_sliver_integral_store_province);
+        tv_sliver_integral_store_province = (TextView) findViewById(R.id
+                .tv_sliver_integral_store_province);
         tv_sliver_integral_store_city = (TextView) findViewById(R.id.tv_sliver_integral_store_city);
-        tv_sliver_integral_store_country = (TextView) findViewById(R.id.tv_sliver_integral_store_country);
+        tv_sliver_integral_store_country = (TextView) findViewById(R.id
+                .tv_sliver_integral_store_country);
 
         listView = (SiJiWenDaListView) findViewById(R.id.lv_join_auto_us_show_data);
 
@@ -372,16 +458,22 @@ public class JoinAutoActivity extends BaseActivity {
             listView.setAdapter(adapter);
         }
         //列表上面的位置布局
-        ll_sliver_integral_store_location = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_location);
-        ll_sliver_integral_store_province = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_province);
-        ll_sliver_integral_store_city = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_city);
-        ll_sliver_integral_store_country = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_country);
-        iv_sliver_integral_store_more_condition = (ImageView) findViewById(R.id.iv_sliver_integral_store_more_condition);
+        ll_sliver_integral_store_location = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_location);
+        ll_sliver_integral_store_province = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_province);
+        ll_sliver_integral_store_city = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_city);
+        ll_sliver_integral_store_country = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_country);
+        iv_sliver_integral_store_more_condition = (ImageView) findViewById(R.id
+                .iv_sliver_integral_store_more_condition);
         relative = (RelativeLayout) findViewById(R.id.relative);
         cancel = (TextView) findViewById(R.id.cancel);
         confirm = (TextView) findViewById(R.id.confirm);
         //确定  取消
-        ll_recruitment_province_city_country_root = (LinearLayout) findViewById(R.id.ll_recruitment_province_city_country_root);
+        ll_recruitment_province_city_country_root = (LinearLayout) findViewById(R.id
+                .ll_recruitment_province_city_country_root);
         initWheelView();
     }
 
@@ -395,7 +487,8 @@ public class JoinAutoActivity extends BaseActivity {
     public String getLngAndLat(Context context) {
         double latitude = 0.0;
         double longitude = 0.0;
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context
+                .LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
@@ -407,7 +500,8 @@ public class JoinAutoActivity extends BaseActivity {
         } else {    //从网络获取经纬度
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000,
                     0, locationListener);
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location location = locationManager.getLastKnownLocation(LocationManager
+                    .NETWORK_PROVIDER);
             if (location != null) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
@@ -423,8 +517,10 @@ public class JoinAutoActivity extends BaseActivity {
     public String getLngAndLatWithNetwork() {
         double latitude = 0.0;
         double longitude = 0.0;
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+        LocationManager locationManager = (LocationManager) getSystemService(Context
+                .LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0,
+                locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (location != null) {
             latitude = location.getLatitude();
@@ -460,16 +556,19 @@ public class JoinAutoActivity extends BaseActivity {
         mLocationClient.registerLocationListener(myListener);
 
         LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
         int span = 1000;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
         option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
-        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation
+        // .getLocationDescribe里得到，结果类似于“在北京天安门附近”
         option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
-        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+        option.setIgnoreKillProcess(false);
+        //可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
         mLocationClient.setLocOption(option);

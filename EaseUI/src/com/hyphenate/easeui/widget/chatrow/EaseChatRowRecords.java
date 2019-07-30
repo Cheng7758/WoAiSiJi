@@ -62,8 +62,6 @@ public class EaseChatRowRecords extends EaseChatRow {
         } catch (HyphenateException e) {
             e.printStackTrace();
         }
-
-
     }
     @Override
     protected void onBubbleClick() {

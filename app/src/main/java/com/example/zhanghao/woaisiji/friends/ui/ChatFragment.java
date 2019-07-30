@@ -223,7 +223,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
                 EMMessage message = EMMessage.createTxtSendMessage("转账", pid);
                 message.setAttribute("nameTitle", nameTitle);
-                message.setAttribute("nameTitle2", "转给" + pid);
+                message.setAttribute("nameTitle2", nameTitle2);
                 message.setAttribute("goldStr", goldStr);
                 message.setAttribute("records", true);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {

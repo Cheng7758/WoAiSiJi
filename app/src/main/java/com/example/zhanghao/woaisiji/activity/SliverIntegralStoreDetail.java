@@ -407,12 +407,14 @@ public class SliverIntegralStoreDetail extends BaseActivity {
     private void getDataDetailFromServer() {
         //商品列表适配器
         fbhStoreDataDetailAdapter = new FBHStoreDataDetailAdapter(
-                SliverIntegralStoreDetail.this, commodityDataDetailList, fromType);
+                SliverIntegralStoreDetail.this, commodityDataDetailList, Integer.parseInt(getIntent().getStringExtra("type")));
         fbhStoreDataDetailAdapter.setLoadMoreView(new BaseQuickLoadMoreView());
         gv_sliver_shangcheng_category_data.setAdapter(fbhStoreDataDetailAdapter);
 
         StringBuffer url = new StringBuffer(ServerAddress.URL_FBH_COMMODITY_DATA_LIST);
-        url.append("?cid=" + currentCategoryId + "&page=" + currentPage + "&type=" + fromType +
+
+        String type = getIntent().getStringExtra("type");
+        url.append("?cid=" + currentCategoryId + "&page=" + currentPage + "&type=" + type +
                 "&store_id=" + intentCommodityId + "&row_num=10");
         String temp = url.toString();
         //没有数据提示
@@ -465,7 +467,8 @@ public class SliverIntegralStoreDetail extends BaseActivity {
                 s.put("store_id",intentCommodityId);
                 s.put("row_num", "10000");
 
-                s.put("type",getIntent().getStringExtra("type"));
+                String type = getIntent().getStringExtra("type");
+                s.put("type", type);
                 return s;
             }
         };

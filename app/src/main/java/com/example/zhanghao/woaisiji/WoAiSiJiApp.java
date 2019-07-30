@@ -5,9 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.bean.MemberShipInfosBean;
 import com.example.zhanghao.woaisiji.bean.my.PersonalInfoBean;
 import com.example.zhanghao.woaisiji.friends.DemoHelper;
@@ -17,19 +19,31 @@ import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.http.Myserver;
+import com.hyphenate.easeui.http.NetManager;
+import com.hyphenate.easeui.utils.SetUserInfoUtils;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 import com.loveplusplus.update.AppUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.x;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 //import android.support.multidex.MultiDex;
 
@@ -75,6 +89,52 @@ public class WoAiSiJiApp extends Application {
 //        if (!TextUtils.isEmpty(currentUid)){
             uid = currentUid ;
 //        }
+        if (currentUid == null)
+            return;
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", uid);
+        NetManager.getNetManager().getMyService(Myserver.url)
+                .getFriendsBean(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SetUserInfoUtils.Bean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SetUserInfoUtils.Bean value) {
+                        Log.e("-----username",value.toString());
+
+                        if (value.code == 200) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(value.toString());
+                                jsonObject = jsonObject.getJSONObject("data");
+                                jsonObject = jsonObject.getJSONObject(uid);
+
+                                    String nickname = jsonObject.getString("nickname");
+
+                                String headpic = jsonObject.getString("headpic");
+                                UserManager.myId = uid;
+                                UserManager.myName = nickname;
+                                UserManager.myPic = "http://wasj.zhangtongdongli.com" +headpic;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override   //请求成功
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     // 会员信息的对象设置为全局变量

@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.activity.send.SendGoldActivity;
@@ -37,6 +38,8 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.MemberShipInfosBean;
+import com.hyphenate.easeui.http.Myserver;
+import com.hyphenate.easeui.http.NetManager;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
 import com.hyphenate.easeui.utils.SetUserInfoUtils;
@@ -44,9 +47,20 @@ import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.util.EasyUtils;
+import com.jcodecraeer.xrecyclerview.gold.GoldManager;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 //TODO   聊天会话 昵称和头像不显示
 public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHelper {
@@ -90,12 +104,57 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private boolean isRobot;
     private String name;
     private Bundle params = null;
+    private String userName;
     //当前与聊天的用户id 用户名 头像
     public static String toUID, toNickName, toPic;
 
     public void setParams(Bundle bundle) {
         this.params = bundle;
         fragmentArgs = bundle;
+        if (bundle == null)
+            return;
+        Map<String, String> params = new HashMap<>();
+        final String userId = bundle.getString("userId");
+        params.put("uid", userId);
+        NetManager.getNetManager().getMyService(Myserver.url)
+                .getFriendsBean(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SetUserInfoUtils.Bean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SetUserInfoUtils.Bean value) {
+                        Log.e("-----username",value.toString());
+
+                        if (value.code == 200) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(value.toString());
+                                jsonObject = jsonObject.getJSONObject("data");
+                                jsonObject = jsonObject.getJSONObject(userId);
+
+                                    GoldManager.toUserName = userName = jsonObject.getString("nickname");
+                                    GoldManager.toUserId = userId;
+                                    GoldManager.toUserPic = jsonObject.getString("headpic");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override   //请求成功
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -223,7 +282,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
                 EMMessage message = EMMessage.createTxtSendMessage("转账", pid);
                 message.setAttribute("nameTitle", nameTitle);
-                message.setAttribute("nameTitle2", nameTitle2);
+                message.setAttribute("nameTitle2", "转给"+ UserManager.toName);
                 message.setAttribute("goldStr", goldStr);
                 message.setAttribute("records", true);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {
@@ -417,7 +476,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 EMMessage message = EMMessage.createTxtSendMessage("转账", toChatUsername);
                 message.setAttribute("nameTitle", "银积分转让");
 //                message.setAttribute("nameTitle2", "转给" + name);
-                message.setAttribute("nameTitle2", "转给" + name);
+                message.setAttribute("nameTitle2", "转给" + UserManager.toName);
                 message.setAttribute("goldStr", "1个金积分");
                 message.setAttribute("records", true);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {

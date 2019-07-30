@@ -1,7 +1,5 @@
 package com.example.zhanghao.woaisiji.activity.send;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -24,23 +22,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
-import com.example.zhanghao.woaisiji.activity.OrderPreviewActivity;
-import com.example.zhanghao.woaisiji.activity.PaymentMethodActivity;
-import com.example.zhanghao.woaisiji.bean.GoldBuyBean;
 import com.example.zhanghao.woaisiji.bean.SendGold;
 import com.example.zhanghao.woaisiji.bean.pay.PaySignBean;
 import com.example.zhanghao.woaisiji.friends.ui.ChatActivity;
-import com.example.zhanghao.woaisiji.friends.ui.ChatFragment;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.httpurl.Myserver;
-import com.example.zhanghao.woaisiji.serverdata.ObtainUserInfo;
 import com.example.zhanghao.woaisiji.utils.http.NetManager;
 import com.google.gson.Gson;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMMessage;
-import com.hyphenate.easeui.EaseConstant;
-import com.hyphenate.easeui.domain.MemberShipInfosBean;
-import com.hyphenate.easeui.ui.EaseChatFragment;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -133,7 +122,7 @@ public class SendGoldActivity extends AppCompatActivity {
                             bundle2.putString("goldStr", num + "个金积分");
                             bundle2.putString("uid", uid);
                             bundle2.putString("toChatUsername", userid);
-                            bundle2.putString("nameTitle2", "转给"+name);
+                            bundle2.putString("nameTitle2", "转给"+ UserManager.toName);
                             bundle2.putString("nameTitle", "金积分转让");
                             intent.putExtra("bundle2", bundle2);
                             setResult(0, intent);

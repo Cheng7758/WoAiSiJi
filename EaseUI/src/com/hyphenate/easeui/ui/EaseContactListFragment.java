@@ -41,6 +41,8 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.widget.EaseContactList;
 import com.hyphenate.exceptions.HyphenateException;
+import com.jcodecraeer.xrecyclerview.gold.GoldManager;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -119,6 +121,11 @@ public class EaseContactListFragment extends EaseBaseFragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     EaseUser user = (EaseUser)listView.getItemAtPosition(position);
+                    if (user != null){
+                        UserManager.toId = GoldManager.toUserId = user.getUsername();
+                        UserManager.toName = GoldManager.toUserName = user.getNickname();
+                        UserManager.toPic = GoldManager.toUserPic =  user.getAvatar();
+                    }
                     listItemClickListener.onListItemClicked(user);
                 }
             });

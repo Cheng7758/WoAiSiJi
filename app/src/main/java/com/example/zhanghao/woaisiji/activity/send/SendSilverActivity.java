@@ -24,11 +24,11 @@ import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.bean.SendGold;
 import com.example.zhanghao.woaisiji.bean.pay.PaySignBean;
 import com.example.zhanghao.woaisiji.friends.ui.ChatActivity;
-import com.example.zhanghao.woaisiji.friends.ui.ChatFragment;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.httpurl.Myserver;
 import com.example.zhanghao.woaisiji.utils.http.NetManager;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -120,7 +120,7 @@ public class SendSilverActivity extends AppCompatActivity {
                     bundle2.putString("goldStr", num + "个银积分");
                     bundle2.putString("uid", uid);
                     bundle2.putString("toChatUsername", userid);
-                    bundle2.putString("nameTitle2", uid);
+                    bundle2.putString("nameTitle2", "转给"+ UserManager.toName);
                     bundle2.putString("nameTitle", "银积分转让");
                     intent.putExtra("bundle2", bundle2);
 

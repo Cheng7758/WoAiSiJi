@@ -64,6 +64,8 @@ import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.widget.EaseContactList;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.NetUtils;
+import com.jcodecraeer.xrecyclerview.gold.GoldManager;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 /*import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;*/
 
@@ -174,6 +176,9 @@ public class PersonalFriendsFragment extends EaseContactListFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 EaseUser user = (EaseUser) listView.getItemAtPosition(position);
                 if (user != null) {
+                    UserManager.toId = GoldManager.toUserId = user.getUsername();
+                    UserManager.toName = GoldManager.toUserName = user.getNickname();
+                    UserManager.toPic = GoldManager.toUserPic =  user.getAvatar();
                     Log.e("----pic", user.getAvatar() + "=====uid" + user.getUsername()
                             + "---name" + user.getNick()+"--"+user.getNickname());
                     String username = user.getUsername();

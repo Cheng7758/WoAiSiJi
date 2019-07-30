@@ -41,7 +41,7 @@ public class EaseChatRowRecords extends EaseChatRow {
     protected void onSetUpView() {
         try {
             //tv_job.setText(message.getStringAttribute("nameTitle"));
-            tv_name.setText(message.getStringAttribute("name"));
+            tv_name.setText(message.getStringAttribute("nameTitle2"));
             tv_phone.setText(message.getStringAttribute("goldStr"));
         } catch (HyphenateException e) {
             e.printStackTrace();

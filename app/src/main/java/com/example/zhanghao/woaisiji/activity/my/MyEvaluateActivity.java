@@ -1,6 +1,6 @@
 package com.example.zhanghao.woaisiji.activity.my;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,15 +13,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
 import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.adapter.my.EvaImageAdapter;
 import com.example.zhanghao.woaisiji.bean.my.ImageBean;
 import com.example.zhanghao.woaisiji.bean.my.OrderBean;
-import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
-import com.example.zhanghao.woaisiji.resp.RespAddOrder;
+import com.example.zhanghao.woaisiji.utils.http.VolleyMultipartRequest;
 import com.google.gson.Gson;
 import com.hedgehog.ratingbar.RatingBar;
 import com.jph.takephoto.app.TakePhoto;
@@ -32,15 +35,15 @@ import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 //TODO 评价界面
 public class MyEvaluateActivity extends TakePhotoActivity {
@@ -64,6 +67,8 @@ public class MyEvaluateActivity extends TakePhotoActivity {
     private float mCount2;
     private float mCount3;
     private float mCount4;
+
+    private String[] mStrings = new String[3];
 
 
     @Override
@@ -90,7 +95,6 @@ public class MyEvaluateActivity extends TakePhotoActivity {
 
         ratingbar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
 
-
             @Override
             public void onRatingChange(float RatingCount) {
                 mCount2 = RatingCount;
@@ -99,12 +103,12 @@ public class MyEvaluateActivity extends TakePhotoActivity {
 
         ratingbar3.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
 
-
             @Override
             public void onRatingChange(float RatingCount) {
                 mCount3 = RatingCount;
             }
         });
+
 
         ratingbar4.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
 
@@ -126,6 +130,7 @@ public class MyEvaluateActivity extends TakePhotoActivity {
                 onClickk(getTakePhoto());
             }
         });
+
         mAdapter = new EvaImageAdapter(this, mList);
         image_recy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
                 false));
@@ -136,7 +141,7 @@ public class MyEvaluateActivity extends TakePhotoActivity {
             @Override
             public void onClick(View v) {
 
-                getcouponListServer(bean.getId());
+                releaseDynamicToServer(bean.getId());
 
             }
         });
@@ -145,60 +150,60 @@ public class MyEvaluateActivity extends TakePhotoActivity {
     }
 
 
-    //优惠券 - 商家
-    private void getcouponListServer(String id) {
-        RequestParams entity = new RequestParams(URL_MY_PERSONAL_INFO_Evaluate);
-        entity.addBodyParameter("uid", WoAiSiJiApp.getUid());
-        entity.addBodyParameter("id", id);
-        entity.addBodyParameter("token", WoAiSiJiApp.token);
+    /**
+     * 发布点评
+     */
+    private void releaseDynamicToServer(final String id) {
 
-        entity.addBodyParameter("goods_c", mCount2 + "");
-        entity.addBodyParameter("wl", mCount3 + "");
-        entity.addBodyParameter("service_c", mCount4 + "");
-//        try {
-//            for (int i = 0; i < mList.size(); i++) {
-//                byte[] bytes = readStream(mList.get(i));
-//                entity.addBodyParameter("file", bytes + "");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        entity.addBodyParameter("content", content.getText().toString());
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("uid", WoAiSiJiApp.getUid());
+        paramMap.put("token", WoAiSiJiApp.token);
+        paramMap.put("id", id);
+        paramMap.put("goods_c", mCount2 + "");
+        paramMap.put("wl", mCount3 + "");
+        paramMap.put("service_c", mCount4 + "");
+        paramMap.put("content", pingjia.getText().toString());
+        List<File> list = new ArrayList<>();
+        if (mList.size() > 0) {
+            if (mList.size() == 1) {
+                File file1 = new File(mList.get(0));
+                list.add(file1);
+            } else if (mList.size() == 2) {
+                File file1 = new File(mList.get(0));
+                list.add(file1);
+                File file2 = new File(mList.get(1));
+                list.add(file2);
+            } else if (mList.size() == 3) {
+                File file1 = new File(mList.get(0));
+                list.add(file1);
+                File file2 = new File(mList.get(1));
+                list.add(file2);
+                File file3 = new File(mList.get(2));
+                list.add(file3);
+            }
 
 
-        x.http().post(entity, new Callback.CommonCallback<String>() {
+        }
+
+
+        uploadServiceImgGroup(new Response.Listener<String>() {
             @Override
-            public void onSuccess(String result) {
+            public void onResponse(String response) {
 
-                if (TextUtils.isEmpty(result))
-                    return;
-                Gson gson = new Gson();
-                ImageBean bean = gson.fromJson(result, ImageBean.class);
-                if (bean.getCode() == 200) {
-
-                    Toast.makeText(MyEvaluateActivity.this, bean.getMsg(), Toast.LENGTH_LONG)
-                            .show();
-                } else {
-                    Toast.makeText(MyEvaluateActivity.this, bean.getMsg(), Toast.LENGTH_LONG)
-                            .show();
+                if (!TextUtils.isEmpty(response)) {
+                    Gson gson = new Gson();
+                    ImageBean respData = gson.fromJson(response, ImageBean.class);
+                    Toast.makeText(MyEvaluateActivity.this, respData.getMsg(), Toast
+                            .LENGTH_SHORT).show();
+                    finish();
                 }
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MyEvaluateActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+        }, list, paramMap);
     }
 
 
@@ -249,7 +254,6 @@ public class MyEvaluateActivity extends TakePhotoActivity {
         }
 
         mAdapter.notifyDataSetChanged();
-
     }
 
 
@@ -271,6 +275,41 @@ public class MyEvaluateActivity extends TakePhotoActivity {
         outStream.close();
         fs.close();
         return outStream.toByteArray();
+    }
+
+    /**
+     * 上传
+     *
+     * @param listener
+     * @param errorListener
+     * @param file
+     * @param paramsMap
+     */
+    public static void updateHeadPicServer(Response.Listener<String> listener, Response
+            .ErrorListener errorListener, File file, Map<String, String> paramsMap) {
+        if (!paramsMap.isEmpty()) {
+            VolleyMultipartRequest request = new VolleyMultipartRequest
+                    (URL_MY_PERSONAL_INFO_Evaluate,
+                            listener, errorListener, "file", file, paramsMap);
+            //注意这个key必须是f_file[],后面的[]不能少
+            WoAiSiJiApp.mRequestQueue.add(request);
+        }
+    }
+
+
+    /**
+     * 上传多张图片
+     *
+     * @param listener
+     * @param errorListener
+     */
+    public static void uploadServiceImgGroup(Response.Listener<String> listener, Response
+            .ErrorListener errorListener,
+                                             List<File> files, Map<String, String> paramsMap) {
+        VolleyMultipartRequest request = new VolleyMultipartRequest(ServerAddress
+                .URL_UPLOAD_PICTURES,
+                listener, errorListener, "img[]", files, paramsMap);
+        WoAiSiJiApp.mRequestQueue.add(request);
     }
 
 

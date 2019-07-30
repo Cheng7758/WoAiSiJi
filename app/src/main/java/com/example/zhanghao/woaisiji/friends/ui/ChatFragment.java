@@ -390,7 +390,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             case ITEM_FILE: //file
                 selectFileFromLocal();
                 break;
-            case ITEM_GOLD: //金币转让
+            case ITEM_GOLD: //金积分转让
                 Intent intent = new Intent(getActivity(), SendGoldActivity.class);
                 intent.putExtra("uid", WoAiSiJiApp.getUid());
                 intent.putExtra("uesr_pid", toChatUsername);    //作为转账账号的id
@@ -398,7 +398,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 startActivityForResult(intent, 0);
                 //startActivity(intent);
                 break;
-            case ITEM_SLVIER: //银币转让
+            case ITEM_SLVIER: //银积分转让
                 Intent intent2 = new Intent(getActivity(), SendSilverActivity.class);
                 intent2.putExtra("uid", WoAiSiJiApp.getUid());
                 intent2.putExtra("uesr_pid", toChatUsername);
@@ -417,7 +417,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 EMMessage message = EMMessage.createTxtSendMessage("转账", toChatUsername);
                 message.setAttribute("nameTitle", "银积分转让");
 //                message.setAttribute("nameTitle2", "转给" + name);
-                message.setAttribute("nameTitle2", "转给" + toUID);
+                message.setAttribute("nameTitle2", "转给" + name);
                 message.setAttribute("goldStr", "1个金积分");
                 message.setAttribute("records", true);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {

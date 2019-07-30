@@ -55,33 +55,36 @@ public class MyBillingAdapter extends RecyclerView.Adapter<MyBillingAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView transfer_accounts;
+        private TextView silver_integral;
+        private TextView balance;
+        private TextView gold_integral;
+        private TextView merchant_integral;
         private TextView billing_time;
-        private TextView billing_back1;
-        private TextView billing_money;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            transfer_accounts = (TextView) itemView.findViewById(R.id.transfer_accounts);
+            silver_integral = (TextView) itemView.findViewById(R.id.silver_integral);
+            balance = (TextView) itemView.findViewById(R.id.balance);
+            gold_integral = (TextView) itemView.findViewById(R.id.gold_integral);
+            merchant_integral = (TextView) itemView.findViewById(R.id.merchant_integral);
             billing_time = (TextView) itemView.findViewById(R.id.billing_time);
-            billing_back1 = (TextView) itemView.findViewById(R.id.billing_back1);
-            billing_money = (TextView) itemView.findViewById(R.id.billing_money);
         }
 
         public void update(BillingDetailsBean.DataBean dataBean) {
             Log.e("---账单查询---", dataBean.toString());
-            String timeYMD = DateUtil.getTime_YyyyMmdd(dataBean.getCtime());
-            Log.e("---------", timeYMD);
-            billing_time.setText(timeYMD);
-
-            billing_back1.setText(dataBean.getBack1());
-            if (!dataBean.getSilver().equals("0.00")) {
-                billing_money.setText("￥" + dataBean.getSilver());
-            } else if (!dataBean.getScore().equals("0.00")) {
-                billing_money.setText("￥" + dataBean.getScore());
-            } else if (!dataBean.getStore_score().equals("0.00")) {
-                billing_money.setText("￥" + dataBean.getStore_score());
-            } else if (!dataBean.getBalance().equals("0.00")) {
-                billing_money.setText("￥" + dataBean.getBalance());
+            if (dataBean.getStatus().equals("0")) { //转出
+                transfer_accounts.setText("转出：" + dataBean.getBack1());
+            } else if (dataBean.getStatus().equals("1")) {
+                transfer_accounts.setText("转入：" + dataBean.getBack1());
             }
+            silver_integral.setText("银积分：" + dataBean.getSilver());
+            balance.setText("余额：" + dataBean.getBalance());
+            gold_integral.setText("金积分：" + dataBean.getScore());
+            merchant_integral.setText("商家金积分：" + dataBean.getStore_score());
+            String timeYMD = DateUtil.getTime_YyyyMmdd(dataBean.getCtime());
+            billing_time.setText(timeYMD);
         }
     }
 }

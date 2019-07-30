@@ -59,7 +59,8 @@ public class PersonalMyRecommendationActivity extends BaseActivity {
     }
 
     private void initData() {
-        StringRequest imageRequest = new StringRequest(Request.Method.POST, ServerAddress.URL_MY_PERSONAL_INFO_MY_RECOMMENDATION, new Response.Listener<String>() {
+        StringRequest imageRequest = new StringRequest(Request.Method.POST, ServerAddress.
+                URL_MY_PERSONAL_INFO_MY_RECOMMENDATION, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (TextUtils.isEmpty(response)) return;
@@ -116,7 +117,8 @@ public class PersonalMyRecommendationActivity extends BaseActivity {
         tv_personal_my_recommendation_silver_integral = (TextView) findViewById(R.id.tv_personal_my_recommendation_silver_integral);
 
         recyclerview_personal_my_recommendation_show_data = (RecyclerView) findViewById(R.id.recyclerview_personal_my_recommendation_show_data);
-        recyclerview_personal_my_recommendation_show_data.setLayoutManager(new LinearLayoutManager(PersonalMyRecommendationActivity.this));
+        recyclerview_personal_my_recommendation_show_data.setLayoutManager(new LinearLayoutManager(
+                PersonalMyRecommendationActivity.this));
         personalMyRecommendationAdapter = new PersonalMyRecommendationAdapter(PersonalMyRecommendationActivity.this);
         recyclerview_personal_my_recommendation_show_data.setAdapter(personalMyRecommendationAdapter);
         personalMyRecommendationAdapter.setNewDataSource(new ArrayList<PersonalMyRecommendationBean>());

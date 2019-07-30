@@ -12,7 +12,7 @@ public class ImageBean {
 
     private int code;
     private String msg;
-    private List<?> data;
+    private String data;
 
     public int getCode() {
         return code;
@@ -30,11 +30,21 @@ public class ImageBean {
         this.msg = msg;
     }
 
-    public List<?> getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(List<?> data) {
+    public void setData(String data) {
         this.data = data;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ImageBean{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

@@ -101,7 +101,6 @@ public class PersonalFriendsFragment extends EaseContactListFragment {
     @SuppressLint("InflateParams")
     @Override
     protected void initView() {
-
         super.initView();
 
         @SuppressLint("InflateParams") View headerView = LayoutInflater.from(getActivity())
@@ -183,8 +182,8 @@ public class PersonalFriendsFragment extends EaseContactListFragment {
 //                    startActivity(new Intent(getActivity(), ChatActivity.class).putExtra("userId", username));
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     intent.putExtra("userId", username);
-                    intent.putExtra("username", userId);
-                    intent.putExtra("pic", user.getAvatar());
+//                    intent.putExtra("username", userId);
+//                    intent.putExtra("pic", user.getAvatar());
                     startActivity(intent);
                 }
             }

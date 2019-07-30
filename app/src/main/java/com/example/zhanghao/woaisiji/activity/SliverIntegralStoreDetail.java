@@ -91,6 +91,9 @@ public class SliverIntegralStoreDetail extends BaseActivity {
     private String currentCategoryId = "";
     private RespMerchantDetail respMerchantDetail;
     private MarkerOptions markerOption;
+    private double mLatitude = 0.00;
+    private double mAltitude = 0.00;
+    private static final double EARTH_RADIUS = 6378.137;
 
 
     @Override
@@ -106,8 +109,13 @@ public class SliverIntegralStoreDetail extends BaseActivity {
     private void initData() {
         mCategoryListData = new ArrayList<>();
         commodityDataDetailList = new ArrayList<>();
-        if (getIntent() != null)
+        if (getIntent() != null){
             intentCommodityId = getIntent().getStringExtra("IntentSliverDetailCommodityID");
+            String latitude = getIntent().getStringExtra("latitude");
+            String altitude = getIntent().getStringExtra("altitude");
+            mLatitude = Double.parseDouble(latitude);
+            mAltitude = Double.parseDouble(altitude);
+        }
         getDetailDataFromService(); //商家详情
         getCategoryDataFromServer(); //商品分类
     }
@@ -300,9 +308,21 @@ public class SliverIntegralStoreDetail extends BaseActivity {
         if (!TextUtils.isEmpty(detailBean.getLogo()))
             Picasso.with(this).load(detailBean.getLogo()).error(R.drawable.icon_loading)
                     .into(iv_sliver_shangcheng_detail_merchant_picture);
-        if (!TextUtils.isEmpty(detailBean.getJuli())) {
-            tv_sliver_shangcheng_detail_merchant_distance.setText("(距离" + detailBean.getJuli() +
-                    ")");
+//        if (!TextUtils.isEmpty(detailBean.getJuli())) {
+//            tv_sliver_shangcheng_detail_merchant_distance.setText("(距离" + detailBean.getJuli() + ")");
+//        }
+        double latitude = 0.00;
+        double longitude = 0.00;
+        if (!TextUtils.isEmpty(detailBean.getLatitude()) && !TextUtils.isEmpty(detailBean.getLongitude())) {
+            latitude = Double.parseDouble(detailBean.getLatitude());
+            longitude = Double.parseDouble(detailBean.getLongitude());
+        }
+        //距离显示
+        if (mLatitude == 0.00 || mAltitude == 0.00 || latitude == 0.00 || longitude == 0.00) {
+            tv_sliver_shangcheng_detail_merchant_distance.setText("未知距离");
+        } else {
+            double distance = getDistance(mLatitude, mAltitude, latitude, longitude);
+            tv_sliver_shangcheng_detail_merchant_distance.setText("(距离" + distance + "公里)");
         }
     }
 
@@ -493,5 +513,27 @@ public class SliverIntegralStoreDetail extends BaseActivity {
         WoAiSiJiApp.mRequestQueue.add(stringRequest);
     }
 
+    private static double rad(double d) {
+        return d * Math.PI / 180.0;
+    }
+
+    // 返回单位是:千米
+    public static double getDistance(double longitude1, double latitude1,
+                                     double longitude2, double latitude2) {
+        double Lat1 = rad(latitude1);
+        double Lat2 = rad(latitude2);
+        double a = Lat1 - Lat2;
+        double b = rad(longitude1) - rad(longitude2);
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
+                + Math.cos(Lat1) * Math.cos(Lat2)
+                * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        //有小数的情况;注意这里的10000d中的“d”
+        s = Math.round(s * 10000d) / 10000d;
+        s = s * 1000;//单位：米
+//        s = Math.round(s/10d) /100d   ;//单位：千米 保留两位小数
+        s = Math.round(s / 100d) / 10d;//单位：千米 保留一位小数
+        return s;
+    }
 
 }

@@ -136,7 +136,7 @@ public class MyEvaluateActivity extends TakePhotoActivity {
 
             }
         });
-        
+
     }
 
 
@@ -170,7 +170,6 @@ public class MyEvaluateActivity extends TakePhotoActivity {
                 Gson gson = new Gson();
                 ImageBean bean = gson.fromJson(result, ImageBean.class);
                 if (bean.getCode() == 200) {
-
                     Toast.makeText(MyEvaluateActivity.this, bean.getMsg(), Toast.LENGTH_LONG)
                             .show();
                 } else {

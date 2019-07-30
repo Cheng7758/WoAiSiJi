@@ -112,7 +112,6 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     protected static final String TAG = "MainActivity";
     List<View> views = new ArrayList<>();
     private int currentItem = 0; // 当前图片的索引号
-
     private ConversationListFragment conversationListFragment;
     private ContactListFragment contactListFragment;
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
@@ -127,11 +128,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 //                    titleBar.setTitle(data.nickname+"----");
 //                    name = (data.nickname);
                     TextView titleText = titleBar.getTitleText();
-<<<<<<< HEAD
-                    SetUserInfoUtils.setUserInfo(getContext(), WoAiSiJiApp.getUid(), titleText, null);
-=======
                     SetUserInfoUtils.setUserInfo(getContext(), params.getString("userId"),titleText,null);
->>>>>>> 44c05f87c6af179bf8f8fa3686b306e3c07e2082
                     name = (ServerAddress.SERVER_ROOT + WoAiSiJiApp.getCurrentUserInfo().getPic());
                 }
             });
@@ -199,6 +196,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     }
 
     //转账完回调发送转账消息
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -204,7 +204,8 @@ public class PersonalWalletActivity extends BaseActivity implements View.OnClick
                 startActivity(new Intent(PersonalWalletActivity.this, RechargeGoldIntegralActivity.class));
                 break;
             case R.id.rl_personal_my_wallet_merchant_collection_code://商家收款码
-                startActivity(new Intent(PersonalWalletActivity.this, PersonalMerchantRecommendationCodeActivity.class));
+                startActivity(new Intent(PersonalWalletActivity.this,
+                        PersonalMerchantRecommendationCodeActivity.class));
                 break;
         }
     }

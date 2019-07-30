@@ -102,11 +102,16 @@ public class SliverIntegralStoreAdapter extends BaseAdapter {
             double distance = getDistance(mLatitude, mAltitude, latitude, longitude);
             viewHolder.tx_m.setText(distance + "km");
         }
+        final double finalLatitude = latitude;
+        final double finalLongitude = longitude;
         viewHolder.ll_car_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SliverIntegralStoreDetail.class);
                 intent.putExtra("IntentSliverDetailCommodityID", item.getId());
+                intent.putExtra("latitude", finalLatitude+"");
+                intent.putExtra("altitude", finalLongitude+"");
+                intent.putExtra("type","1");
                 context.startActivity(intent);
             }
         });

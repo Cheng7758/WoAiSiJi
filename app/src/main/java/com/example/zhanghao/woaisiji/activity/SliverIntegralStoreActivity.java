@@ -29,6 +29,9 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 银积分商城
+ */
 public class SliverIntegralStoreActivity extends BaseActivity {
 
     private LinearLayout ll_sliver_integral_store_location, ll_sliver_integral_store_province, ll_sliver_integral_store_city, ll_sliver_integral_store_country;

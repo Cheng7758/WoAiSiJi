@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -109,10 +110,11 @@ public class SliverIntegralStoreDetail extends BaseActivity {
     private void initData() {
         mCategoryListData = new ArrayList<>();
         commodityDataDetailList = new ArrayList<>();
-        if (getIntent() != null){
-            intentCommodityId = getIntent().getStringExtra("IntentSliverDetailCommodityID");
-            String latitude = getIntent().getStringExtra("latitude");
-            String altitude = getIntent().getStringExtra("altitude");
+        Intent intent = getIntent();
+        if (intent != null){
+            intentCommodityId = intent.getStringExtra("IntentSliverDetailCommodityID");
+            String latitude = intent.getStringExtra("latitude");
+            String altitude = intent.getStringExtra("altitude");
             mLatitude = Double.parseDouble(latitude);
             mAltitude = Double.parseDouble(altitude);
         }
@@ -152,6 +154,7 @@ public class SliverIntegralStoreDetail extends BaseActivity {
                     Log.e("------", intentCommodityId);
                     return params;
                 }
+
             };
             WoAiSiJiApp.mRequestQueue.add(questionRequest);
         }
@@ -453,7 +456,19 @@ public class SliverIntegralStoreDetail extends BaseActivity {
                 Toast.makeText(SliverIntegralStoreDetail.this, "未获取到服务器商城数据",
                         Toast.LENGTH_LONG).show();
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> s = new HashMap<>();
+                s.put("cid",currentCategoryId);
+                s.put("page","1");
+                s.put("store_id",intentCommodityId);
+                s.put("row_num", "10000");
+
+                s.put("type",getIntent().getStringExtra("type"));
+                return s;
+            }
+        };
         WoAiSiJiApp.mRequestQueue.add(stringRequest);
     }
 

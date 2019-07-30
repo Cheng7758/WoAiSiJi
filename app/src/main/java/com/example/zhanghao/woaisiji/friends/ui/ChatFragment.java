@@ -136,9 +136,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                                 jsonObject = jsonObject.getJSONObject("data");
                                 jsonObject = jsonObject.getJSONObject(userId);
 
-                                    GoldManager.toUserName = userName = jsonObject.getString("nickname");
-                                    GoldManager.toUserId = userId;
-                                    GoldManager.toUserPic = jsonObject.getString("headpic");
+                                    UserManager.toName = GoldManager.toUserName = userName = jsonObject.getString("nickname");
+                                    UserManager.toId = GoldManager.toUserId = userId;
+                                    UserManager.toPic = GoldManager.toUserPic = jsonObject.getString("headpic");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

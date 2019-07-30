@@ -125,6 +125,7 @@ public class JoinCarAdapter extends BaseAdapter {
                 intent.putExtra("IntentSliverDetailCommodityID", item.getId());
                 intent.putExtra("latitude", String.valueOf(mLatitude));
                 intent.putExtra("altitude", String.valueOf(mAltitude));
+                intent.putExtra("type","0");
                 //TODO 这个地方应该需要传入一个type来判断是福百惠商城的商品还是银积分商品
                 context.startActivity(intent);
             }

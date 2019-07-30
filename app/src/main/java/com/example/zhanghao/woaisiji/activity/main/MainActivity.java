@@ -93,6 +93,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private long touchTime = 0;
     private int flags = 1;
     private SharedPreferences mSharedPreferences;
+    private CommentFragment commentFragment;
 
     @Override
     public void onBackPressed() {
@@ -174,7 +175,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void initData() {
         mSavedFragment.put(0, new HomePageFragment());
 //        mSavedFragment.put(1, new DriverReviewFragment());
-        mSavedFragment.put(1, new CommentFragment());
+        commentFragment = new CommentFragment();
+        mSavedFragment.put(1, commentFragment);
         mSavedFragment.put(2, new NewsZixunFragment());
         mSavedFragment.put(3, new ShoppingCarFragment());
         mSavedFragment.put(4, new MyFragment());
@@ -347,6 +349,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         DemoHelper sdkHelper = DemoHelper.getInstance();
         sdkHelper.pushActivity(this);
         EMClient.getInstance().chatManager().addMessageListener(messageListener);
+        if (commentFragment != null)
+            commentFragment.loadData(1);
     }
 
     @Override

@@ -85,9 +85,14 @@ public class CommentFragment extends BaseFragment implements CircleContract.View
         if (!TextUtils.isEmpty(WoAiSiJiApp.getUid())) {
             presenter = new CirclePresenter(this);
             initView(view);
-            presenter.loadData(TYPE_PULLREFRESH);
+            loadData(TYPE_PULLREFRESH);
         }
         return view;
+    }
+
+    public void loadData(int type) {
+        presenter.loadData(type);
+
     }
 
     private void initView(View rootView) {

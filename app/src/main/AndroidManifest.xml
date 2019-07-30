@@ -537,7 +537,7 @@
         <activity android:name=".activity.comment.ReleaseDynamicActivity2" />
         <activity android:name=".activity.FBHStoreActivity2" />
         <activity android:name=".activity.announcement.AnnouncementDetailsActivity" />
-        <activity android:name=".activity.MyEvaluateActivity"></activity>
+        <activity android:name=".activity.my.MerchantLoginActivitys"></activity>
     </application>
 
 </manifest>

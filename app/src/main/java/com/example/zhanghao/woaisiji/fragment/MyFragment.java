@@ -25,8 +25,7 @@ import com.example.zhanghao.woaisiji.activity.PersonalMyRecommendationActivity;
 import com.example.zhanghao.woaisiji.activity.PersonalRecommendCodeActivity;
 import com.example.zhanghao.woaisiji.activity.PersonalSettingActivity;
 import com.example.zhanghao.woaisiji.activity.PersonalWalletActivity;
-import com.example.zhanghao.woaisiji.activity.RecruitmentActivity;
-import com.example.zhanghao.woaisiji.activity.my.MerchantLoginActivity;
+import com.example.zhanghao.woaisiji.activity.my.MerchantLoginActivitys;
 import com.example.zhanghao.woaisiji.activity.my.MyCollectionActivity;
 import com.example.zhanghao.woaisiji.activity.my.MyOrderActivity;
 import com.example.zhanghao.woaisiji.bean.ImageUrlBean;
@@ -105,6 +104,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         rl_my_page_mid_referral_code.setOnClickListener(this);
         rl_my_page_mid_shipping_address.setOnClickListener(this);
         rl_my_page_mid_recruitment.setOnClickListener(this);
+        rl_my_page_mid_merchant_login.setOnClickListener(this);
 
         ll_my_page_bottom_my_collection.setOnClickListener(this);
         ll_my_page_bottom_my_money_package.setOnClickListener(this);
@@ -138,7 +138,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     long oldtime = 0;
     @Override
     public void onClick(View view) {
-
         if (System.currentTimeMillis()-oldtime<1000){
             return;
         }
@@ -165,7 +164,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 FunctionUtils.requestRecruitment(getActivity());
                 break;
             case R.id.rl_my_page_mid_merchant_login://商家登录
-                startActivity(new Intent(getActivity(), MerchantLoginActivity.class));
+                startActivity(new Intent(getActivity(), MerchantLoginActivitys.class));
                 break;
             case R.id.ll_my_page_bottom_my_friends://我的好友
                 startActivity(new Intent(getActivity(), LoveDriverFriendsActivity.class));

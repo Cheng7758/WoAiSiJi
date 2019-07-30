@@ -200,7 +200,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("------send", data.getDataString());
+//        Log.e("------send", data.getDataString());
         if (0 == requestCode) {
             if (0 == resultCode) {
 //                intent.putExtra("goldStr", num);
@@ -211,9 +211,16 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 if (data == null) return;
                 Bundle bundle2 = data.getBundleExtra("bundle2");
                 String pid = bundle2.getString("toChatUsername");
+                Log.d(TAG, "onActivityResult: " + pid);
                 String nameTitle = bundle2.getString("nameTitle");
+                Log.d(TAG, "onActivityResult: " + nameTitle);
+
                 String goldStr = bundle2.getString("goldStr");
+                Log.d(TAG, "onActivityResult: " + goldStr);
+
                 String nameTitle2 = bundle2.getString("nameTitle2");
+                Log.d(TAG, "onActivityResult: " + nameTitle2);
+
                 EMMessage message = EMMessage.createTxtSendMessage("转账", pid);
                 message.setAttribute("nameTitle", nameTitle);
                 message.setAttribute("nameTitle2", "转给" + pid);

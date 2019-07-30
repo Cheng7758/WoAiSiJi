@@ -52,7 +52,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
     private static final int SDK_PAY_FLAG = 1;
 
     private PayOrderBean intentOrderBean = null;
-    private String paymentType,paymentPrice, paymentOrderID,paymentOrderNumber;
+    private String paymentType, paymentPrice, paymentOrderID, paymentOrderNumber;
 
     private LinearLayout ll_payment_method_crash_payment_method_root, ll_payment_method_integral_payment_method_root;
     private ImageView iv_payment_method_exist_payment_page, iv_payment_method_weixin_payment, iv_payment_method_ali_payment;
@@ -60,6 +60,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
             tv_payment_method_sure_payment, tv_payment_method_recharge_gold_integral;
 
     private RespPersonalWallet respPersonalWallet;
+    private String merge;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -76,15 +77,15 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(PaymentMethodActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                         showProgressDialog();
-                        FunctionUtils.paymentEndCallBack(paymentType , paymentOrderID,new Response.Listener<String>() {
+                        FunctionUtils.paymentEndCallBack(paymentType, paymentOrderID, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 dismissProgressDialog();
                                 if (TextUtils.isEmpty(response))
                                     return;
                                 Gson gson = new Gson();
-                                RespData respConversion = gson.fromJson(response,RespData.class);
-                                if (respConversion.getCode()==200){
+                                RespData respConversion = gson.fromJson(response, RespData.class);
+                                if (respConversion.getCode() == 200) {
                                     Intent intent = new Intent(PaymentMethodActivity.this, PaySuccessActivity.class);
                                     intent.putExtra("order_num", paymentOrderID);
                                     intent.putExtra("good_price", paymentPrice);
@@ -116,6 +117,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_payment_method);
         Intent intent = getIntent();
         intentOrderBean = (PayOrderBean) intent.getSerializableExtra("CurrentPayMethod");
+        merge = intent.getStringExtra("merge");
         if (intentOrderBean != null) {
             paymentType = intentOrderBean.getPay_type();
             paymentPrice = intentOrderBean.getPrice();
@@ -153,7 +155,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
             ll_payment_method_crash_payment_method_root.setVisibility(View.GONE);
             ll_payment_method_integral_payment_method_root.setVisibility(View.VISIBLE);
             tv_payment_method_need_gold_integral.setText("所需金积分：" + paymentPrice);
-            if (respPersonalWallet!=null && respPersonalWallet.getData()!=null)
+            if (respPersonalWallet != null && respPersonalWallet.getData() != null)
                 tv_payment_method_balance_gold_integral.setText("金积分余额：" + respPersonalWallet.getData().getScore());
         }
     }
@@ -165,7 +167,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.tv_payment_method_recharge_gold_integral://充值
-                Intent intent = new Intent(PaymentMethodActivity.this,RechargeGoldIntegralActivity.class);
+                Intent intent = new Intent(PaymentMethodActivity.this, RechargeGoldIntegralActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_payment_method_ali_payment:
@@ -182,6 +184,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
                 break;
         }
     }
+
     /**
      * 金积分支付
      */
@@ -198,8 +201,8 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
                         RespNull respPayOrder = gson.fromJson(response, RespNull.class);
                         if (respPayOrder.getCode() == 200) {
                             Intent intent = new Intent(PaymentMethodActivity.this, PaySuccessActivity.class);
-                            intent.putExtra("order_num",paymentOrderID);
-                            intent.putExtra("good_price",paymentPrice);
+                            intent.putExtra("order_num", paymentOrderID);
+                            intent.putExtra("good_price", paymentPrice);
                             startActivity(intent);
                             finish();
                         } else {
@@ -223,7 +226,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
                 params.put("token", WoAiSiJiApp.token);
                 params.put("id", paymentOrderID);
                 params.put("pay_type", paymentType);
-                params.put("merge", "0");
+                params.put("merge", merge);
                 return params;
             }
         };
@@ -234,7 +237,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
     /**
      * 获取支付宝支付的参数
      */
-    private void getALiPayParams(){
+    private void getALiPayParams() {
         showProgressDialog();
         StringRequest getAliPayRequest = new StringRequest(Request.Method.POST, ServerAddress.URL_PAY_ORDER_GET_ALI_PAY_PARAMS,
                 new Response.Listener<String>() {
@@ -288,7 +291,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
     /**
      * 获取微信支付的参数
      */
-    private void getWxPayParams(){
+    private void getWxPayParams() {
         showProgressDialog();
         StringRequest getWXPayRequest = new StringRequest(Request.Method.POST, ServerAddress.URL_PAY_ORDER_GET_WEIXIN_PAY_PARAMS,
                 new Response.Listener<String>() {
@@ -305,7 +308,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
                             // 将该app注册到微信
                             msgApi.registerApp("wxc1184669ab904cdd");
                             WeChatPayService weChatPay = new WeChatPayService(PaymentMethodActivity.this,
-                                    Integer.valueOf(paymentType),paymentOrderID, "订单编号:" + paymentOrderID, paymentPrice);
+                                    Integer.valueOf(paymentType), paymentOrderID, "订单编号:" + paymentOrderID, paymentPrice);
                             weChatPay.pay(respRechargeGoldIntegralWX.getResponseData().getApp_response());
                         } else {
                             if (!TextUtils.isEmpty(respRechargeGoldIntegralWX.getErrorMsg()))

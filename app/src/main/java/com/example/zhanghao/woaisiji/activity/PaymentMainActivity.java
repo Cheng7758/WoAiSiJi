@@ -39,7 +39,7 @@ public class PaymentMainActivity extends BaseActivity implements View.OnClickLis
     private String currentPayType = "";
     private PayOrderBean orderBean = null;
     private RespPersonalWallet mWallet;
-    private String mPrice,orderID,orderNumber;
+    private String mPrice,orderID,orderNumber,merge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class PaymentMainActivity extends BaseActivity implements View.OnClickLis
         mWallet = SharedPrefrenceUtils.getObject(this, "yue");
         mPrice = getIntent().getStringExtra("price");
         orderID = getIntent().getStringExtra("orderID");
+        merge = getIntent().getStringExtra("merge");
         orderNumber = getIntent().getStringExtra("orderNumber");
 
         initData();
@@ -137,6 +138,7 @@ public class PaymentMainActivity extends BaseActivity implements View.OnClickLis
                     orderBean.setId(orderID);
                     orderBean.setOrderNumber(orderNumber);
                     intent.putExtra("CurrentPayMethod", orderBean);
+                    intent.putExtra("merge", merge);
                     startActivity(intent);
                     finish();
                 }

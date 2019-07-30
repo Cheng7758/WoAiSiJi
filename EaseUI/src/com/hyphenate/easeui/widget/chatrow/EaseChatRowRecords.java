@@ -55,7 +55,7 @@ public class EaseChatRowRecords extends EaseChatRow {
             if(message.getStringAttribute("nameTitle").equals("金积分转让")){
                 inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                         R.layout.ease_row_received_records : R.layout.ease_row_sent_records,this);
-            }else  if(message.getStringAttribute("nameTitle").equals("银积分转让")) {
+            }else if(message.getStringAttribute("nameTitle").equals("银积分转让")) {
                 inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                         R.layout.ease_row_received_records_s : R.layout.ease_row_sent_records_s,this);
             }

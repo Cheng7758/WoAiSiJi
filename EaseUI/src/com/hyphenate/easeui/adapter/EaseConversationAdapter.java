@@ -140,7 +140,6 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 SetUserInfoUtils.setUserInfo(getContext(),username,holder.name,holder.avatar);
             }
 
-
             holder.motioned.setVisibility(View.GONE);
         }
 

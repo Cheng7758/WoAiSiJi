@@ -504,6 +504,7 @@
             android:name="android.max_aspect"
             android:value="2.1" />
 
+
         <activity android:name=".activity.send.SendGoldActivity" />
         <activity android:name=".activity.send.SendSilverActivity" />
         <activity android:name=".activity.send.BuyGlodActivity" />

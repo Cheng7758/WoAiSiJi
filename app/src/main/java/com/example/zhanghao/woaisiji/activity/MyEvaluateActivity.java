@@ -136,8 +136,7 @@ public class MyEvaluateActivity extends TakePhotoActivity {
 
             }
         });
-
-
+        
     }
 
 

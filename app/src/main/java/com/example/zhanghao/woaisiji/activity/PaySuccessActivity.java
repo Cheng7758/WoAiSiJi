@@ -95,7 +95,6 @@ public class PaySuccessActivity extends BaseActivity {
                     if (!TextUtils.isEmpty(respPersonalWallet.getMsg()))
                         Toast.makeText(PaySuccessActivity.this, respPersonalWallet.getMsg(), Toast.LENGTH_SHORT).show();
                 }
-                finish();
             }
         }, new Response.ErrorListener() {
             @Override

@@ -106,7 +106,6 @@ public class MyEvaluateActivity extends TakePhotoActivity {
             }
         });
 
-
         ratingbar4.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
 
 

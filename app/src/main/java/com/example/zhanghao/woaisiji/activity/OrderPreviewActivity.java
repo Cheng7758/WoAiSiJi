@@ -286,6 +286,7 @@ public class OrderPreviewActivity extends BaseActivity {
                     intent.putExtra("price",String.valueOf(mPrice));
                     intent.putExtra("orderID",respAddOrderSuccess.getId().getId());
                     intent.putExtra("orderNumber",respAddOrderSuccess.getId().getOrdernum());
+                    intent.putExtra("merge","1");
                     startActivity(intent);
                     finish();
                     return;

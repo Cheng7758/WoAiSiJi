@@ -120,7 +120,7 @@ public class SendSilverActivity extends AppCompatActivity {
                     bundle2.putString("goldStr", num + "个银积分");
                     bundle2.putString("uid", uid);
                     bundle2.putString("toChatUsername", userid);
-                    bundle2.putString("nameTitle2", name);
+                    bundle2.putString("nameTitle2", uid);
                     bundle2.putString("nameTitle", "银积分转让");
                     intent.putExtra("bundle2", bundle2);
 

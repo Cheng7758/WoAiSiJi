@@ -219,9 +219,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 message.setAttribute("nameTitle2", "转给" + pid);
                 message.setAttribute("goldStr", goldStr);
                 message.setAttribute("records", true);
-                Log.e("----nameTitle", nameTitle);
-                Log.e("----nameTitle2", "转给" + pid);
-                Log.e("----goldStr", goldStr);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {
                     message.setChatType(EMMessage.ChatType.GroupChat);
                 } else if (chatType == EaseConstant.CHATTYPE_CHATROOM) {
@@ -412,7 +409,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
                 EMMessage message = EMMessage.createTxtSendMessage("转账", toChatUsername);
                 message.setAttribute("nameTitle", "银积分转让");
-                message.setAttribute("nameTitle2", "转给" + name);
+//                message.setAttribute("nameTitle2", "转给" + name);
+                message.setAttribute("nameTitle2", "转给" + toUID);
                 message.setAttribute("goldStr", "1个金积分");
                 message.setAttribute("records", true);
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {

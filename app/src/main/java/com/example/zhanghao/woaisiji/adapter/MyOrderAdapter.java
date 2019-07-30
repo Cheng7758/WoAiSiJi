@@ -15,9 +15,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
-import com.example.zhanghao.woaisiji.activity.MyEvaluateActivity;
 import com.example.zhanghao.woaisiji.activity.PaymentMainActivity;
 import com.example.zhanghao.woaisiji.activity.my.CheckBogisticsActivity;
+import com.example.zhanghao.woaisiji.activity.my.MyEvaluateActivity;
 import com.example.zhanghao.woaisiji.activity.my.MyOrderDetailActivity;
 import com.example.zhanghao.woaisiji.bean.CancellationOrder;
 import com.example.zhanghao.woaisiji.bean.my.OrderBean;
@@ -143,6 +143,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                 //跳转到付款页面
                 Intent intent = new Intent(mContext, PaymentMainActivity.class);
                 intent.putExtra("price", bean.getGoods_price());
+                intent.putExtra("merge",0+"");
                 mContext.startActivity(intent);
             }
         });

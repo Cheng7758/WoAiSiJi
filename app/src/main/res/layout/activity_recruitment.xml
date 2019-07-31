@@ -141,8 +141,8 @@
                     android:hint="商家的营业执照编号" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linear5"
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear4"
@@ -152,6 +152,7 @@
                 android:padding="@dimen/dp_10">
 
                 <TextView
+                    android:id="@+id/zhizhao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="营业执照照片" />
@@ -161,18 +162,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:background="#D6D7D7"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10"
-                    android:text="选择文件"
-                    android:textColor="@color/black" />
-            </LinearLayout>
+                    android:layout_toRightOf="@id/zhizhao"
+                    android:text="选择文件" />
+
+                <TextView
+                    style="@style/my_page_mid_integral_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@drawable/ic_arrow_right" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/linear6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linear5"
+                android:layout_below="@id/relativeLayout"
                 android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -256,14 +261,39 @@
                     android:paddingRight="@dimen/dp_10"
                     android:text="请选择"
                     android:textColor="@color/black" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linear8"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp_4"
+                android:padding="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细地址" />
+
+                <EditText
+                    android:id="@+id/detail_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/tag_10"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:hint="请填写店铺的详细地址" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linear9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linear8"
+                android:layout_below="@id/linearLayout"
                 android:layout_marginTop="@dimen/dp_30"
                 android:background="@color/white"
                 android:orientation="horizontal"

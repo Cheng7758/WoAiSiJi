@@ -72,7 +72,7 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
     private ImageView recruitment_back;
     private PickerScrollView pickerview;
     private TextView cancel, confirm;
-    private RelativeLayout relative;
+    private RelativeLayout relative,relativeLayout;
 
     private List<ShopsRuzhuBean.DataBean.ShengBean> mShengBeans;
     private List<ShopsRuzhuBean.DataBean.DpflBean> mDpflBeanList;
@@ -196,9 +196,10 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
 
         ll_recruitment_province_city_country_root = (LinearLayout) findViewById(R.id.
                 ll_recruitment_province_city_country_root);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         initWheelView();
 
-        select_file.setOnClickListener(this);
+        relativeLayout.setOnClickListener(this);
         ruzhu_btn.setOnClickListener(this);
         recruitment_back.setOnClickListener(this);
         shop_classify.setOnClickListener(this);
@@ -215,7 +216,7 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
             case R.id.recruitment_back:
                 finish();
                 break;
-            case R.id.select_file://选择图片
+            case R.id.relativeLayout://选择图片
                 openChooseDialog();
                 break;
             case R.id.shop_classify://店铺分类
@@ -261,36 +262,28 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
                 if (TextUtils.isEmpty(et_recruitment_input_licence_number.getText().toString())) {
                     Toast.makeText(RecruitmentActivity.this, "商户名称不能为空", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if (TextUtils.isEmpty(et_recruitment_input_people_name.getText().toString())) {
+                } else if (TextUtils.isEmpty(et_recruitment_input_people_name.getText().toString())) {
                     Toast.makeText(RecruitmentActivity.this, "姓名不能为空", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if (TextUtils.isEmpty(et_recruitment_input_contact_way.getText().toString())) {
+                } else if (TextUtils.isEmpty(et_recruitment_input_contact_way.getText().toString())) {
                     Toast.makeText(RecruitmentActivity.this, "联系方式不能为空", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if (TextUtils.isEmpty(et_recruitment_input_licence_number.getText().toString())) {
+                } else if (TextUtils.isEmpty(et_recruitment_input_licence_number.getText().toString())) {
                     Toast.makeText(RecruitmentActivity.this, "营业执照编号不能为空", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if (TextUtils.isEmpty(licence_cert)) {
+                } else if (TextUtils.isEmpty(licence_cert)) {
                     Toast.makeText(RecruitmentActivity.this, "请上传营业执照图片", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if ("请选择".equals(shop_classify.getText().toString())) {
+                } else if ("请选择".equals(shop_classify.getText().toString())) {
                     Toast.makeText(RecruitmentActivity.this, "店铺分类不能为空", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if ("请选择".equals(classify_label.getText().toString())) {
+                } else if ("请选择".equals(classify_label.getText().toString())) {
                     Toast.makeText(RecruitmentActivity.this, "分类标签不能为空", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if ("请选择".equals(location.getText().toString())) {
+                } else if ("请选择".equals(location.getText().toString())) {
                     Toast.makeText(RecruitmentActivity.this, "所在地不能为空", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if (!checkbox_yuedu.isChecked()) {
+                } else if (!checkbox_yuedu.isChecked()) {
                     Toast.makeText(RecruitmentActivity.this, "请勾选协议", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -421,8 +414,7 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
                             startUpload(bitmap);
                         }
                     } else {
-                        Toast.makeText(getApplication(), "没有SDCard!", Toast.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(getApplication(), "没有SDCard!", Toast.LENGTH_LONG).show();
                     }
                     break;
                 default:
@@ -465,8 +457,7 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
                         @Override
                         public void onResponse(String response) {
                             dismissProgressDialog();
-                            if (TextUtils.isEmpty(response))
-                                return;
+                            if (TextUtils.isEmpty(response)) return;
                             Gson gson = new Gson();
                             RespData respData = gson.fromJson(response, RespData.class);
                             if (respData.getCode() == 200) {

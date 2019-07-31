@@ -101,7 +101,7 @@ public class CommentFragment extends BaseFragment implements CircleContract.View
     private void initView(View rootView) {
         tv_title_bar_view_centre_title = (TextView) rootView.findViewById(R.id.tv_title_bar_view_centre_title);
         tv_title_bar_view_right_right_introduction = (TextView) rootView.findViewById(R.id.tv_title_bar_view_right_right_introduction);
-        tv_title_bar_view_centre_title.setText("商城点评");
+        tv_title_bar_view_centre_title.setText("分享");
         tv_title_bar_view_right_right_introduction.setVisibility(View.VISIBLE);
         tv_title_bar_view_right_right_introduction.setText("发布");
 

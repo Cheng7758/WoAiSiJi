@@ -33,7 +33,7 @@
             style="@style/BottomTabStyle"
             android:drawableTop="@drawable/selevtor_bottom_tab_sijiquan"
             android:gravity="center"
-            android:text="商城点评" />
+            android:text="分享" />
 
         <RadioButton
             android:id="@+id/rb_news_information"

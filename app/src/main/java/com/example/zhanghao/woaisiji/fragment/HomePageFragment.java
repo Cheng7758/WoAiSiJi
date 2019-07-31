@@ -208,7 +208,6 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 .ll_home_page_search_vip);//搜索会员
         ll_home_page_join_us = (LinearLayout) rootView.findViewById(R.id.ll_home_page_join_us);
         //加入我们
-
         imageButton = (ImageView) rootView.findViewById(R.id.imageButton);//左上角汽车按钮
         et_home_page_search = (EditText) rootView.findViewById(R.id.et_home_page_search);//搜索框
         ivProductSearch = (ImageView) rootView.findViewById(R.id.iv_product_search);//白色搜索按钮
@@ -250,8 +249,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                     InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
                             .getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (inputMethodManager.isActive()) {
-                        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus
-                                ().getWindowToken(), 0);
+                        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus()
+                                .getWindowToken(), 0);
                     }
                     searchFunction();
                 }

@@ -24,6 +24,11 @@ public class PersonalCouponAdapter extends RecyclerView.Adapter<PersonalCouponVi
     private List<PersonalCouponBean> dataSource;
 
     private Context context;
+    ItemListener<PersonalCouponBean> listener;
+
+    public void setListener(ItemListener<PersonalCouponBean> listener) {
+        this.listener = listener;
+    }
 
     public PersonalCouponAdapter(Context context) {
         this.context = context;
@@ -45,7 +50,7 @@ public class PersonalCouponAdapter extends RecyclerView.Adapter<PersonalCouponVi
     }
 
     @Override
-    public void onBindViewHolder(PersonalCouponViewHolder holder, int position) {
+    public void onBindViewHolder(final PersonalCouponViewHolder holder, int position) {
         final PersonalCouponBean personalCouponBean = dataSource.get(position);
         holder.tv_item_personal_coupon_money.setText(setMoney(personalCouponBean.getMoney()));
         Log.e("---money", setMoney(personalCouponBean.getMoney()) + "");
@@ -55,7 +60,8 @@ public class PersonalCouponAdapter extends RecyclerView.Adapter<PersonalCouponVi
         holder.tv_item_personal_coupon_now_use.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (listener != null)
+                    listener.onItemClick(holder.itemView,personalCouponBean);
             }
         });
     }
@@ -75,5 +81,9 @@ public class PersonalCouponAdapter extends RecyclerView.Adapter<PersonalCouponVi
             return dataSource.size();
         }
         return 0;
+    }
+
+    public interface ItemListener<T>{
+        void onItemClick(View itemView,T t);
     }
 }

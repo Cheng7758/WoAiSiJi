@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.adapter.OrderPreviewAdapter;
@@ -29,13 +30,18 @@ import com.example.zhanghao.woaisiji.resp.RespAddOrder;
 import com.example.zhanghao.woaisiji.resp.RespAddOrderSuccess;
 import com.example.zhanghao.woaisiji.resp.RespNull;
 import com.example.zhanghao.woaisiji.resp.RespPersonalReceiveAddressList;
+import com.example.zhanghao.woaisiji.utils.StringUtil;
 import com.google.gson.Gson;
+import com.hyphenate.easeui.utils.MGson;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +72,8 @@ public class OrderPreviewActivity extends BaseActivity {
     private OrderPreviewAdapter orderPreviewAdapter;
     private List<OrderBean> orderBeanList;
     private int mPrice;
+    private boolean isSilver;
+    ArrayList<String> couponIdList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +81,14 @@ public class OrderPreviewActivity extends BaseActivity {
         setContentView(R.layout.activity_order_preview);
         intent = getIntent();
         cardIdList = intent.getStringArrayExtra("cardIdList");
-        currentType = intent.getIntExtra("currentType", 0);
+        String coupon_id = intent.getStringExtra("coupon_id");
+        try {
+            couponIdList = MGson.from(coupon_id, new ArrayList<String>().getClass());
+        }catch (Exception e){
 
+        }
+        currentType = intent.getIntExtra("currentType", 0);
+        isSilver = intent.getBooleanExtra("isSilver",false);
         intView();
         initListener();
         getOrderDataFromServer();
@@ -102,7 +116,7 @@ public class OrderPreviewActivity extends BaseActivity {
         tv_order_preview_consignee_submit = (TextView) findViewById(R.id.tv_order_preview_consignee_submit);
 
         orderBeanList = new ArrayList<>();
-        orderPreviewAdapter = new OrderPreviewAdapter(orderBeanList, OrderPreviewActivity.this);
+        orderPreviewAdapter = new OrderPreviewAdapter(orderBeanList, OrderPreviewActivity.this,isSilver);
         expandList_order_preview_consignee_bug_good.setAdapter(orderPreviewAdapter);
     }
 
@@ -113,7 +127,7 @@ public class OrderPreviewActivity extends BaseActivity {
         showProgressDialog();
         RequestParams entity = new RequestParams(ServerAddress.URL_ORDER_PREVIEW_ACQUIRE_ODER_LIST_DATA);
         entity.addBodyParameter("uid", WoAiSiJiApp.getUid());
-        entity.addBodyParameter("pay_type", currentType + "");
+        entity.addBodyParameter("pay_type",( isSilver ? 4 : 3) + "");
         entity.addBodyParameter("token", WoAiSiJiApp.token);
         for (String i : cardIdList) {
             entity.addBodyParameter("cart_id[]", i);//1
@@ -257,22 +271,37 @@ public class OrderPreviewActivity extends BaseActivity {
     /**
      * 提交订单
      */
-    private void submitOrder() {
+    private strictfp void submitOrder() {
+        double totalPrice = 0.0;
+        for (OrderBean orderBean : orderBeanList) {
+            String store_total_price = orderBean.getStore_total_price();
+            totalPrice += Double.valueOf(StringUtils.defaultStr(store_total_price,"0.00"));
+        }
+        double count = Double.parseDouble(StringUtils.defaultStr(isSilver ? UserManager.silver : UserManager.gold,"0.0"));
+        if (totalPrice > count){
+            String s = isSilver ? "银积分" : "金积分";
+            ToastUtils.showShort("余额不足，请充值" + s);
+            return;
+        }
         RequestParams requestParams = new RequestParams(ServerAddress.URL_ORDER_PREVIEW_SUBMIT_ODER_LIST_DATA);
         requestParams.addBodyParameter("uid", WoAiSiJiApp.getUid());//
-        requestParams.addBodyParameter("pay_type", currentType + "");//1
+        requestParams.addBodyParameter("pay_type", isSilver ? "4" : "3");//1
         requestParams.addBodyParameter("beizhu", "");//1
+        if (couponIdList.size()>0)
+        requestParams.addBodyParameter("coupon", Arrays.toString(couponIdList.toArray()));//1
         requestParams.addBodyParameter("token", WoAiSiJiApp.token);//1
         requestParams.addBodyParameter("plcid", addressBean.getId());//1
+        ArrayList<Integer> ins = new ArrayList<>();
         for (String i : cardIdList) {
-            requestParams.addBodyParameter("cart_id[]", i);//1
+            ins.add(Integer.parseInt(i));
         }
+        requestParams.addBodyParameter("cart_id", Arrays.toString(ins.toArray()));//1
+
 //        if (couponList!=null && couponList.size() > 0){
 //            for (int i= 0 ;i<couponList.size(); i++) {
 //                requestParams.addBodyParameter("coupon[]", couponList.get(i));//1
 //            }
 //        }else
-        requestParams.addBodyParameter("coupon[]", "");//1
 
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override

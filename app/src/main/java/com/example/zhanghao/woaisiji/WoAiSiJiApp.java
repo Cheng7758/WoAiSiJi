@@ -6,17 +6,30 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.bean.MemberShipInfosBean;
 import com.example.zhanghao.woaisiji.bean.my.PersonalInfoBean;
+import com.example.zhanghao.woaisiji.bean.my.PersonalWalletBean;
 import com.example.zhanghao.woaisiji.friends.DemoHelper;
+import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespGetPersonalInfo;
+import com.example.zhanghao.woaisiji.resp.RespPersonalWallet;
 import com.example.zhanghao.woaisiji.utils.PrefUtils;
+import com.example.zhanghao.woaisiji.utils.SharedPrefrenceUtils;
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
@@ -124,6 +137,7 @@ public class WoAiSiJiApp extends Application {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            qianbao();
                         }
                     }
 
@@ -138,7 +152,44 @@ public class WoAiSiJiApp extends Application {
                     }
                 });
     }
-
+    private static void qianbao() {
+        StringRequest registerRequest = new StringRequest(Request.Method.POST,
+                ServerAddress.URL_MY_PERSONAL_INFO_MY_WALLET, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (android.text.TextUtils.isEmpty(response)) return;
+                Gson gson = new Gson();
+                RespPersonalWallet respPersonalWallet = gson.fromJson(response, RespPersonalWallet.class);
+                SharedPrefrenceUtils.remove(ActivityUtils.getTopActivity(), "yue");
+                if (respPersonalWallet.getCode() == 200) {
+                    SharedPrefrenceUtils.putObject(ActivityUtils.getTopActivity(), "yue", respPersonalWallet);
+                    PersonalWalletBean data = respPersonalWallet.getData();
+                    UserManager.silver  = data.getSilver();
+                    UserManager.balance = data.getBalance();
+                    UserManager.gold  = data.getScore();
+                    UserManager.storeGold = data.getStore_score();
+                } else {
+                    if (!android.text.TextUtils.isEmpty(respPersonalWallet.getMsg()))
+                        ToastUtils.showShort(respPersonalWallet.getMsg());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ActivityUtils.getTopActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            // 携带参数
+            @Override
+            protected HashMap<String, String> getParams()
+                    throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("uid", (WoAiSiJiApp.getUid()));
+                return params;
+            }
+        };
+        WoAiSiJiApp.mRequestQueue.add(registerRequest);
+    }
     // 会员信息的对象设置为全局变量
     public static MemberShipInfosBean memberShipInfos;
     // 好友列表设置为全局变量

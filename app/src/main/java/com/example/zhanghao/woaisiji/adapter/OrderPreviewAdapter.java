@@ -7,6 +7,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.bean.order.OrderBean;
@@ -20,15 +21,16 @@ public class OrderPreviewAdapter extends BaseExpandableListAdapter {
 
     private List<OrderBean> groups;
     private Context context;
-
+    private boolean isSilver;
     /**
      * 构造函数
-     *
-     * @param groups  组元素列表
+     *  @param groups  组元素列表
      * @param context
+     * @param isSilver
      */
-    public OrderPreviewAdapter(List<OrderBean> groups, Context context) {
+    public OrderPreviewAdapter(List<OrderBean> groups, Context context, boolean isSilver) {
         this.groups = groups;
+        this.isSilver = isSilver;
         this.context = context;
     }
 
@@ -98,7 +100,8 @@ public class OrderPreviewAdapter extends BaseExpandableListAdapter {
 
         if (goodsInfo != null) {
             cholder.tv_item_order_preview_good_title.setText(goodsInfo.getTitle());
-            cholder.tv_item_order_preview_good_price.setText("￥ " + goodsInfo.getPrice() + "");
+            String price = goodsInfo.getPrice();
+            cholder.tv_item_order_preview_good_price.setText("￥ " + price + "");
             cholder.tv_item_order_preview_good_num.setText("X " + goodsInfo.getCart_num());
             Picasso.with(context).load(goodsInfo.getCover()).error(R.drawable.icon_loading)
                     .placeholder(R.drawable.icon_loading).into(cholder.iv_item_order_preview_good_picture);

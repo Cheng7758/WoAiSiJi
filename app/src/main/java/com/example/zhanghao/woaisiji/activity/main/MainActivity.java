@@ -94,6 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int flags = 1;
     private SharedPreferences mSharedPreferences;
     private CommentFragment commentFragment;
+    private ShoppingCarFragment shoppingCarFragment;
 
     @Override
     public void onBackPressed() {
@@ -179,6 +180,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mSavedFragment.put(3, new ShoppingCarFragment());
         mSavedFragment.put(1, commentFragment);
         mSavedFragment.put(2, new NewsZixunFragment());
+<<<<<<< HEAD
+=======
+        shoppingCarFragment = new ShoppingCarFragment();
+        mSavedFragment.put(3, shoppingCarFragment);
+>>>>>>> df0e6bae232dfc5e824e34143b8de77a90ee1f94
         mSavedFragment.put(4, new MyFragment());
     }
 
@@ -569,6 +575,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode == 111)
+            shoppingCarFragment.onActivityResult(requestCode,resultCode,data);
         //扫码结果
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentResult != null) {

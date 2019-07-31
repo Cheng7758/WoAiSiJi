@@ -140,7 +140,14 @@ public class PersonalWalletActivity extends BaseActivity implements View.OnClick
                         dismissProgressDialog();
                         if (TextUtils.isEmpty(response)) return;
                         Gson gson = new Gson();
-                        RespPersonalWallet respPersonalWallet = gson.fromJson(response, RespPersonalWallet.class);
+                        RespPersonalWallet respPersonalWallet = null;
+                        try {
+                            respPersonalWallet = gson.fromJson(response, RespPersonalWallet.class);
+                        }catch (Exception e){
+
+                        }
+                        if (respPersonalWallet == null)
+                            return;
                         if (respPersonalWallet.getCode() == 200) {
                             tv_personal_wallet_gold_integral.setText(respPersonalWallet.getData().getScore());//金积分
                             tv_personal_wallet_balance.setText(respPersonalWallet.getData().getBalance());//余额

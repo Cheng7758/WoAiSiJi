@@ -13,8 +13,8 @@ public class MerchantInfoDetailBean implements Serializable {
     private String name;//店铺名称
     private String contacts;//联系人
     private String phone;//联系电话，
-    private String longitude;//经度，
-    private String latitude;//纬度，
+    public String longitude;//经度，
+    public String latitude;//纬度，
     private String logo;//店铺图片，
     private String content;//商家简介，
     private String juli;//距离数(公里)

@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.activity.RecruitmentActivity;
 import com.example.zhanghao.woaisiji.activity.send.JoinAutoActivity;
+import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.httpurl.Myserver;
 import com.example.zhanghao.woaisiji.my.ShopsRuzhuBean;
@@ -49,6 +50,7 @@ public class FunctionUtils {
                 .subscribe(new Observer<ShopsRuzhuBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+                        ((BaseActivity)(ActivityUtils.getTopActivity())).showProgressDialog();
                     }
 
                     @Override
@@ -67,6 +69,7 @@ public class FunctionUtils {
 
                     @Override
                     public void onError(Throwable e) {
+                        DialogUtil.cancelProgressDialog();
                     }
 
                     @Override

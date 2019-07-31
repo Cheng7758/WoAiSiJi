@@ -51,6 +51,7 @@ import com.example.zhanghao.woaisiji.utils.MapUtil;
 import com.example.zhanghao.woaisiji.utils.PrefUtils;
 import com.example.zhanghao.woaisiji.view.BaseQuickLoadMoreView;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -138,6 +139,9 @@ public class SliverIntegralStoreDetail extends BaseActivity {
                             }
                             if (respMerchantDetail.getCode() == 200) {
                                 detailBean = respMerchantDetail.getData();
+                                String latitude = detailBean.getLatitude();
+                                mLatitude = Double.parseDouble(StringUtils.defaultStr(latitude,"0.0"));
+                                mAltitude = Double.parseDouble(StringUtils.defaultStr(detailBean.longitude,"0.0"));
                                 setViewValue();
                             }
                         }

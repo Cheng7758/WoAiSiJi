@@ -27,12 +27,15 @@ import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.activity.OrderPreviewActivity;
 import com.example.zhanghao.woaisiji.adapter.ShoppingCarAdapter;
+import com.example.zhanghao.woaisiji.bean.my.PersonalCouponBean;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarGoodsInfo;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarStoreInfo;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespBase;
 import com.example.zhanghao.woaisiji.resp.RespShoppingCarList;
 import com.google.gson.Gson;
+import com.hyphenate.easeui.utils.MGson;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,11 +66,32 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     private int totalCount = 0;// 购买的商品总数量
     private double totalPrice = 0.00;// 购买的商品总价
 
+    private boolean isSilver;
     @Override
     public View initBaseFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_page_shopping_car, container, false);
         init(view);
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != 111 && data != null)
+            return;
+        if (shoppingCarAdapter == null)
+            return;
+        String store_data = data.getStringExtra("store_data");
+        store_data = StringUtils.defaultStr(store_data,"{}");
+        String store_id = data.getStringExtra("IntentSliverDetailCommodityID");
+        boolean isSilver = data.getBooleanExtra("isSilver", false);
+        shoppingCarAdapter.setSilver(isSilver);
+        for (ShoppingCarStoreInfo group : shoppingCarAdapter.groups) {
+            String store_id1 = group.getStore_id();
+            if (com.blankj.utilcode.util.StringUtils.equals(store_id,store_id1))
+                group.couponBean = MGson.from(store_data, PersonalCouponBean.class);
+        }
+        shoppingCarAdapter.notifyDataSetChanged();
     }
 
     private void init(View rootView) {
@@ -119,7 +143,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
 
         expandList_view_page_shopping_car_list_data = (ExpandableListView) rootView.findViewById(R.id.expandList_view_page_shopping_car_list_data);
         layout_shopping_cart_empty = (LinearLayout) rootView.findViewById(R.id.layout_shopping_cart_empty);
-        shoppingCarAdapter = new ShoppingCarAdapter(mData, getActivity());
+        shoppingCarAdapter = new ShoppingCarAdapter(mData, getActivity(),isSilver);
         shoppingCarAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
         shoppingCarAdapter.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         expandList_view_page_shopping_car_list_data.setAdapter(shoppingCarAdapter);//listview的setadapter
@@ -239,6 +263,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 currentFlag = 4;
                 mData.clear();
                 deleteGoodUrl = ServerAddress.URL_DELETEDUIHUANSHOPPINGCART;
+                isSilver = true;
                 checkShoppingCardList();
             }
         });

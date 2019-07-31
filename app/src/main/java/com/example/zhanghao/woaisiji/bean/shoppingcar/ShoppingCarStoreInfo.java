@@ -1,10 +1,13 @@
 package com.example.zhanghao.woaisiji.bean.shoppingcar;
 
+import com.example.zhanghao.woaisiji.bean.my.PersonalCouponBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCarStoreInfo {
     private String  store_name,store_id ;
+    public PersonalCouponBean couponBean;
     private List<ShoppingCarGoodsInfo> goods = new ArrayList<>();
 
     private boolean isChoosed;

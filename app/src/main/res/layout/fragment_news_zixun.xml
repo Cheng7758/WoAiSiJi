@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:text="新闻资讯"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp_18" />
     </android.support.v7.widget.Toolbar>
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView

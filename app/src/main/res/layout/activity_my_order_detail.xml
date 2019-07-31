@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:text="订单详情"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp_18" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -46,7 +46,7 @@
                 android:layout_margin="@dimen/dp_10"
                 android:text="收货人信息"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="@dimen/sp_16" />
 
             <TextView
                 android:id="@+id/username"
@@ -75,7 +75,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/dp_20"
                 android:src="@drawable/caixian" />
 
             <TextView
@@ -84,7 +84,7 @@
                 android:layout_margin="@dimen/dp_10"
                 android:text="订单信息"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="@dimen/sp_16" />
 
             <TextView
                 android:id="@+id/order_sn"
@@ -114,7 +114,7 @@
                 android:layout_margin="@dimen/dp_10"
                 android:text="商品信息"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="@dimen/sp_16" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -226,16 +226,16 @@
                 android:gravity="right">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/dp_5"
                     android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/immediate_payment"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/dp_5"
                     android:layout_weight="1"
                     android:background="@drawable/border_radius"
                     android:gravity="center"
@@ -245,9 +245,9 @@
 
                 <TextView
                     android:id="@+id/make_sure_the_goods"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/dp_5"
                     android:layout_weight="1"
                     android:background="@drawable/border_radius"
                     android:gravity="center"
@@ -257,9 +257,9 @@
 
                 <TextView
                     android:id="@+id/evaluate"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/dp_5"
                     android:layout_weight="1"
                     android:background="@drawable/border_radius"
                     android:gravity="center"

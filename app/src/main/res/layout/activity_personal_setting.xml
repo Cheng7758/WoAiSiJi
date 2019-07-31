@@ -24,19 +24,19 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="头像"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
 
             <ImageView
                 android:id="@+id/iv_personal_setting_hv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/icon_loading" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="#dddddd" />
 
         <!--手机号-->
@@ -52,22 +52,22 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="账号"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
 
             <TextView
                 android:id="@+id/tv_personal_setting_phone"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/ic_arrow_right"
                 android:gravity="center_vertical"
                 android:textColor="#bbb"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="#dddddd" />
         <!--账户昵称-->
         <RelativeLayout
@@ -82,23 +82,23 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="昵称"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
 
             <TextView
                 android:id="@+id/tv_personal_setting_nick_name"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/ic_arrow_right"
                 android:gravity="center_vertical"
                 android:text=""
                 android:textColor="#bbb"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="#dddddd" />
         <!--密码管理-->
         <RelativeLayout
@@ -113,21 +113,21 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="密码管理"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/ic_arrow_right"
                 android:gravity="center_vertical"
                 android:textColor="#bbb"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="#dddddd" />
 
         <!--清除缓存-->
@@ -143,22 +143,22 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="清除缓存"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
 
             <TextView
                 android:id="@+id/tv_personal_setting_clear_cache"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:text=""
                 android:textColor="#bbb"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/dp_20"
             android:background="#dddddd" />
 
         <!--意见反馈-->
@@ -174,21 +174,21 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="意见反馈"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/ic_arrow_right"
                 android:gravity="center_vertical"
                 android:textColor="#bbb"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="#dddddd" />
 
 
@@ -205,21 +205,21 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="关于我们"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/ic_arrow_right"
                 android:gravity="center_vertical"
                 android:textColor="#bbb"
-                android:textSize="16dp" />
+                android:textSize="@dimen/dp_16" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="#dddddd" />
 
         <TextView
@@ -227,16 +227,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/dp_20"
             android:text="v1.0"
-            android:textSize="18dp" />
+            android:textSize="@dimen/dp_18" />
 
         <Button
             android:id="@+id/btn_personal_setting_logout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/dp_50"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="@dimen/dp_40"
             android:background="@drawable/bg_rectangle_green_color"
             android:text="退出账号"
             android:textColor="@color/colorWhite" />

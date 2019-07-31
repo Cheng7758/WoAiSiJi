@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/dp_56"
         android:background="@color/main_color_green">
 
         <ImageView
@@ -23,7 +23,7 @@
             android:layout_centerInParent="true"
             android:text="搜索会员"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp" />
+            android:textSize="@dimen/sp_16" />
 
         <ImageView
             android:id="@+id/iv_social_more"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="18dp"
+            android:layout_marginRight="@dimen/dp_18"
             android:src="@drawable/em_add"
             android:visibility="gone" />
     </RelativeLayout>

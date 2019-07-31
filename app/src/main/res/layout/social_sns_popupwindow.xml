@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="60dp"
+    android:layout_width="@dimen/dp_60"
     android:layout_height="wrap_content"
     android:background="@drawable/demo_social_sns_bg"
     android:gravity="center_horizontal"
@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/digBtn"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
@@ -16,15 +16,15 @@
         android:textColor="#d2d2d2" />
 
     <View
-        android:layout_width="1dp"
+        android:layout_width="@dimen/dp_1"
         android:layout_height="match_parent"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_2"
         android:background="#707070" />
 
     <TextView
         android:id="@+id/commentBtn"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
@@ -32,16 +32,16 @@
         android:textColor="#d2d2d2" />
 
     <View
-        android:layout_width="1dp"
+        android:layout_width="@dimen/dp_1"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_2"
         android:background="#707070" />
 
     <TextView
         android:id="@+id/forwardBtn"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:visibility="gone"
         android:layout_height="match_parent"
         android:layout_weight="1"

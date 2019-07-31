@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_50"
         android:background="#FF5000">
 
         <ImageView
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/dp_8"
             android:background="@drawable/em_mm_title_back"
             android:scaleType="fitXY" />
 
@@ -27,15 +27,15 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/dp_20"
             android:text="提交订单"
             android:textColor="#FCFDF5"
-            android:textSize="20dp" />
+            android:textSize="@dimen/sp_20" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_50"
         android:background="#FFFFFF">
 
         <TextView
@@ -44,10 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/dp_20"
             android:text="订单编号:"
             android:textColor="#000000"
-            android:textSize="16dp" />
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/number"
@@ -57,7 +57,7 @@
             android:layout_toEndOf="@+id/textView7"
             android:text="000000"
             android:textColor="#000000"
-            android:textSize="16dp" />
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/Price"
@@ -65,18 +65,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/number"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/dp_20"
             android:text="￥0.00"
-            android:textSize="16dp" />
+            android:textSize="@dimen/sp_16" />
     </RelativeLayout>
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="20dp" />
+        android:layout_height="@dimen/dp_20" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/dp_40"
         android:background="#FFFFFF">
 
         <TextView
@@ -84,19 +84,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/dp_20"
             android:text="支付方式"
-            android:textSize="18dp" />
+            android:textSize="@dimen/sp_18" />
     </RelativeLayout>
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="3dp" />
+        android:layout_height="@dimen/dp_3" />
 
     <RelativeLayout
         android:id="@+id/jinbipayment"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/dp_70"
         android:background="#FFFFFF"
         android:clickable="true"
         android:focusable="true"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/dp_20"
             android:clickable="false"
             android:focusable="false"
             android:src="@drawable/gold_coins_small" />
@@ -118,12 +118,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:layout_toEndOf="@+id/imageView4"
             android:clickable="false"
             android:focusable="false"
             android:text="金币支付"
-            android:textSize="18dp" />
+            android:textSize="@dimen/sp_18" />
 
         <ImageView
             android:id="@+id/jinbiSelected"
@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/textView8"
-            android:layout_marginEnd="31dp"
+            android:layout_marginEnd="@dimen/dp_31"
             android:clickable="false"
             android:focusable="false"
             android:src="@drawable/baiquan" />
@@ -139,12 +139,12 @@
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="3dp" />
+        android:layout_height="@dimen/dp_3" />
 
     <RelativeLayout
         android:id="@+id/xianjinpayment"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/dp_70"
         android:background="#FFFFFF"
         android:clickable="true"
         android:focusable="true"
@@ -157,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/dp_20"
             android:clickable="false"
             android:focusable="false"
             android:src="@drawable/xianjin" />
@@ -167,12 +167,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:layout_toEndOf="@+id/imageView5"
             android:clickable="false"
             android:focusable="false"
             android:text="现金支付"
-            android:textSize="18dp" />
+            android:textSize="@dimen/sp_18" />
 
         <ImageView
             android:id="@+id/xianjinSelected"
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView10"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="@dimen/dp_32"
             android:clickable="false"
             android:focusable="false"
             android:src="@drawable/baiquan" />
@@ -188,11 +188,11 @@
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="10dp" />
+        android:layout_height="@dimen/dp_10" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/dp_40"
         android:background="#FFFFFF">
 
         <TextView
@@ -201,9 +201,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/dp_20"
             android:text="实际付款:"
-            android:textSize="18dp" />
+            android:textSize="@dimen/sp_18" />
 
         <TextView
             android:id="@+id/payment"
@@ -212,14 +212,14 @@
             android:layout_alignTop="@+id/textView11"
             android:layout_toEndOf="@+id/textView11"
             android:text="0.00"
-            android:textSize="18dp" />
+            android:textSize="@dimen/sp_18" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/Gopayment"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="20dp"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_20"
         android:background="#FF5000"
         android:clickable="true"
         android:focusable="true"
@@ -234,7 +234,7 @@
             android:focusable="false"
             android:text="去支付"
             android:textColor="#FFFFFF"
-            android:textSize="25dp" />
+            android:textSize="@dimen/sp_25" />
     </RelativeLayout>
 
 </LinearLayout>

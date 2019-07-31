@@ -11,8 +11,9 @@
     <LinearLayout
         android:id="@+id/ll_sliver_integral_store_location"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/dp_40"
         android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_10"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -26,8 +27,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
                 android:gravity="center"
                 android:text="省份" />
 
@@ -48,8 +49,8 @@
             android:id="@+id/ll_sliver_integral_store_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
@@ -57,8 +58,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
                 android:gravity="center"
                 android:text="城市" />
 
@@ -83,7 +84,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="@dimen/dp_5"
                 android:gravity="center"
                 android:text="区县" />
 
@@ -97,28 +98,18 @@
                 android:paddingLeft="@dimen/dp_2" />
         </LinearLayout>
 
-
-        <ImageView
-            android:id="@+id/iv_sliver_integral_store_more_condition"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:src="@drawable/xiaoxiquan"
-            android:text="" />
     </LinearLayout>
 
     <com.example.zhanghao.woaisiji.view.SiJiWenDaListView
         android:id="@+id/lv_sliver_integral_store_show_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dp_10"
         android:background="#f4f4f4"
         android:divider="#00000000"
-        android:dividerHeight="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"></com.example.zhanghao.woaisiji.view.SiJiWenDaListView>
+        android:dividerHeight="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"></com.example.zhanghao.woaisiji.view.SiJiWenDaListView>
 
 </LinearLayout>

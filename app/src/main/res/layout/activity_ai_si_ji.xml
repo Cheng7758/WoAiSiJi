@@ -10,15 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="@dimen/dp_180"
+        android:layout_marginTop="@dimen/dp_12"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/ib_icon_love"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/dp_16"
             android:layout_weight="1"
             android:background="@null"
             android:scaleType="fitXY"
@@ -26,10 +26,10 @@
 
         <ImageButton
             android:id="@+id/ib_icon_health"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
             android:layout_weight="1"
             android:background="@null"
             android:scaleType="fitXY"
@@ -39,25 +39,25 @@
     <ImageButton
         android:id="@+id/ib_icon_drive"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="@dimen/dp_100"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_10"
         android:background="@null"
         android:scaleType="fitXY"
         android:src="@drawable/ib_icon_driver" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="@dimen/dp_180"
+        android:layout_marginTop="@dimen/dp_4"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/ib_icon_consult"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/dp_16"
             android:layout_weight="1"
             android:background="@null"
             android:scaleType="fitXY"
@@ -65,10 +65,10 @@
 
         <ImageButton
             android:id="@+id/ib_icon_app_mall"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
             android:layout_weight="1"
             android:background="@null"
             android:scaleType="fitXY"

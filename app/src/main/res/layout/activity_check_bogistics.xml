@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:text="查看物流"
                 android:textColor="#ffffff"
-                android:textSize="18sp" />
+                android:textSize="@dimen/sp_18" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -100,8 +100,8 @@
             android:id="@+id/wuliu_rlv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16" />
     </LinearLayout>
 </RelativeLayout>

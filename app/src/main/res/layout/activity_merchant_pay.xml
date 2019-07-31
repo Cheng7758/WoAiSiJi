@@ -49,24 +49,24 @@
         <TextView
             android:id="@+id/tv_confirm_payment"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/dp_45"
             android:layout_marginTop="@dimen/dp_50"
             android:background="@drawable/bg_round_green_color"
             android:gravity="center"
             android:text="确定支付"
             android:textColor="#fff"
-            android:textSize="16dp" />
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/tv_buy_gold_points"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/dp_45"
             android:layout_marginTop="@dimen/dp_40"
             android:background="@drawable/bg_round_green_color"
             android:gravity="center"
             android:text="去购买金积分"
             android:textColor="#fff"
-            android:textSize="16dp" />
+            android:textSize="@dimen/sp_16" />
     </LinearLayout>
 
 </LinearLayout>

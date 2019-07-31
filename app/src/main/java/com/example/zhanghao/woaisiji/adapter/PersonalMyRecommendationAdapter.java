@@ -37,7 +37,8 @@ public class PersonalMyRecommendationAdapter extends RecyclerView.Adapter<Person
 
     @Override
     public PersonalMyRecommendationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_personal_my_recommendation, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_personal_my_recommendation,
+                null, false);
         PersonalMyRecommendationViewHolder viewHolder = new PersonalMyRecommendationViewHolder(view);
         return viewHolder;
     }

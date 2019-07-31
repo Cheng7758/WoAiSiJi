@@ -132,8 +132,7 @@ public class SliverIntegralStoreDetail extends BaseActivity {
                         public void onResponse(String response) {
                             Gson gson = new Gson();
                             try {
-                                respMerchantDetail = gson.fromJson(response, RespMerchantDetail
-                                        .class);
+                                respMerchantDetail = gson.fromJson(response, RespMerchantDetail.class);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -154,7 +153,6 @@ public class SliverIntegralStoreDetail extends BaseActivity {
                     Log.e("------", intentCommodityId);
                     return params;
                 }
-
             };
             WoAiSiJiApp.mRequestQueue.add(questionRequest);
         }
@@ -201,8 +199,7 @@ public class SliverIntegralStoreDetail extends BaseActivity {
     private void initTitleBar() {
         iv_title_bar_view_left_left = (ImageView) findViewById(R.id.iv_title_bar_view_left_left);
         iv_title_bar_view_left_left.setVisibility(View.VISIBLE);
-        tv_title_bar_view_centre_title = (TextView) findViewById(R.id
-                .tv_title_bar_view_centre_title);
+        tv_title_bar_view_centre_title = (TextView) findViewById(R.id.tv_title_bar_view_centre_title);
         tv_title_bar_view_centre_title.setVisibility(View.VISIBLE);
     }
 
@@ -225,8 +222,8 @@ public class SliverIntegralStoreDetail extends BaseActivity {
                             .getPhone()));
                     startActivity(intent);
                 } else {
-                    Toast.makeText(SliverIntegralStoreDetail.this, "该商家没有留电话", Toast
-                            .LENGTH_SHORT).show();
+                    Toast.makeText(SliverIntegralStoreDetail.this, "该商家没有留电话",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
             }

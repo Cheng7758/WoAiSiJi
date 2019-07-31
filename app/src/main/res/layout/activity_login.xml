@@ -14,19 +14,19 @@
 
         <ImageView
             android:id="@+id/iv_login_top_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="@dimen/dp_50"
             android:src="@drawable/ic_fubaihui" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_login_top_icon"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="@dimen/dp_50"
+            android:layout_marginRight="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_40"
             android:orientation="vertical">
             <!--用户名-->
             <LinearLayout
@@ -35,7 +35,7 @@
                 android:background="@drawable/bg_round_login_input"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,24 +47,24 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:background="@null"
                     android:hint="请输入手机号"
                     android:inputType="text"
                     android:maxLength="11"
                     android:textColor="#000"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/sp_16" />
 
             </LinearLayout>
             <!--密码-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/dp_12"
                 android:background="@drawable/bg_round_login_input"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                     android:inputType="textPassword"
                     android:maxLength="15"
                     android:paddingLeft="@dimen/dp_11"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/sp_16" />
 
             </LinearLayout>
             <!--登录按钮-->
@@ -89,18 +89,18 @@
                 android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="@dimen/dp_35"
                 android:background="@drawable/bg_round_login_button"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp"
+                android:paddingBottom="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_12"
                 android:text="@string/login"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="@dimen/sp_16" />
             <!--立即注册 && 忘记密码-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp_8"
                 android:orientation="horizontal">
                 <!--立即注册-->
                 <Button
@@ -110,11 +110,11 @@
                     android:background="@null"
                     android:text="@string/register"
                     android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp_13" />
 
                 <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_1"
                     android:layout_weight="1" />
                 <!--忘记密码-->
                 <Button
@@ -124,7 +124,7 @@
                     android:background="@null"
                     android:text="@string/forgot_password"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/sp_12" />
 
             </LinearLayout>
 
@@ -140,16 +140,16 @@
                 android:id="@+id/ck_login_agree_protocol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/dp_30"
                 android:button="@null"
                 android:checked="false"
                 android:layout_gravity="center"
                 android:drawableLeft="@drawable/bg_login_checkbox_selector"
-                android:drawablePadding="10dp"
+                android:drawablePadding="@dimen/dp_10"
                 android:lines="1"
                 android:text="登录即表示同意福百惠用户协议"
                 android:textColor="#656565"
-                android:textSize="13dp" />
+                android:textSize="@dimen/dp_13" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

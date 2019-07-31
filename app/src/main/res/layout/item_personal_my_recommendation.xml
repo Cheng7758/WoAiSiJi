@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="#fff"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="@dimen/dp_15">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,10 +16,11 @@
             android:id="@+id/tv_item_personal_my_recommendation_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
             android:text=""
             android:textColor="@color/text_color_my_recommendation"
-            android:textSize="16dp"
+            android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
 
         <TextView
@@ -28,19 +29,18 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="2019.03.01 12:00"
-            android:textSize="14dp" />
-
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dp_10"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left">
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="获得金积分："
                 android:textColor="@color/text_color_my_recommendation"
-                android:textSize="13dp" />
+                android:textSize="@dimen/sp_13" />
 
             <TextView
                 android:id="@+id/tv_item_personal_my_recommendation_get_gold"
@@ -58,11 +58,11 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/text_color_my_recommendation"
-                android:textSize="13dp" />
+                android:textSize="@dimen/sp_13" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="获得银积分："
                 android:textColor="@color/text_color_my_recommendation"
-                android:textSize="13dp" />
+                android:textSize="@dimen/sp_13" />
 
             <TextView
                 android:id="@+id/tv_item_personal_my_recommendation_get_sliver"
@@ -80,11 +80,11 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/text_color_my_recommendation"
-                android:textSize="13dp" />
+                android:textSize="@dimen/dp_13" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right">
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/text_color_my_recommendation"
-                android:textSize="13dp" />
+                android:textSize="@dimen/sp_13" />
         </LinearLayout>
     </LinearLayout>
 

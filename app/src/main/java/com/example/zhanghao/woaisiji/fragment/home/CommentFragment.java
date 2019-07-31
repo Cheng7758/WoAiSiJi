@@ -91,8 +91,11 @@ public class CommentFragment extends BaseFragment implements CircleContract.View
     }
 
     public void loadData(int type) {
-        presenter.loadData(type);
-
+        try {
+            presenter.loadData(type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initView(View rootView) {

@@ -31,7 +31,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_50"
         android:background="#fff"
         android:gravity="center"
         android:orientation="horizontal">
@@ -44,8 +44,8 @@
             android:drawableTop="@drawable/ic_fbh_store"
             android:gravity="center"
             android:text="店铺"
-            android:textSize="13dp"
-            android:drawablePadding="5dp"/>
+            android:textSize="@dimen/dp_13"
+            android:drawablePadding="@dimen/dp_5"/>
 
         <TextView
             android:id="@+id/tv_product_detail_kefu"
@@ -53,20 +53,20 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="客服"
-            android:textSize="13dp"
-            android:drawablePadding="5dp"
+            android:textSize="@dimen/dp_13"
+            android:drawablePadding="@dimen/dp_5"
             android:gravity="center"
             android:drawableTop="@drawable/kefu_ic"/>-->
 
         <TextView
             android:id="@+id/tv_product_detail_collection"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="收藏"
             android:textSize="13dp"
             android:gravity="center"
-            android:drawablePadding="5dp"
+            android:drawablePadding="@dimen/dp_5"
             android:drawableTop="@drawable/shoucang_ic"/>
 
         <!--<RelativeLayout
@@ -74,15 +74,15 @@
             android:id="@+id/rl_kefu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="1dp"
+            android:layout_marginRight="@dimen/dp_1"
             android:layout_weight="2"
             android:gravity="center"
             android:background="#FFFFFF">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
                 android:background="@drawable/kefu_ic" />
             <TextView
                 android:layout_width="wrap_content"
@@ -103,8 +103,8 @@
 
             <ImageView
                 android:id="@+id/tv_shoucang"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
                 android:background="@drawable/shoucang_ic" />
 
             <TextView
@@ -115,8 +115,8 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
             android:id="@+id/tv_product_detail_add_shopping_car"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -127,12 +127,12 @@
             android:gravity="center"
             android:text="加入购物车"
             android:textColor="#FFFFFF"
-            android:textSize="14dp"
+            android:textSize="@dimen/dp_14"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
             android:id="@+id/tv_product_detail_check_shopping_car"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -143,7 +143,7 @@
             android:gravity="center"
             android:text="查看购物车"
             android:textColor="#FFFFFF"
-            android:textSize="14dp"
+            android:textSize="@dimen/dp_14"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -93,6 +93,7 @@ public class ReleaseDynamicActivity extends BaseActivity {
     private AlterResultBean resultBean;
     private Button btnDialogCancel;
     private Button btnDialogCamera;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

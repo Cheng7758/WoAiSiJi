@@ -181,6 +181,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mSavedFragment.put(3, new ShoppingCarFragment());
         mSavedFragment.put(4, new MyFragment());
     }
+
     //控件初始化
     private void initView() {
         pagerAdapter = new MainFragmentAdapter(getSupportFragmentManager());
@@ -349,8 +350,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         DemoHelper sdkHelper = DemoHelper.getInstance();
         sdkHelper.pushActivity(this);
         EMClient.getInstance().chatManager().addMessageListener(messageListener);
-        if (commentFragment != null)
+        if (commentFragment != null) {
             commentFragment.loadData(1);
+        }
     }
 
     @Override
@@ -419,7 +421,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onReceive(Context context, Intent intent) {
                 Fragment currentFragment = getCurrentFragment(currentTabIndex);
                 if (currentFragment instanceof HomePageFragment)
-                ((HomePageFragment) currentFragment).updateUnreadLabel();
+                    ((HomePageFragment) currentFragment).updateUnreadLabel();
                 if (currentTabIndex == 0) {
                     ((HomePageFragment) mSavedFragment.get(currentTabIndex)).refreshUIWithMessageCurrentTabIndex0();
                 } else if (currentTabIndex == 1) {

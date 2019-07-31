@@ -5,12 +5,12 @@
 
     <TextView
         android:id="@+id/tv"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/dp_150"
+        android:layout_height="@dimen/dp_70"
         android:gravity="center"
         android:text="图文详情"
         android:textColor="#FF5000"
-        android:textSize="23dp" />
+        android:textSize="@dimen/sp_23" />
 
     <com.example.zhanghao.woaisiji.view.CustWebView
         android:id="@+id/wb_tuwenxiangqing"

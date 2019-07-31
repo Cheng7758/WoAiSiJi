@@ -28,15 +28,15 @@
             android:layout_gravity="center"
             android:text="二维码"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp_18" />
     </android.support.v7.widget.Toolbar>
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/decoratedBarcodeView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:zxing_framing_rect_height="250dp"
-        app:zxing_framing_rect_width="250dp"
+        app:zxing_framing_rect_height="@dimen/dp_250"
+        app:zxing_framing_rect_width="@dimen/dp_250"
         app:zxing_preview_scaling_strategy="fitXY"
         app:zxing_use_texture_view="true" />
     <!--app:zxing_scanner_layout="@layout/layout_zxing"-->

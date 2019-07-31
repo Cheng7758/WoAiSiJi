@@ -15,14 +15,14 @@
         android:id="@+id/et_rest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dp_20"
         android:hint="rest server" />
 
     <EditText
         android:id="@+id/et_im"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dp_20"
         android:hint="im server" />
 
 </LinearLayout>

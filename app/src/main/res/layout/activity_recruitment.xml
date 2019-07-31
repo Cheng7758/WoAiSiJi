@@ -8,7 +8,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_50"
         android:background="@color/green">
 
         <ImageView
@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:text="商家入驻"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp_18" />
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
@@ -43,7 +43,7 @@
                 android:layout_below="@id/relative"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,10 +54,10 @@
                     android:id="@+id/et_recruitment_input_shop_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:background="@null"
                     android:drawableLeft="@drawable/tag_10"
-                    android:drawablePadding="10dp"
+                    android:drawablePadding="@dimen/dp_10"
                     android:hint="商户名称" />
             </LinearLayout>
 
@@ -66,10 +66,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear1"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,10 +80,10 @@
                     android:id="@+id/et_recruitment_input_people_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="@dimen/dp_24"
                     android:background="@null"
                     android:drawableLeft="@drawable/tag_10"
-                    android:drawablePadding="10dp"
+                    android:drawablePadding="@dimen/dp_10"
                     android:hint="您的称呼" />
             </LinearLayout>
 
@@ -92,10 +92,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear2"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -106,10 +106,10 @@
                     android:id="@+id/et_recruitment_input_contact_way"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="@dimen/dp_24"
                     android:background="@null"
                     android:drawableLeft="@drawable/tag_10"
-                    android:drawablePadding="10dp"
+                    android:drawablePadding="@dimen/dp_10"
                     android:hint="您的联系方式"
                     android:inputType="phone"
                     android:maxLength="11" />
@@ -120,10 +120,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear3"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/dp_30"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -134,10 +134,10 @@
                     android:id="@+id/et_recruitment_input_licence_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginLeft="@dimen/dp_4"
                     android:background="@null"
                     android:drawableLeft="@drawable/tag_10"
-                    android:drawablePadding="10dp"
+                    android:drawablePadding="@dimen/dp_10"
                     android:hint="商家的营业执照编号" />
             </LinearLayout>
 
@@ -146,10 +146,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear4"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -160,10 +160,10 @@
                     android:id="@+id/select_file"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:background="#D6D7D7"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
                     android:text="选择文件"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -173,10 +173,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear5"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,13 +187,13 @@
                     android:id="@+id/shop_classify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:background="#D6D7D7"
-                    android:drawablePadding="6dp"
+                    android:drawablePadding="@dimen/dp_6"
                     android:drawableRight="@drawable/mall_secondary_normal_down"
                     android:drawableTint="@color/black"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
                     android:text="请选择"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -203,10 +203,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear6"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -217,13 +217,13 @@
                     android:id="@+id/classify_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:background="#D6D7D7"
-                    android:drawablePadding="6dp"
+                    android:drawablePadding="@dimen/dp_6"
                     android:drawableRight="@drawable/mall_secondary_normal_down"
                     android:drawableTint="@color/black"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
                     android:text="请选择"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -233,10 +233,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear7"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -247,13 +247,13 @@
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:background="#D6D7D7"
-                    android:drawablePadding="6dp"
+                    android:drawablePadding="@dimen/dp_6"
                     android:drawableRight="@drawable/mall_secondary_normal_down"
                     android:drawableTint="@color/black"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
                     android:text="请选择"
                     android:textColor="@color/black" />
 
@@ -264,10 +264,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear8"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/dp_30"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="@dimen/dp_10">
 
                 <CheckBox
                     android:id="@+id/checkbox_yuedu"
@@ -285,7 +285,7 @@
             <Button
                 android:id="@+id/ruzhu_btn"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_below="@id/linear9"
                 android:layout_margin="26dp"
                 android:background="@drawable/btn_selector"
@@ -305,9 +305,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="10dp"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_10"
             android:visibility="gone">
 
             <TextView

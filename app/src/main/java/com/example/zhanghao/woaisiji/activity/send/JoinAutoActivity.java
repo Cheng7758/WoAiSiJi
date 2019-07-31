@@ -69,7 +69,6 @@ public class JoinAutoActivity extends BaseActivity {
     private LinearLayout ll_sliver_integral_store_location, ll_sliver_integral_store_province,
             ll_sliver_integral_store_city, ll_sliver_integral_store_country,
             ll_recruitment_province_city_country_root;
-    private ImageView iv_sliver_integral_store_more_condition;
 
     //省的WheelView控件/市的WheelView控件//区的WheelView控件/
     private WheelView wheelview_recruitment_province, wheelview_recruitment_city,
@@ -466,8 +465,6 @@ public class JoinAutoActivity extends BaseActivity {
                 .ll_sliver_integral_store_city);
         ll_sliver_integral_store_country = (LinearLayout) findViewById(R.id
                 .ll_sliver_integral_store_country);
-        iv_sliver_integral_store_more_condition = (ImageView) findViewById(R.id
-                .iv_sliver_integral_store_more_condition);
         relative = (RelativeLayout) findViewById(R.id.relative);
         cancel = (TextView) findViewById(R.id.cancel);
         confirm = (TextView) findViewById(R.id.confirm);

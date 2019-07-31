@@ -8,8 +8,8 @@
         android:id="@+id/zxing_barcode_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:zxing_framing_rect_height="300dp"
-        app:zxing_framing_rect_width="300dp" />
+        app:zxing_framing_rect_height="@dimen/dp_300"
+        app:zxing_framing_rect_width="@dimen/dp_300" />
 
     <com.helloworld.zxingdemo.CustomZxingView
         android:id="@+id/zxing_viewfinder_view"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/dp_20"
         android:text="请对准二维码开始扫描"
         android:textColor="#fff" />
 

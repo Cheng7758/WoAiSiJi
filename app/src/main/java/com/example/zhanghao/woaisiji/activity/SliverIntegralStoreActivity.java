@@ -35,7 +35,6 @@ import java.util.Map;
 public class SliverIntegralStoreActivity extends BaseActivity {
 
     private LinearLayout ll_sliver_integral_store_location, ll_sliver_integral_store_province, ll_sliver_integral_store_city, ll_sliver_integral_store_country;
-    private ImageView iv_sliver_integral_store_more_condition;
     private TextView tv_sliver_integral_store_province, tv_sliver_integral_store_city, tv_sliver_integral_store_country;
 
     private SiJiWenDaListView listView;
@@ -78,7 +77,6 @@ public class SliverIntegralStoreActivity extends BaseActivity {
         ll_sliver_integral_store_province = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_province);
         ll_sliver_integral_store_city = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_city);
         ll_sliver_integral_store_country = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_country);
-        iv_sliver_integral_store_more_condition = (ImageView) findViewById(R.id.iv_sliver_integral_store_more_condition);
         initListener();
     }
 
@@ -86,7 +84,8 @@ public class SliverIntegralStoreActivity extends BaseActivity {
         ll_sliver_integral_store_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SliverIntegralStoreActivity.this, "定位系统在优化中~", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SliverIntegralStoreActivity.this, "定位系统在优化中~",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         iv_title_bar_view_left_left.setOnClickListener(new View.OnClickListener() {

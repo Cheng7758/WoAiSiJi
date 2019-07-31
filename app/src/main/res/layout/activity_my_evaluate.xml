@@ -34,7 +34,7 @@
                 android:layout_gravity="center"
                 android:text="评价"
                 android:textColor="#ffffff"
-                android:textSize="18sp" />
+                android:textSize="@dimen/sp_18" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -43,16 +43,16 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="@dimen/dp_10">
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="80dp"
-                android:layout_height="80dp" />
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80" />
 
             <TextView
                 android:id="@+id/content"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1000"
                 android:lines="2" />
@@ -84,50 +84,50 @@
         <EditText
             android:id="@+id/pingjia"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/dp_100"
+            android:layout_marginTop="@dimen/dp_10"
             android:background="@drawable/shape_corner"
             android:gravity="top|left"
             android:hint="宝贝满足你的期待吗？说说它的优点和美中不足吧.."
-            android:padding="10dp" />
+            android:padding="@dimen/dp_10" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/dp_100"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="@dimen/dp_10">
 
             <ImageView
                 android:id="@+id/add_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
                 android:background="@drawable/shape_corner2"
-                android:padding="5dp"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/add" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/image_recy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="@dimen/dp_10" />
         </LinearLayout>
 
 
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
+            android:layout_height="@dimen/dp_0_1"
             android:background="@color/gray" />
 
         <RelativeLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="@dimen/dp_10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -147,16 +147,16 @@
                 app:starEmpty="@mipmap/star_empty"
                 app:starFill="@mipmap/star_full"
                 app:starHalf="@mipmap/star_half"
-                app:starImageHeight="40dp"
-                app:starImagePadding="20dp"
-                app:starImageWidth="40dp" />
+                app:starImageHeight="@dimen/dp_40"
+                app:starImagePadding="@dimen/dp_20"
+                app:starImageWidth="@dimen/dp_40" />
 
 
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
+            android:layout_height="@dimen/dp_0_1"
             android:background="@color/gray" />
 
         <RelativeLayout
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="@dimen/dp_10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -184,16 +184,16 @@
                 app:starEmpty="@mipmap/star_empty"
                 app:starFill="@mipmap/star_full"
                 app:starHalf="@mipmap/star_half"
-                app:starImageHeight="40dp"
-                app:starImagePadding="20dp"
-                app:starImageWidth="40dp" />
+                app:starImageHeight="@dimen/dp_40"
+                app:starImagePadding="@dimen/dp_20"
+                app:starImageWidth="@dimen/dp_40" />
 
 
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
+            android:layout_height="@dimen/dp_0_1"
             android:background="@color/gray" />
 
         <RelativeLayout
@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="@dimen/dp_10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -221,16 +221,16 @@
                 app:starEmpty="@mipmap/star_empty"
                 app:starFill="@mipmap/star_full"
                 app:starHalf="@mipmap/star_half"
-                app:starImageHeight="40dp"
-                app:starImagePadding="20dp"
-                app:starImageWidth="40dp" />
+                app:starImageHeight="@dimen/dp_40"
+                app:starImagePadding="@dimen/dp_20"
+                app:starImageWidth="@dimen/dp_40" />
 
 
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
+            android:layout_height="@dimen/dp_0_1"
             android:background="@color/gray" />
 
 

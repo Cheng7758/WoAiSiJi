@@ -122,11 +122,9 @@ public class PersonalCouponActivity extends BaseActivity implements PersonalCoup
                 HashMap<String, String> params = new HashMap<String, String>();
                 if (!TextUtils.isEmpty(store_id))
                     params.put("store_id", store_id);
-                else {
                     params.put("uid", (WoAiSiJiApp.getUid()));
                     /*params.put("pageno", "1");
                     params.put("pagesize", "50");*/
-                }
                 return params;
             }
         };
@@ -167,7 +165,7 @@ public class PersonalCouponActivity extends BaseActivity implements PersonalCoup
         int jump = in.getIntExtra("jump", 0);
         boolean isSilver = in.getBooleanExtra("isSilver", false);
         intent.putExtra("isSilver",isSilver);
-        if (jump == 0) {
+        if (StringUtils.isTrimEmpty(store_id)) {
             ActivityUtils.startActivity(intent);
         }else
             setResult(111,intent);

@@ -35,6 +35,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -618,7 +620,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         for (int i = 0; i < notice.size(); i++) {
             final int position = i;
             //设置滚动的单个布局
-            LinearLayout moreView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R
+            LinearLayout moreView = (LinearLayout) LayoutInflater.from(Utils.getApp()).inflate(R
                     .layout.itme_upmarquee, null);
             //初始化布局的控件
             TextView tv1 = (TextView) moreView.findViewById(R.id.tv1);

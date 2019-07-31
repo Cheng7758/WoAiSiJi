@@ -116,8 +116,8 @@ public class SliverIntegralStoreDetail extends BaseActivity {
             intentCommodityId = intent.getStringExtra("IntentSliverDetailCommodityID");
             String latitude = intent.getStringExtra("latitude");
             String altitude = intent.getStringExtra("altitude");
-            mLatitude = Double.parseDouble(latitude);
-            mAltitude = Double.parseDouble(altitude);
+            mLatitude = Double.parseDouble(StringUtils.defaultStr(latitude,"0.0"));
+            mAltitude = Double.parseDouble(StringUtils.defaultStr(altitude,"0.0"));
         }
         getDetailDataFromService(); //商家详情
         getCategoryDataFromServer(); //商品分类

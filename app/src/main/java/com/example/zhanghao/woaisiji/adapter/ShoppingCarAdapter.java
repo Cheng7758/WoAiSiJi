@@ -138,7 +138,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                 String store_id = group.getStore_id();
                 Intent intent = new Intent(ActivityUtils.getTopActivity(), PersonalCouponActivity.class);
                 intent.putExtra("store_id",store_id);
-                ActivityUtils.startActivity(intent);
+                intent.putExtra("selectedIndex",groupPosition);
+                ActivityUtils.startActivityForResult(ActivityUtils.getTopActivity(),intent,10);
             }
         });
         PersonalCouponBean couponBean = group.couponBean;
@@ -177,9 +178,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             }
             if (cholder.tvPrice.getTag() == null || !cholder.tvPrice.getTag().equals("￥" + goodsInfo.getPay_price() )) {
                 int pay_price = goodsInfo.getPay_price();
-                int i = pay_price * goodsInfo.getNum();
-                cholder.tvPrice.setText("￥ " + i + "");
-                cholder.tvPrice.setTag("￥ " + i + "");
+                cholder.tvPrice.setText("￥ " + pay_price + "");
+                cholder.tvPrice.setTag("￥ " + pay_price + "");
             }
             if (cholder.etNum.getTag() == null || !cholder.etNum.getTag().equals(goodsInfo.getNum() + "")){
                 cholder.etNum.setText(goodsInfo.getNum() + "");

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,6 +34,7 @@ import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarStoreInfo;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespBase;
 import com.example.zhanghao.woaisiji.resp.RespShoppingCarList;
+import com.example.zhanghao.woaisiji.utils.StringUtil;
 import com.google.gson.Gson;
 import com.hyphenate.easeui.utils.MGson;
 import com.jcodecraeer.xrecyclerview.utils.StringUtils;
@@ -67,6 +69,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     private double totalPrice = 0.00;// 购买的商品总价
 
     private boolean isSilver;
+    private int selectIndex = -1;
     @Override
     public View initBaseFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_page_shopping_car, container, false);
@@ -75,8 +78,22 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState = outState == null ? new Bundle() : outState;
+        outState.putBoolean("isSilver",isSilver);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState == null)
+            return;
+        isSilver = savedInstanceState.getBoolean("isSilver",false);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != 111 && data != null)
             return;
         if (shoppingCarAdapter == null)
@@ -197,8 +214,17 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                     for (int i = 0; i < selectStoreInfo.size(); i++) {
                         cardId[i] = selectStoreInfo.get(i).getId();
                     }
+                    ArrayList<String> strings = new ArrayList<>();
+                    for (ShoppingCarStoreInfo group : shoppingCarAdapter.groups) {
+                        if (group.couponBean == null)
+                            continue;
+                        String id = group.couponBean.getId();
+                        strings.add(id);
+                    }
                     intent.putExtra("cardIdList", cardId);
+                    intent.putExtra("coupon_id", MGson.toJson(strings));
                     intent.putExtra("type", currentFlag);
+                    intent.putExtra("isSilver", isSilver);
                     startActivity(intent);
                     //重新刷新数据
                     checkShoppingCardList();
@@ -246,6 +272,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 currentFlag = 0;
                 deleteGoodUrl = ServerAddress.URL_DELETEZHENGPINGSHOPPINGCART;
                 mData.clear();
+                isSilver = false;
                 checkShoppingCardList();
             }
         });
@@ -407,11 +434,11 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                             mData.clear();
                             mData.addAll(respShoppingCarList.getData());//对象的集合
                             setCartNum();
-                            shoppingCarAdapter.notifyDataSetChanged();
 
                             for (int i = 0; i < mData.size(); i++) {
                                 expandList_view_page_shopping_car_list_data.expandGroup(i);// 关键步骤3,初始化时，将ExpandableListView以展开的方式呈现
                             }
+                            shoppingCarAdapter.notifyDataSetChanged();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -425,7 +452,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
                 map.put("uid", WoAiSiJiApp.getUid());
-                map.put("type", String.valueOf(currentFlag));
+                map.put("type", (isSilver ? 4 : 3) + "");
                 map.put("token", WoAiSiJiApp.token);
                 return map;
             }

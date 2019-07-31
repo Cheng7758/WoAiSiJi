@@ -18,17 +18,25 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
+import com.example.zhanghao.woaisiji.activity.PaySuccessActivity;
+import com.example.zhanghao.woaisiji.bean.my.PersonalWalletBean;
 import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
 import com.example.zhanghao.woaisiji.global.Constants;
 import com.example.zhanghao.woaisiji.global.LoginUtils;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespGetPersonalInfo;
 import com.example.zhanghao.woaisiji.resp.RespLogin;
+import com.example.zhanghao.woaisiji.resp.RespPersonalWallet;
 import com.example.zhanghao.woaisiji.serverdata.GetToken;
 import com.example.zhanghao.woaisiji.utils.PrefUtils;
+import com.example.zhanghao.woaisiji.utils.SharedPrefrenceUtils;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 
 import org.apache.http.util.TextUtils;
 import org.json.JSONObject;
@@ -159,12 +167,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             LoginUtils loginUtils = new LoginUtils(LoginActivity.this);
                             loginUtils.emRegister(respLogin.getData().getUid(), Constants.EMPASSWORD());
                             loginUtils.accessServerData(username, password);
+                            qianbao();
                         } else {
-                            dismissProgressDialog();
-                            finish();
                             if (!android.text.TextUtils.isEmpty(respLogin.getMsg()))
                                 Toast.makeText(LoginActivity.this, "" + respLogin.getMsg(), Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -185,7 +193,47 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         WoAiSiJiApp.mRequestQueue.add(loginRequest);
     }
-
+    private void qianbao() {
+        StringRequest registerRequest = new StringRequest(Request.Method.POST,
+                ServerAddress.URL_MY_PERSONAL_INFO_MY_WALLET, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (android.text.TextUtils.isEmpty(response)) return;
+                Gson gson = new Gson();
+                RespPersonalWallet respPersonalWallet = gson.fromJson(response, RespPersonalWallet.class);
+                SharedPrefrenceUtils.remove(ActivityUtils.getTopActivity(), "yue");
+                if (respPersonalWallet.getCode() == 200) {
+                    SharedPrefrenceUtils.putObject(ActivityUtils.getTopActivity(), "yue", respPersonalWallet);
+                    PersonalWalletBean data = respPersonalWallet.getData();
+                   UserManager.silver  = data.getSilver();
+                    UserManager.balance = data.getBalance();
+                    UserManager.gold  = data.getScore();
+                    UserManager.storeGold = data.getStore_score();
+                } else {
+                    if (!android.text.TextUtils.isEmpty(respPersonalWallet.getMsg()))
+                        ToastUtils.showShort(respPersonalWallet.getMsg());
+                }
+                dismissProgressDialog();
+                finish();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dismissProgressDialog();
+                Toast.makeText(ActivityUtils.getTopActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            // 携带参数
+            @Override
+            protected HashMap<String, String> getParams()
+                    throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("uid", (WoAiSiJiApp.getUid()));
+                return params;
+            }
+        };
+        WoAiSiJiApp.mRequestQueue.add(registerRequest);
+    }
     /**
      * 获取用户信息
      */

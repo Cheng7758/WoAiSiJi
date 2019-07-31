@@ -27,7 +27,7 @@ public class Constants {
             return "";
         }
 
-        return MD5Util.getMessageDigest((BYTES + uid.toString()).getBytes());
+        return MD5Util.getMessageDigest((BYTES + uid).getBytes());
     }
     // 我爱司机微信appkey
     // wxfcfa44a55987c87e

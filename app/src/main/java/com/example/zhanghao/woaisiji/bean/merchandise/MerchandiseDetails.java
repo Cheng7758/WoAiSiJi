@@ -15,6 +15,14 @@ public class MerchandiseDetails {
     private int code;
     private List<DataBean> data;
 
+    @Override
+    public String toString() {
+        return "MerchandiseDetails{" +
+                "code=" + code +
+                ", data=" + data +
+                '}';
+    }
+
     public int getCode() {
         return code;
     }
@@ -57,6 +65,23 @@ public class MerchandiseDetails {
         private String ctime;
         private String add_time;
         private List<String> img;
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "id='" + id + '\'' +
+                    ", user_id='" + user_id + '\'' +
+                    ", user_name='" + user_name + '\'' +
+                    ", g_id='" + g_id + '\'' +
+                    ", content='" + content + '\'' +
+                    ", goods_c='" + goods_c + '\'' +
+                    ", logistics_c='" + logistics_c + '\'' +
+                    ", service_c='" + service_c + '\'' +
+                    ", ctime='" + ctime + '\'' +
+                    ", add_time='" + add_time + '\'' +
+                    ", img=" + img +
+                    '}';
+        }
 
         public String getId() {
             return id;

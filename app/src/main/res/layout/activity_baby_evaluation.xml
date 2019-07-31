@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.zhanghao.woaisiji.activity.home.BabyEvaluationActivity">
 
+    <include
+        android:id="@+id/toolbar_text"
+        layout="@layout/title_bar_view_layout" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/baby_evaluation_rlv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_text"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

@@ -142,7 +142,7 @@ public class PersonalSettingActivity extends BaseActivity implements View.OnClic
     private void setViewValue() {
         if (!TextUtils.isEmpty(WoAiSiJiApp.getCurrentUserInfo().getPic()))
             Picasso.with(this).load(ServerAddress.SERVER_ROOT + WoAiSiJiApp.getCurrentUserInfo().getPic())
-                    .error(R.drawable.icon_loading)
+                    .error(R.drawable.ic_fubaihui)
                     .transform(new CircleTransform(this))
                     .into(iv_personal_setting_hv);
 

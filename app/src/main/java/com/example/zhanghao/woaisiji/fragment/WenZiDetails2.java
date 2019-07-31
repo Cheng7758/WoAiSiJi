@@ -166,7 +166,6 @@ public class WenZiDetails2 extends Fragment implements ViewPager.OnPageChangeLis
         imageAdapter = new ImageAdapter(detailsBean.getImages(), getActivity());
         vp_product_detail2_banner_carousel.setAdapter(imageAdapter);
         vp_product_detail2_banner_carousel.setOnPageChangeListener(WenZiDetails2.this);
-
     }
 
    /* private String getHtmlData(String bodyHTML) {

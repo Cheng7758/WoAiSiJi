@@ -58,12 +58,12 @@ public class BabyEvaluationAdapter extends RecyclerView.Adapter<BabyEvaluationAd
         if (dataBean.getImg().size() == 1) {
             Glide.with(mActivity).load(ServerAddress.SERVER_ROOT + dataBean.getImg().get(0))
                     .into(holder.evaluate_img1);
-        }else if (dataBean.getImg().size() == 2){
+        } else if (dataBean.getImg().size() == 2) {
             Glide.with(mActivity).load(ServerAddress.SERVER_ROOT + dataBean.getImg().get(0))
                     .into(holder.evaluate_img1);
             Glide.with(mActivity).load(ServerAddress.SERVER_ROOT + dataBean.getImg().get(1))
                     .into(holder.evaluate_img2);
-        }else if (dataBean.getImg().size() == 3){
+        } else if (dataBean.getImg().size() == 3) {
             Glide.with(mActivity).load(ServerAddress.SERVER_ROOT + dataBean.getImg().get(0))
                     .into(holder.evaluate_img1);
             Glide.with(mActivity).load(ServerAddress.SERVER_ROOT + dataBean.getImg().get(1))
@@ -75,7 +75,7 @@ public class BabyEvaluationAdapter extends RecyclerView.Adapter<BabyEvaluationAd
 
     @Override
     public int getItemCount() {
-        return mBeanList.size();
+        return mBeanList != null ? mBeanList.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

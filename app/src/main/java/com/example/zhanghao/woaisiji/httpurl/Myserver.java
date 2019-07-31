@@ -125,7 +125,7 @@ public interface Myserver {
     Observable<BannerBean> getBannerBean();
 
     //宝贝详情列表数据
-    @GET("/APP/Public/evaluate/id/{id}/page/10")
+    @GET("/APP/Public/evaluate/id/{id}")
     Observable<MerchandiseDetails> getMerchandiseDetails(@Path("id") String id);
 
 }

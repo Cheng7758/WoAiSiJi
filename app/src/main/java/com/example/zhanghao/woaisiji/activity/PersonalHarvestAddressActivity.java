@@ -67,7 +67,6 @@ public class PersonalHarvestAddressActivity extends BaseActivity implements View
         // 标题栏
         iv_title_bar_view_left_left = (ImageView) findViewById(R.id.iv_title_bar_view_left_left);
         iv_title_bar_view_left_left.setVisibility(View.VISIBLE);
-        iv_title_bar_view_left_left.setVisibility(View.VISIBLE);
         tv_title_bar_view_centre_title = (TextView) findViewById(R.id.tv_title_bar_view_centre_title);
 
         tv_personal_harvest_address_no_data = (TextView) findViewById(R.id.tv_personal_harvest_address_no_data);

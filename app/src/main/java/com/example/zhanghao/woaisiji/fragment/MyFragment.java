@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
@@ -48,7 +49,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     //2019 6.13
     private RelativeLayout rl_home_my_page_mid_coupon, rl_home_my_page_mid_setting,
             rl_home_my_page_mid_kefu, rl_my_page_mid_referral_code, rl_home_my_page_mid_recommend,
-            rl_my_page_mid_shipping_address, rl_my_page_mid_recruitment,rl_my_page_mid_merchant_login;
+            rl_my_page_mid_shipping_address, rl_my_page_mid_recruitment,rl_my_page_mid_merchant_login,
+            rl_my_page_mid_merchant_phone;
     private LinearLayout ll_my_page_bottom_my_friends, ll_my_page_bottom_my_collection,
             ll_my_page_bottom_my_money_package, ll_my_page_bottom_my_cargo;
     private BroadcastReceiver modifyBroadcastReceiver;
@@ -105,6 +107,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         rl_my_page_mid_shipping_address.setOnClickListener(this);
         rl_my_page_mid_recruitment.setOnClickListener(this);
         rl_my_page_mid_merchant_login.setOnClickListener(this);
+        rl_my_page_mid_merchant_phone.setOnClickListener(this);
 
         ll_my_page_bottom_my_collection.setOnClickListener(this);
         ll_my_page_bottom_my_money_package.setOnClickListener(this);
@@ -129,6 +132,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         rl_my_page_mid_shipping_address = (RelativeLayout) rootView.findViewById(R.id.rl_my_page_mid_shipping_address);
         rl_my_page_mid_recruitment = (RelativeLayout) rootView.findViewById(R.id.rl_my_page_mid_recruitment);
         rl_my_page_mid_merchant_login = (RelativeLayout) rootView.findViewById(R.id.rl_my_page_mid_merchant_login);
+        rl_my_page_mid_merchant_phone = (RelativeLayout) rootView.findViewById(R.id.rl_my_page_mid_merchant_phone);
 
         ll_my_page_bottom_my_friends = (LinearLayout) rootView.findViewById(R.id.ll_my_page_bottom_my_friends);
         ll_my_page_bottom_my_collection = (LinearLayout) rootView.findViewById(R.id.ll_my_page_bottom_my_collection);
@@ -165,6 +169,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rl_my_page_mid_merchant_login://商家登录
                 startActivity(new Intent(getActivity(), MerchantLoginActivitys.class));
+                break;
+            case R.id.rl_my_page_mid_merchant_phone://平台热线
+                    Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "18210521289"));
+                    startActivity(intent2);
                 break;
             case R.id.ll_my_page_bottom_my_friends://我的好友
                 startActivity(new Intent(getActivity(), LoveDriverFriendsActivity.class));

@@ -64,15 +64,15 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
     private HashMap<String, List<String>> cityDataHash = new HashMap<String, List<String>>(); //省份下面的市数据
     private HashMap<String, List<String>> provinceDataHash = new HashMap<String, List<String>>(); //市添加区
 
-    private EditText et_recruitment_input_shop_name, et_recruitment_input_people_name, et_recruitment_input_contact_way,
-            et_recruitment_input_licence_number;
+    private EditText et_recruitment_input_shop_name, et_recruitment_input_people_name,
+            et_recruitment_input_contact_way, et_recruitment_input_licence_number, detail_location;
     private TextView select_file, shop_classify, classify_label, location;
     private CheckBox checkbox_yuedu;
     private Button ruzhu_btn;
     private ImageView recruitment_back;
     private PickerScrollView pickerview;
     private TextView cancel, confirm;
-    private RelativeLayout relative,relativeLayout;
+    private RelativeLayout relative, relativeLayout;
 
     private List<ShopsRuzhuBean.DataBean.ShengBean> mShengBeans;
     private List<ShopsRuzhuBean.DataBean.DpflBean> mDpflBeanList;
@@ -193,6 +193,7 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
         et_recruitment_input_people_name = (EditText) findViewById(R.id.et_recruitment_input_people_name);
         et_recruitment_input_contact_way = (EditText) findViewById(R.id.et_recruitment_input_contact_way);
         et_recruitment_input_licence_number = (EditText) findViewById(R.id.et_recruitment_input_licence_number);
+        detail_location = (EditText) findViewById(R.id.detail_location);
 
         ll_recruitment_province_city_country_root = (LinearLayout) findViewById(R.id.
                 ll_recruitment_province_city_country_root);
@@ -260,30 +261,10 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.ruzhu_btn:
                 if (TextUtils.isEmpty(et_recruitment_input_licence_number.getText().toString())) {
-                    Toast.makeText(RecruitmentActivity.this, "商户名称不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RecruitmentActivity.this, "带 * 号的必填", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (TextUtils.isEmpty(et_recruitment_input_people_name.getText().toString())) {
-                    Toast.makeText(RecruitmentActivity.this, "姓名不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (TextUtils.isEmpty(et_recruitment_input_contact_way.getText().toString())) {
-                    Toast.makeText(RecruitmentActivity.this, "联系方式不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (TextUtils.isEmpty(et_recruitment_input_licence_number.getText().toString())) {
-                    Toast.makeText(RecruitmentActivity.this, "营业执照编号不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (TextUtils.isEmpty(licence_cert)) {
-                    Toast.makeText(RecruitmentActivity.this, "请上传营业执照图片", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if ("请选择".equals(shop_classify.getText().toString())) {
-                    Toast.makeText(RecruitmentActivity.this, "店铺分类不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if ("请选择".equals(classify_label.getText().toString())) {
-                    Toast.makeText(RecruitmentActivity.this, "分类标签不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if ("请选择".equals(location.getText().toString())) {
-                    Toast.makeText(RecruitmentActivity.this, "所在地不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (!checkbox_yuedu.isChecked()) {
+                }
+                if (!checkbox_yuedu.isChecked()) {
                     Toast.makeText(RecruitmentActivity.this, "请勾选协议", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -323,6 +304,7 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
         params.put("contacts", et_recruitment_input_people_name.getText().toString());
         params.put("phone", et_recruitment_input_contact_way.getText().toString());
         params.put("licence_number", et_recruitment_input_licence_number.getText().toString());
+        params.put("address_detail", detail_location.getText().toString());
         params.put("licence_cert", licence_cert);
         params.put("cid", currentDpflPickers.getPickersId());
         params.put("screen", currentFlbqPickers.getPickersId());

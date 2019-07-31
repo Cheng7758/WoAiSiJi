@@ -304,6 +304,29 @@
                     android:layout_alignParentRight="true"
                     android:drawableRight="@drawable/ic_arrow_right" />
             </RelativeLayout>
+            <!--平台热线-->
+            <RelativeLayout
+                android:id="@+id/rl_my_page_mid_merchant_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10">
+
+                <TextView
+                    style="@style/my_page_mid_integral_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/location"
+                    android:textSize="@dimen/sp_16"
+                    android:text="平台热线" />
+
+                <TextView
+                    style="@style/my_page_mid_integral_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@drawable/ic_arrow_right" />
+            </RelativeLayout>
         </LinearLayout>
 
         <!--我的好友-->

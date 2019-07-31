@@ -26,6 +26,7 @@ public class Constants {
             Toast.makeText(WoAiSiJiApp.getContext(), "无法获取到用户UID", Toast.LENGTH_SHORT).show();
             return "";
         }
+
         return MD5Util.getMessageDigest((BYTES + uid.toString()).getBytes());
     }
     // 我爱司机微信appkey

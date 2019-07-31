@@ -18,6 +18,7 @@ import com.example.zhanghao.woaisiji.my.ShopsRuzhuBean;
 import com.example.zhanghao.woaisiji.utils.http.NetManager;
 import com.example.zhanghao.woaisiji.utils.http.VolleyMultipartRequest;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -39,8 +40,8 @@ public class FunctionUtils {
         final String uid = WoAiSiJiApp.getUid();
         final String token = WoAiSiJiApp.token;
         final Map<String, String> params = new HashMap<>();
-        params.put("uid", uid);
-        params.put("token", token);
+        params.put("uid", StringUtils.defaultStr(uid,""));
+        params.put("token", StringUtils.defaultStr(token,""));
         NetManager.getNetManager().getMyService(Myserver.url)
                 .getShopsRuzhuBean(params)
                 .subscribeOn(Schedulers.io())

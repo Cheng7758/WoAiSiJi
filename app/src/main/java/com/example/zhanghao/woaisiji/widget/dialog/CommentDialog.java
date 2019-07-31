@@ -15,6 +15,8 @@ import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.bean.CommentItem;
 import com.example.zhanghao.woaisiji.mvp.presenter.CirclePresenter;
 import com.example.zhanghao.woaisiji.utils.DatasUtil;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 
 /*import com.yiw.circledemo.R;
 import com.yiw.circledemo.bean.CommentItem;
@@ -72,7 +74,7 @@ public class CommentDialog extends Dialog implements
 		copyTv.setOnClickListener(this);
 		TextView deleteTv = (TextView) findViewById(R.id.deleteTv);
 		if (mCommentItem != null
-				&& DatasUtil.curUser.getId().equals(
+				&& StringUtils.defaultStr(UserManager.myId,"").equals(
 						mCommentItem.getUser().getId())) {
 			deleteTv.setVisibility(View.VISIBLE);
 		} else {

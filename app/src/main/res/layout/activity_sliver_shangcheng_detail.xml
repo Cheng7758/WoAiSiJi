@@ -53,7 +53,7 @@
                 android:id="@+id/image_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_join_us_merchant_position" />
+                android:src="@drawable/icon_openmap_focuse_mark" />
 
             <LinearLayout
                 android:layout_width="0dp"

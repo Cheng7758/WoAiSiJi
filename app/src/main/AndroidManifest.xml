@@ -504,7 +504,6 @@
             android:name="android.max_aspect"
             android:value="2.1" />
 
-
         <activity android:name=".activity.send.SendGoldActivity" />
         <activity android:name=".activity.send.SendSilverActivity" />
         <activity android:name=".activity.send.BuyGlodActivity" />
@@ -538,8 +537,9 @@
         <activity android:name=".activity.comment.ReleaseDynamicActivity2" />
         <activity android:name=".activity.FBHStoreActivity2" />
         <activity android:name=".activity.announcement.AnnouncementDetailsActivity" />
-        <activity android:name=".activity.my.MerchantLoginActivitys"></activity>
-        <activity android:name=".activity.my.MyEvaluateActivity"></activity>
+        <activity android:name=".activity.my.MerchantLoginActivitys" />
+        <activity android:name=".activity.my.MyEvaluateActivity" />
+        <activity android:name=".activity.home.BabyEvaluationActivity"></activity>
     </application>
 
 </manifest>

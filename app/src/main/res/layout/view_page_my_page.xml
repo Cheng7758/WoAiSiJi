@@ -132,16 +132,16 @@
                     style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_16"
                     android:drawableLeft="@drawable/home_my_page_mid_coupon"
-                    android:text="优惠券" />
+                    android:text="优惠券"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:drawableRight="@drawable/ic_arrow_right"/>
+                    android:drawableRight="@drawable/ic_arrow_right" />
             </RelativeLayout>
             <!--设置-->
             <RelativeLayout
@@ -155,9 +155,9 @@
                     style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_16"
                     android:drawableLeft="@drawable/home_my_page_mid_setting"
-                    android:text="设  置" />
+                    android:text="设  置"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
@@ -171,17 +171,17 @@
                 android:id="@+id/rl_home_my_page_mid_kefu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:paddingBottom="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10">
+                android:paddingTop="@dimen/dp_10"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/sp_16"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/home_my_page_mid_kefu"
-                    android:text="客  服" />
+                    android:text="客  服"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
@@ -193,17 +193,18 @@
             <!--我的推荐-->
             <RelativeLayout
                 android:id="@+id/rl_home_my_page_mid_recommend"
-                android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10">
+
                 <TextView
+                    style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_16"
                     android:drawableLeft="@drawable/home_my_page_mid_recommend"
                     android:text="我的推荐"
-                    style="@style/my_page_mid_integral_style"/>
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
@@ -224,9 +225,9 @@
                     style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_16"
                     android:drawableLeft="@drawable/home_my_page_mid_referral_code"
-                    android:text="推荐码" />
+                    android:text="推荐码"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
@@ -247,9 +248,9 @@
                     style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_16"
                     android:drawableLeft="@drawable/location"
-                    android:text="收货地址" />
+                    android:text="收货地址"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
@@ -271,8 +272,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/recruitment"
-                    android:textSize="@dimen/sp_16"
-                    android:text="商家入驻" />
+                    android:text="商家入驻"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
@@ -294,8 +295,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/recruitment"
-                    android:textSize="@dimen/sp_16"
-                    android:text="商家登录" />
+                    android:text="商家登录"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"
@@ -304,6 +305,7 @@
                     android:layout_alignParentRight="true"
                     android:drawableRight="@drawable/ic_arrow_right" />
             </RelativeLayout>
+
             <!--平台热线-->
             <RelativeLayout
                 android:id="@+id/rl_my_page_mid_merchant_phone"
@@ -316,9 +318,9 @@
                     style="@style/my_page_mid_integral_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/location"
-                    android:textSize="@dimen/sp_16"
-                    android:text="平台热线" />
+                    android:drawableLeft="@drawable/platform_hotline"
+                    android:text="平台热线"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     style="@style/my_page_mid_integral_style"

@@ -75,7 +75,7 @@ public class ProductDetailActivity2 extends BaseActivity implements View.OnClick
                 Gson gson = new Gson();
                 RespFBHCommodityDetails detailsbean = gson.fromJson(response, RespFBHCommodityDetails.class);
                 if (detailsbean.getCode() == 200) {
-                    wenZiDetails = new WenZiDetails2(ProductDetailActivity2.this, detailsbean.getData(),type);
+                    wenZiDetails = new WenZiDetails2(ProductDetailActivity2.this, detailsbean.getData(), type);
                     wenZiDetails.setSendDataActivity(new WenZiDetails2.SendDataActivityListener() {
                         @Override
                         public void sendData(String data) {

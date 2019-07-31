@@ -5,6 +5,7 @@ import com.example.zhanghao.woaisiji.bean.CancellationOrder;
 import com.example.zhanghao.woaisiji.bean.billing.BillingDetailsBean;
 import com.example.zhanghao.woaisiji.bean.friend.FriendsListBean;
 import com.example.zhanghao.woaisiji.bean.homesearch.HomeSearch;
+import com.example.zhanghao.woaisiji.bean.merchandise.MerchandiseDetails;
 import com.example.zhanghao.woaisiji.bean.my.CancelCollectionBean;
 import com.example.zhanghao.woaisiji.bean.my.CheckBogisticsBean;
 import com.example.zhanghao.woaisiji.bean.my.MyCollectionBean;
@@ -122,5 +123,9 @@ public interface Myserver {
     //福百惠商城广告轮播图
     @GET("/APP/Public/bander/name/shop_top")
     Observable<BannerBean> getBannerBean();
+
+    //宝贝详情列表数据
+    @GET("/APP/Public/evaluate/id/{id}/page/10")
+    Observable<MerchandiseDetails> getMerchandiseDetails(@Path("id") String id);
 
 }

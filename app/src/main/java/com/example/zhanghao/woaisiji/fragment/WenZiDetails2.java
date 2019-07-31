@@ -3,11 +3,9 @@ package com.example.zhanghao.woaisiji.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,33 +16,17 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.zhanghao.woaisiji.R;
-import com.example.zhanghao.woaisiji.WoAiSiJiApp;
-import com.example.zhanghao.woaisiji.activity.CommentActivity;
-import com.example.zhanghao.woaisiji.activity.ProductDetailActivity2;
+import com.example.zhanghao.woaisiji.activity.home.BabyEvaluationActivity;
 import com.example.zhanghao.woaisiji.adapter.ImageAdapter;
-import com.example.zhanghao.woaisiji.bean.ProductPictureBean;
 import com.example.zhanghao.woaisiji.bean.fbh.FBHBusinessDetails;
-import com.example.zhanghao.woaisiji.global.ServerAddress;
-import com.example.zhanghao.woaisiji.resp.RespFBHCommodityDetails;
 import com.example.zhanghao.woaisiji.view.AmountView;
-import com.example.zhanghao.woaisiji.view.RoundImageView;
-import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhanghao on 2016/9/6.
@@ -59,6 +41,7 @@ public class WenZiDetails2 extends Fragment implements ViewPager.OnPageChangeLis
     private ImageAdapter imageAdapter;
     private ViewPager vp_product_detail2_banner_carousel;
     private LinearLayout ll_product_detail2_banner_carousel_dots;
+    private RelativeLayout baby_evaluation;
     //商品名称
     private TextView tv_product_detail2_product_title, tv_product_detail2_product_price,
             tv_product_detail2_product_number, tv_product_detail2_product_introduction;
@@ -71,7 +54,7 @@ public class WenZiDetails2 extends Fragment implements ViewPager.OnPageChangeLis
     private SendDataActivityListener listener;
 
     @SuppressLint("ValidFragment")
-    public WenZiDetails2(Context context, FBHBusinessDetails detailsBean,int pType) {
+    public WenZiDetails2(Context context, FBHBusinessDetails detailsBean, int pType) {
         this.detailsBean = detailsBean;
         this.mContext = context;
         mType = pType;
@@ -98,6 +81,8 @@ public class WenZiDetails2 extends Fragment implements ViewPager.OnPageChangeLis
         tv_product_detail2_product_introduction = (TextView) view.findViewById(R.id.tv_product_detail2_product_introduction);
         //详细内容
         tv_product_detail2_product_detail_content = (WebView) view.findViewById(R.id.tv_product_detail2_product_detail_content);
+        //宝贝评价
+        baby_evaluation = (RelativeLayout) view.findViewById(R.id.baby_evaluation);
         setValue();
         return view;
     }
@@ -106,7 +91,7 @@ public class WenZiDetails2 extends Fragment implements ViewPager.OnPageChangeLis
         //以下都是设置参数
         if (mType == 0) {
             tv_product_detail2_product_price.setText(detailsBean.getPrice());
-        }else if (mType == 1) {
+        } else if (mType == 1) {
             tv_product_detail2_product_price.setText(detailsBean.getSilver());
         }
         tv_product_detail2_product_title.setText(detailsBean.getTitle());
@@ -123,9 +108,20 @@ public class WenZiDetails2 extends Fragment implements ViewPager.OnPageChangeLis
                 }
             }
         });
+        Log.e("------id", detailsBean.getId());
+        //宝贝评价
+        baby_evaluation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, BabyEvaluationActivity.class);
+                intent.putExtra("id", detailsBean.getId());
+                startActivity(intent);
+            }
+        });
 
         String id = detailsBean.getId();
-        tv_product_detail2_product_detail_content.loadUrl("http://wasj.zhangtongdongli.com/Admin/Public/impublic/id/" + id + "/type/2");
+        tv_product_detail2_product_detail_content.loadUrl("http://wasj.zhangtongdongli.com/Admin/Public/impublic/id/"
+                + id + "/type/2");
         WebSettings settings = tv_product_detail2_product_detail_content.getSettings();
         settings.setJavaScriptEnabled(true);
         //扩大比例的缩放

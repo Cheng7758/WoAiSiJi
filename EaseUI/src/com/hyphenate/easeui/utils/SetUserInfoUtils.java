@@ -106,7 +106,7 @@ public class SetUserInfoUtils {
         };
         requestQueue.add(getFriendsInfo);*/
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("token",0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("token", 0);
         String token = sharedPreferences.getString("token", "");
         Log.e("-----token2", token.toString());
         Map<String, String> params = new HashMap<>();
@@ -123,7 +123,7 @@ public class SetUserInfoUtils {
 
                     @Override
                     public void onNext(Bean value) {
-                        Log.e("-----username",value.toString());
+                        Log.e("-----username", value.toString());
 
                         if (value.code == 200) {
                             try {
@@ -138,12 +138,12 @@ public class SetUserInfoUtils {
 
                                 String headpic = jsonObject.getString("headpic");
                                 if (ivHeadPic != null)
-                                Glide.with(context.getApplicationContext()).load("http://wasj.zhangtongdongli.com" + headpic).into(ivHeadPic);
+                                    Glide.with(context.getApplicationContext()).load("http://wasj.zhangtongdongli.com" + headpic).into(ivHeadPic);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            }
+                        }
                     }
 
                     @Override
@@ -157,20 +157,25 @@ public class SetUserInfoUtils {
                     }
                 });
     }
-    public static class Bean{
+
+    public static class Bean {
         public int code;
         public String msg;
         public Object data;
-        public String getNickName(String uid){
+
+        public String getNickName(String uid) {
             return get(uid, "nickname");
         }
-        public String getPic(String uid){
-            return get(uid,"headpic");
+
+        public String getPic(String uid) {
+            return get(uid, "headpic");
         }
-        public String getUid(String uid){
-            return get(uid,"uid");
+
+        public String getUid(String uid) {
+            return get(uid, "uid");
         }
-        private String get(String uid,String key){
+
+        private String get(String uid, String key) {
             try {
                 JSONObject jsonObject = new JSONObject(String.valueOf(data)).getJSONObject(uid);
                 return jsonObject.getString(key);
@@ -179,6 +184,7 @@ public class SetUserInfoUtils {
             }
             return "";
         }
+
         @Override
         public String toString() {
             return MGson.toJson(this);

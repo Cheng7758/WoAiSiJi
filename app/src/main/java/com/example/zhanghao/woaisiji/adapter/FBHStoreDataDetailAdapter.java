@@ -39,7 +39,8 @@ public class FBHStoreDataDetailAdapter extends BaseQuickAdapter<RespCommodityLis
         } else if (mType == 1) {
             viewHolder.tv_item_fbh_store_detail_price.setText("￥" + item.getSilver());
         }
-        Picasso.with(context).load(item.getCover()).error(R.drawable.weixianshi).into(viewHolder.iv_item_fbh_store_detail_shangpintu);
+        Picasso.with(context).load(item.getCover()).error(R.drawable.weixianshi).
+                into(viewHolder.iv_item_fbh_store_detail_shangpintu);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

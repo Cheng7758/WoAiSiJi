@@ -27,6 +27,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportVsersion"
     api "com.android.support:recyclerview-v7:$supportVsersion"
     implementation "com.android.support:design:$supportVsersion"
+
+    api 'com.blankj:utilcode:+'
 }
 
 task sourcesJar(type: Jar) {

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.activity.ProductDetailActivity2;
 import com.example.zhanghao.woaisiji.activity.SliverIntegralStoreDetail;
@@ -97,7 +98,7 @@ public class SearchResultAdapter extends CommonAdapter<SearchResult.DataBean.Ite
                     Intent intent = new Intent(mLayoutInflater.getContext(), SliverIntegralStoreDetail.class);
 //                intent.putExtra("IntentJoinToDetailDataId", item.getId());
                     intent.putExtra("IntentSliverDetailCommodityID", storeBean.getId());
-                    mLayoutInflater.getContext().startActivity(intent);
+                    ActivityUtils.startActivity(intent);
                     Toast.makeText(mLayoutInflater.getContext(), "商家店铺", Toast.LENGTH_SHORT).show();
                 }
             });

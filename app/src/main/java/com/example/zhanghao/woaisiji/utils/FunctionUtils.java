@@ -8,6 +8,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.activity.RecruitmentActivity;
 import com.example.zhanghao.woaisiji.activity.send.JoinAutoActivity;
@@ -60,7 +61,7 @@ public class FunctionUtils {
                             PrefUtils.setString(toActivity, "GeographicInfo", geographicInfo);
                         PrefUtils.setString(toActivity, "RecruitDpfl", dpfl);
                         PrefUtils.setString(toActivity, "RecruitFlbq", flbq);
-                        toActivity.startActivity(new Intent(toActivity, JoinAutoActivity.class));
+                        ActivityUtils.startActivity(new Intent(toActivity, JoinAutoActivity.class));
                     }
 
                     @Override
@@ -103,7 +104,7 @@ public class FunctionUtils {
                             PrefUtils.setString(toActivity, "GeographicInfo", geographicInfo);
                         PrefUtils.setString(toActivity, "RecruitDpfl", dpfl);
                         PrefUtils.setString(toActivity, "RecruitFlbq", flbq);
-                        toActivity.startActivity(new Intent(toActivity, RecruitmentActivity.class));
+                        ActivityUtils.startActivity(new Intent(toActivity, RecruitmentActivity.class));
                     }
 
                     @Override

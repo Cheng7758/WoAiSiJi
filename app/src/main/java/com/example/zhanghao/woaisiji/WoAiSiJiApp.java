@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.example.zhanghao.woaisiji.bean.MemberShipInfosBean;
 import com.example.zhanghao.woaisiji.bean.my.PersonalInfoBean;
@@ -158,6 +160,13 @@ public class WoAiSiJiApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Utils.init(this);
+        CrashUtils.init(new CrashUtils.OnCrashListener() {
+            @Override
+            public void onCrash(String crashInfo, Throwable e) {
+                Log.e("AppCrash", "onCrash: ", e);
+            }
+        });
         //初始化上下文
         context = getApplicationContext();
         //获取主线程id

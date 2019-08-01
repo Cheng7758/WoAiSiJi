@@ -50,7 +50,7 @@ public class Constants {
         } catch (NoSuchAlgorithmException e) {
             System.out.println(e);
         }
-        ToastUtils.showShort("密码架米失败");
+        ToastUtils.showShort("密码加密失败");
         return "";
     }
     // 我爱司机微信appkey

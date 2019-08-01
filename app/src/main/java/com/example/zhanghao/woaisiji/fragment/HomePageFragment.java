@@ -218,7 +218,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         topLayout = (LinearLayout) rootView.findViewById(R.id.topLayout);
 
         banner = (ImageView) rootView.findViewById(R.id.app_body_banner);//条幅
-        upview1 = (UPMarqueeView) rootView.findViewById(R.id.upview1);//上下轮播，司机公告右边
+        upview1 = (UPMarqueeView) rootView.findViewById(R.id.upview1);//上下轮播，平台公告
 
         //司机精选下面6张图片
         goodImgs[0] = (ImageView) rootView.findViewById(R.id.iv_goods1);
@@ -639,7 +639,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 // AdvertisementWebViewActivity.class);
                 Intent intent = new Intent(getActivity(), AnnouncementDetailsActivity.class);
                 intent.putExtra("id", notice.get(position).getNid());
-//                intent.putExtra("content", notice.get(position).getTitle());
+                intent.putExtra("title", notice.get(position).getTitle());
                 startActivity(intent);
             }
         });

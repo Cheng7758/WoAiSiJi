@@ -2,9 +2,12 @@ package com.example.zhanghao.woaisiji.activity.announcement;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
@@ -12,11 +15,27 @@ import com.example.zhanghao.woaisiji.global.ServerAddress;
 public class AnnouncementDetailsActivity extends AppCompatActivity {
     private WebView webView;
     private WebSettings settings;
+    private ImageView iv_title_bar_view_left_left;
+    private TextView tv_title_bar_view_centre_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_details);
+        String title = getIntent().getStringExtra("title");
+        // 标题栏
+        iv_title_bar_view_left_left = (ImageView) findViewById(R.id.iv_title_bar_view_left_left);
+        iv_title_bar_view_left_left.setVisibility(View.VISIBLE);
+        tv_title_bar_view_centre_title = (TextView) findViewById(R.id.tv_title_bar_view_centre_title);
+        tv_title_bar_view_centre_title.setVisibility(View.VISIBLE);
+        tv_title_bar_view_centre_title.setText(title);
+        iv_title_bar_view_left_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         webView = (WebView) findViewById(R.id.announcement_webView);
         initData();
     }

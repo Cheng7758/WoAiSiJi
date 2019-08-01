@@ -145,7 +145,7 @@
                 android:lineSpacingExtra="@dimen/dp_5"
                 android:text="" />
         </LinearLayout>
-        <!--宝贝详情-->
+        <!--宝贝评价-->
         <RelativeLayout
             android:id="@+id/baby_evaluation"
             android:layout_width="match_parent"

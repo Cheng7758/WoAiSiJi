@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.zhanghao.woaisiji.activity.announcement.AnnouncementDetailsActivity">
 
+    <include
+        android:id="@+id/toolbar_text"
+        layout="@layout/title_bar_view_layout" />
+
     <WebView
         android:id="@+id/announcement_webView"
         android:layout_width="match_parent"
+        android:layout_below="@id/toolbar_text"
         android:layout_height="match_parent"/>
 
 </RelativeLayout>

@@ -55,12 +55,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private SharedPreferences mSharedPreferences;
 
     private CheckBox ck_login_agree_protocol;
+    private String mPhone_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+
+
         initView();
         // 如果用户名改变，清空用户密码
         editUsername.addTextChangedListener(new TextWatcher() {
@@ -99,6 +102,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onRestart();
         initView();
         initData();
+
+        mPhone_number = getIntent().getStringExtra("phone_number");
+        if (!TextUtils.isEmpty(mPhone_number)) {
+            editUsername.setText(mPhone_number);
+        }
     }
 
     private void initData() {
@@ -107,6 +115,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         if (!TextUtils.isEmpty(username)) {
             editUsername.setText(username);
         }
+
         if (!TextUtils.isEmpty(password)) {
 //            editPassword.setText(password);
         }
@@ -193,6 +202,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         WoAiSiJiApp.mRequestQueue.add(loginRequest);
     }
+
     private void qianbao() {
         StringRequest registerRequest = new StringRequest(Request.Method.POST,
                 ServerAddress.URL_MY_PERSONAL_INFO_MY_WALLET, new Response.Listener<String>() {
@@ -205,9 +215,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if (respPersonalWallet.getCode() == 200) {
                     SharedPrefrenceUtils.putObject(ActivityUtils.getTopActivity(), "yue", respPersonalWallet);
                     PersonalWalletBean data = respPersonalWallet.getData();
-                   UserManager.silver  = data.getSilver();
+                    UserManager.silver = data.getSilver();
                     UserManager.balance = data.getBalance();
-                    UserManager.gold  = data.getScore();
+                    UserManager.gold = data.getScore();
                     UserManager.storeGold = data.getStore_score();
                 } else {
                     if (!android.text.TextUtils.isEmpty(respPersonalWallet.getMsg()))
@@ -234,6 +244,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         WoAiSiJiApp.mRequestQueue.add(registerRequest);
     }
+
     /**
      * 获取用户信息
      */

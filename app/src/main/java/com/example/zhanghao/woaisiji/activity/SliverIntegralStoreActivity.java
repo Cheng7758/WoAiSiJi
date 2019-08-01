@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,11 +23,19 @@ import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.adapter.SliverIntegralStoreAdapter;
 import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
+import com.example.zhanghao.woaisiji.my.ShopsRuzhuBean;
 import com.example.zhanghao.woaisiji.resp.RespMerchantList;
+import com.example.zhanghao.woaisiji.utils.PrefUtils;
 import com.example.zhanghao.woaisiji.view.SiJiWenDaListView;
+import com.example.zhanghao.woaisiji.widget.PickerView.Pickers;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.wx.wheelview.adapter.ArrayWheelAdapter;
+import com.wx.wheelview.widget.WheelView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,8 +43,27 @@ import java.util.Map;
  */
 public class SliverIntegralStoreActivity extends BaseActivity {
 
-    private LinearLayout ll_sliver_integral_store_location, ll_sliver_integral_store_province, ll_sliver_integral_store_city, ll_sliver_integral_store_country;
-    private TextView tv_sliver_integral_store_province, tv_sliver_integral_store_city, tv_sliver_integral_store_country;
+    private LinearLayout ll_sliver_integral_store_location, ll_sliver_integral_store_province,
+            ll_sliver_integral_store_city, ll_sliver_integral_store_country,
+            ll_recruitment_province_city_country_root;;
+    private TextView tv_sliver_integral_store_province, tv_sliver_integral_store_city,
+            tv_sliver_integral_store_country;
+    private RelativeLayout relative;
+    private TextView cancel, confirm;   //取消 确定
+    private Pickers currentDpflPickers, currentFlbqPickers;
+
+    //省的WheelView控件/市的WheelView控件//区的WheelView控件/
+    private WheelView wheelview_recruitment_province, wheelview_recruitment_city,
+            wheelview_recruitment_country;
+    private List<String> provinceData = new ArrayList<>();  //省份
+    private HashMap<String, List<String>> cityDataHash = new HashMap<String, List<String>>();
+    //省份下面的市数据
+    private HashMap<String, List<String>> provinceDataHash = new HashMap<String, List<String>>();
+    //市添加区
+    private List<ShopsRuzhuBean.DataBean.ShengBean> mShengBeans;
+    private List<ShopsRuzhuBean.DataBean.DpflBean> mDpflBeanList;
+    private List<ShopsRuzhuBean.DataBean.FlbqBean> mFlbqBeanList;
+    private boolean isFirst = true;
 
     private SiJiWenDaListView listView;
     private RespMerchantList respMerchantDetail;
@@ -49,14 +77,131 @@ public class SliverIntegralStoreActivity extends BaseActivity {
     public BaiduMapLocationListener myListener = new BaiduMapLocationListener();
     private double mLatitude;
     private double mLongitude;
+    private ShopsRuzhuBean.DataBean.ShiBean mShiBean;
+    private ShopsRuzhuBean.DataBean.XianBean mXianBean;
+    private String imageName, currentXian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sliver_integral_store);
-        initLocation();
-        initView();
         getDataFromServer();
+        initLocation();
+        initData();
+        initView();
+        initListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initLocation();
+    }
+
+    //进入银积分商城页面隐藏滚动选择器
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && isFirst) {
+            isFirst = false;
+            relative.setVisibility(View.GONE);
+            ll_recruitment_province_city_country_root.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 通过地址获得加盟商家列表
+     */
+    private void getAddressDataFromServer() {
+        String url = ServerAddress.URL_JOIN_PARTNER_REQUEST_ADDRESS_LIST;  //加盟商家列表数据
+        StringRequest questionRequest = new StringRequest(Request.Method.POST, url, new Response
+                .Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (TextUtils.isEmpty(response))
+                    return;
+                Gson gson = new Gson();
+                respMerchantDetail = gson.fromJson(response, RespMerchantList.class);
+                if (respMerchantDetail.getCode() == 200) {
+                    if (respMerchantDetail.getData() != null) {
+                        adapter.getDataSource().clear();
+                        adapter.getDataSource().addAll(respMerchantDetail.getData());
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        listView.removeAllViewsInLayout();
+                        Toast.makeText(getApplicationContext(), "暂无数据", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (respMerchantDetail.getCode() == 400) {
+                    listView.removeAllViewsInLayout();
+                    Toast.makeText(getApplicationContext(), "暂无数据", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("sheng", mShiBean.getParent_id());
+                params.put("shi", mShiBean.getRegion_id());
+
+                if (mShiBean.getXian() != null) {
+                    params.put("xian", mXianBean.getRegion_id());
+                } else {
+                    params.put("xian", "");
+                }
+                return params;
+            }
+        };
+        WoAiSiJiApp.mRequestQueue.add(questionRequest);
+    }
+
+    private void initData() {
+        currentDpflPickers = new Pickers();
+        currentFlbqPickers = new Pickers();
+
+        String shengStr = PrefUtils.getString(this, "GeographicInfo", "");
+        String dpfl = PrefUtils.getString(this, "RecruitDpfl", "");
+        String flbq = PrefUtils.getString(this, "RecruitFlbq", "");
+        Gson gson = new Gson();
+        if (!TextUtils.isEmpty(flbq))
+            mFlbqBeanList = gson.fromJson(flbq, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean
+                    .FlbqBean>>() {
+            }.getType());
+        if (!TextUtils.isEmpty(dpfl))
+            mDpflBeanList = gson.fromJson(dpfl, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean
+                    .DpflBean>>() {
+            }.getType());
+        if (!TextUtils.isEmpty(shengStr))
+            mShengBeans = gson.fromJson(shengStr, new TypeToken<ArrayList<ShopsRuzhuBean.DataBean
+                    .ShengBean>>() {
+            }.getType());
+        if (mShengBeans != null && mShengBeans.size() > 0) {
+            for (int i = 0; i < mShengBeans.size(); i++) {
+                ShopsRuzhuBean.DataBean.ShengBean shengBean = mShengBeans.get(i);
+                provinceData.add(shengBean.getRegion_name());
+                List<String> cityDataList = new ArrayList<>();  //shi
+                for (int j = 0; j < shengBean.getShi().size(); j++) {
+                    ShopsRuzhuBean.DataBean.ShiBean shiBean = shengBean.getShi().get(j);
+                    List<String> countyDataList = new ArrayList<>();  //县
+                    cityDataList.add(shiBean.getRegion_name());
+//                    Log.d("Log",mShengBeans.get(i).getRegion_name()+" "+shiBean.getRegion_name());
+                    if (shiBean.getXian() != null && shiBean.getXian().size() > 0) {
+                        for (int k = 0; k < shiBean.getXian().size(); k++) {
+                            ShopsRuzhuBean.DataBean.XianBean xianBean = shiBean.getXian().get(k);
+                            countyDataList.add(xianBean.getRegion_name());
+                        }
+                    } else {
+                        countyDataList.add("");
+                    }
+                    cityDataHash.put(shiBean.getRegion_name(), countyDataList);
+                }
+                provinceDataHash.put(shengBean.getRegion_name(), cityDataList);
+            }
+        }
     }
 
     private void initView() {
@@ -69,7 +214,8 @@ public class SliverIntegralStoreActivity extends BaseActivity {
         tv_sliver_integral_store_city = (TextView) findViewById(R.id.tv_sliver_integral_store_city);
         tv_sliver_integral_store_country = (TextView) findViewById(R.id.tv_sliver_integral_store_country);
 
-        listView = (SiJiWenDaListView) findViewById(R.id.lv_sliver_integral_store_show_data);
+//        listView = (SiJiWenDaListView) findViewById(R.id.lv_sliver_integral_store_show_data);
+        listView = (SiJiWenDaListView) findViewById(R.id.lv_join_auto_us_show_data);
         adapter = new SliverIntegralStoreAdapter(SliverIntegralStoreActivity.this);
         listView.setAdapter(adapter);
 
@@ -77,21 +223,121 @@ public class SliverIntegralStoreActivity extends BaseActivity {
         ll_sliver_integral_store_province = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_province);
         ll_sliver_integral_store_city = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_city);
         ll_sliver_integral_store_country = (LinearLayout) findViewById(R.id.ll_sliver_integral_store_country);
-        initListener();
+
+        //列表上面的位置布局
+        ll_sliver_integral_store_location = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_location);
+        ll_sliver_integral_store_province = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_province);
+        ll_sliver_integral_store_city = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_city);
+        ll_sliver_integral_store_country = (LinearLayout) findViewById(R.id
+                .ll_sliver_integral_store_country);
+        relative = (RelativeLayout) findViewById(R.id.relative);
+        cancel = (TextView) findViewById(R.id.cancel);
+        confirm = (TextView) findViewById(R.id.confirm);
+        //确定  取消
+        ll_recruitment_province_city_country_root = (LinearLayout) findViewById(R.id
+                .ll_recruitment_province_city_country_root);
+        initWheelView();
     }
 
+    //初始化滚动选择器
+    private void initWheelView() {
+        wheelview_recruitment_province = (WheelView) findViewById(R.id
+                .wheelview_recruitment_province);
+        wheelview_recruitment_province.setWheelAdapter(new ArrayWheelAdapter(this));    //滚动选择器用的适配器
+        wheelview_recruitment_province.setSkin(WheelView.Skin.Holo);
+        if (provinceData != null && provinceData.size() > 0)
+            wheelview_recruitment_province.setWheelData(provinceData);
+        WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
+        style.selectedTextSize = 20;
+        style.textSize = 16;
+        wheelview_recruitment_province.setStyle(style);
+
+        wheelview_recruitment_city = (WheelView) findViewById(R.id.wheelview_recruitment_city);
+        wheelview_recruitment_city.setWheelAdapter(new ArrayWheelAdapter(this));
+        wheelview_recruitment_city.setSkin(WheelView.Skin.Holo);
+        List<String> lis = new ArrayList<>();
+        try {
+            lis = provinceDataHash.get(provinceData.get(
+                    wheelview_recruitment_province.getSelection()));
+        } catch (Exception e) {
+
+        }
+        if (lis != null && lis.size() >= 1)
+            wheelview_recruitment_city.setWheelData(lis);
+        wheelview_recruitment_city.setStyle(style);
+        wheelview_recruitment_province.join(wheelview_recruitment_city);
+        wheelview_recruitment_province.joinDatas(provinceDataHash);
+
+        wheelview_recruitment_country = (WheelView) findViewById(R.id
+                .wheelview_recruitment_country);
+        wheelview_recruitment_country.setWheelAdapter(new ArrayWheelAdapter(this));
+        wheelview_recruitment_country.setSkin(WheelView.Skin.Holo);
+        List<String> strings1 = new ArrayList<>();
+        try {
+            strings1 = cityDataHash.get(lis.get(wheelview_recruitment_city.getSelection()));
+
+        } catch (Exception e) {
+
+        }
+        if (strings1 != null && strings1.size() > 0)
+            wheelview_recruitment_country.setWheelData(strings1);
+        wheelview_recruitment_country.setStyle(style);
+        wheelview_recruitment_city.join(wheelview_recruitment_country);
+        wheelview_recruitment_city.joinDatas(cityDataHash);
+    }
+
+    //列表上面的定位功能
     private void initListener() {
         ll_sliver_integral_store_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SliverIntegralStoreActivity.this, "定位系统在优化中~",
-                        Toast.LENGTH_SHORT).show();
+                relative.setVisibility(View.VISIBLE);
+                ll_recruitment_province_city_country_root.setVisibility(View.VISIBLE);
             }
         });
+        //左上角返回按钮
         iv_title_bar_view_left_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        //取消
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                relative.setVisibility(View.GONE);
+                ll_recruitment_province_city_country_root.setVisibility(View.GONE);
+            }
+        });
+        //确定
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                relative.setVisibility(View.GONE);
+                ll_recruitment_province_city_country_root.setVisibility(View.GONE);
+                mShiBean = mShengBeans.get
+                        (wheelview_recruitment_province.getCurrentPosition()).getShi()
+                        .get(wheelview_recruitment_city.getCurrentPosition());
+                if (mShiBean.getXian() != null) {
+                    mXianBean = mShiBean.getXian().get
+                            (wheelview_recruitment_country
+                                    .getCurrentPosition());
+                    currentXian = mXianBean.getRegion_name();
+                } else {
+                    currentXian = "";
+                }
+
+                tv_sliver_integral_store_province.setText(provinceData.get
+                        (wheelview_recruitment_province.getCurrentPosition()));   //省
+                tv_sliver_integral_store_city.setText(mShiBean.getRegion_name());    //市
+                tv_sliver_integral_store_country.setText(currentXian);  //区县
+
+                getAddressDataFromServer();
             }
         });
     }
@@ -118,7 +364,7 @@ public class SliverIntegralStoreActivity extends BaseActivity {
     }
 
     private void getDataFromServer() {
-        String url = ServerAddress.URL_JOIN_PARTNER_REQUEST_JOIN_LIST;
+        String url = ServerAddress.URL_JOIN_PARTNER_REQUEST_JOIN_LIST;  //银积分商城列表数据
         StringRequest questionRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -132,8 +378,7 @@ public class SliverIntegralStoreActivity extends BaseActivity {
                     }
                 } else if (respMerchantDetail.getCode() == 400) {
                     listView.removeAllViewsInLayout();
-                    Toast.makeText(getApplicationContext(), "暂无数据",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "暂无数据", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {

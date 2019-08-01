@@ -141,7 +141,7 @@
                 android:textSize="@dimen/sp_18"
                 android:inputType="number"
                 android:maxLength="6"
-                android:hint="填写邀请码（非必填）"
+                android:hint="填写邀请码（必填）"
                 android:background="#ffffff"/>
         </LinearLayout>
         <View

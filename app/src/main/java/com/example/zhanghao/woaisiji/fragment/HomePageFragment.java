@@ -334,7 +334,9 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                         Log.d("TTTT", "弹出提示");
                     }
                 }
-                startActivity(new Intent(getActivity(), SliverIntegralStoreActivity.class));
+                //跳转到银积分商城页面
+                FunctionUtils.requestSilverIntegral(getActivity());
+//                startActivity(new Intent(getActivity(), SliverIntegralStoreActivity.class));
                 /*} else {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                 }*/

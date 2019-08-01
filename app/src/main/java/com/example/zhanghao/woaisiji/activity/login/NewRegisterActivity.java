@@ -183,6 +183,24 @@ public class NewRegisterActivity extends BaseActivity implements View.OnClickLis
                     verificationPwd = false;
             }
         });
+        //邀请码
+        et_new_register_input_invitation_code.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().length() == 6) {
+                    verificationCode = true;
+                } else
+                    verificationCode = false;
+            }
+        });
     }
 
     private void setGoLogin() {
@@ -264,7 +282,7 @@ public class NewRegisterActivity extends BaseActivity implements View.OnClickLis
 //            Toast.makeText(NewRegisterActivity.this, "请阅读协议", Toast.LENGTH_SHORT).show();
 //            return;
 //        }
-
+        final String phone_number = et_new_register_input_phone_number.getText().toString();
         StringRequest registerRequest = new StringRequest(Request.Method.POST, ServerAddress.URL_USER_NEW_REGISTER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -275,6 +293,7 @@ public class NewRegisterActivity extends BaseActivity implements View.OnClickLis
                 if (respNull.getCode() == 200) {
                     Toast.makeText(NewRegisterActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(NewRegisterActivity.this, LoginActivity.class);
+                    intent.putExtra("phone_number", phone_number);
                     startActivity(intent);
                     finish();
                 } else {

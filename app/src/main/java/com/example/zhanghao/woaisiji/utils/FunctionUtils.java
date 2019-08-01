@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.activity.RecruitmentActivity;
+import com.example.zhanghao.woaisiji.activity.SliverIntegralStoreActivity;
 import com.example.zhanghao.woaisiji.activity.send.JoinAutoActivity;
 import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
@@ -32,6 +33,50 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class FunctionUtils {
+
+    /**
+     * 进入银积分商城
+     */
+    public static void requestSilverIntegral(final Activity toActivity) {
+        final String uid = WoAiSiJiApp.getUid();
+        final String token = WoAiSiJiApp.token;
+        final Map<String, String> params = new HashMap<>();
+        params.put("uid", StringUtils.defaultStr(uid,""));
+        params.put("token", StringUtils.defaultStr(token,""));
+        NetManager.getNetManager().getMyService(Myserver.url)
+                .getShopsRuzhuBean(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ShopsRuzhuBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        ((BaseActivity)(ActivityUtils.getTopActivity())).showProgressDialog();
+                    }
+
+                    @Override
+                    public void onNext(ShopsRuzhuBean value) {
+                        DialogUtil.cancelProgressDialog();
+                        Gson gson = new Gson();
+                        String geographicInfo = gson.toJson(value.getData().getSsx());
+                        String dpfl = gson.toJson(value.getData().getDpfl());
+                        String flbq = gson.toJson(value.getData().getFlbq());
+                        if (TextUtils.isEmpty(PrefUtils.getString(toActivity, "GeographicInfo", "")))
+                            PrefUtils.setString(toActivity, "GeographicInfo", geographicInfo);
+                        PrefUtils.setString(toActivity, "RecruitDpfl", dpfl);
+                        PrefUtils.setString(toActivity, "RecruitFlbq", flbq);
+                        ActivityUtils.startActivity(new Intent(toActivity, SliverIntegralStoreActivity.class));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        DialogUtil.cancelProgressDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
 
 
     /**

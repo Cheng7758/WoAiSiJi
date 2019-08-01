@@ -52,7 +52,7 @@ import butterknife.ButterKnife;
 
 //TODO  滚动选择器数据不显示 手动选择位置 条目页面及时更新
 public class JoinAutoActivity extends BaseActivity {
-    private SiJiWenDaListView listView; //
+    private SiJiWenDaListView listView;
     private RespMerchantList respMerchantDetail;
     private RespSearchDataList respSearchDataList;
     private SearchResult searchResultList;
@@ -78,7 +78,6 @@ public class JoinAutoActivity extends BaseActivity {
     //省份下面的市数据
     private HashMap<String, List<String>> provinceDataHash = new HashMap<String, List<String>>();
     //市添加区
-
     private List<ShopsRuzhuBean.DataBean.ShengBean> mShengBeans;
     private List<ShopsRuzhuBean.DataBean.DpflBean> mDpflBeanList;
     private List<ShopsRuzhuBean.DataBean.FlbqBean> mFlbqBeanList;
@@ -92,12 +91,12 @@ public class JoinAutoActivity extends BaseActivity {
     private Pickers currentDpflPickers, currentFlbqPickers;
     private RelativeLayout relative;
     private TextView cancel, confirm;
-    private String imageName, currentXian;
     private List<SearchResult> mResultArrayList;
     private double mLatitude;
     private double mLongitude;
     private ShopsRuzhuBean.DataBean.ShiBean mShiBean;
     private ShopsRuzhuBean.DataBean.XianBean mXianBean;
+    private String imageName, currentXian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +114,6 @@ public class JoinAutoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         initLocation();
     }
 
@@ -259,8 +257,7 @@ public class JoinAutoActivity extends BaseActivity {
                 .Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (TextUtils.isEmpty(response))
-                    return;
+                if (TextUtils.isEmpty(response)) return;
                 Gson gson = new Gson();
                 if (!TextUtils.isEmpty(searchWord)) {
                     searchResultList = gson.fromJson(response, SearchResult.class);

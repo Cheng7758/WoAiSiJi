@@ -25,6 +25,7 @@ import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespPersonalWallet;
 import com.example.zhanghao.woaisiji.utils.SharedPrefrenceUtils;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.gold.UserManager;
 
 import java.util.HashMap;
 
@@ -149,10 +150,18 @@ public class PersonalWalletActivity extends BaseActivity implements View.OnClick
                         if (respPersonalWallet == null)
                             return;
                         if (respPersonalWallet.getCode() == 200) {
-                            tv_personal_wallet_gold_integral.setText(respPersonalWallet.getData().getScore());//金积分
-                            tv_personal_wallet_balance.setText(respPersonalWallet.getData().getBalance());//余额
-                            tv_personal_wallet_silver_integral.setText(respPersonalWallet.getData().getSilver()); //银积分
-                            tv_personal_wallet_merchant_gold_integral.setText(respPersonalWallet.getData().getStore_score()); //商家金积分
+                            String score = respPersonalWallet.getData().getScore();
+                            UserManager.gold = score;
+                            tv_personal_wallet_gold_integral.setText(score);//金积分
+                            String balance = respPersonalWallet.getData().getBalance();
+                            UserManager.balance = balance;
+                            tv_personal_wallet_balance.setText(balance);//余额
+                            String silver = respPersonalWallet.getData().getSilver();
+                            UserManager.silver = silver;
+                            tv_personal_wallet_silver_integral.setText(silver); //银积分
+                            String store_score = respPersonalWallet.getData().getStore_score();
+                            UserManager.storeGold = store_score;
+                            tv_personal_wallet_merchant_gold_integral.setText(store_score); //商家金积分
                             SharedPrefrenceUtils.putObject(PersonalWalletActivity.this, "yue", respPersonalWallet);
                         } else {
                             if (!TextUtils.isEmpty(respPersonalWallet.getMsg()))

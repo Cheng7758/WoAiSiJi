@@ -177,14 +177,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mSavedFragment.put(0, new HomePageFragment());
 //        mSavedFragment.put(1, new DriverReviewFragment());
         commentFragment = new CommentFragment();
-        mSavedFragment.put(3, new ShoppingCarFragment());
+//        mSavedFragment.put(3, new ShoppingCarFragment());
         mSavedFragment.put(1, commentFragment);
         mSavedFragment.put(2, new NewsZixunFragment());
-<<<<<<< HEAD
-=======
         shoppingCarFragment = new ShoppingCarFragment();
         mSavedFragment.put(3, shoppingCarFragment);
->>>>>>> df0e6bae232dfc5e824e34143b8de77a90ee1f94
         mSavedFragment.put(4, new MyFragment());
     }
 

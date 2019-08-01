@@ -199,7 +199,8 @@ public class CircleAdapter extends BaseRecycleViewAdapter {
                         @Override
                         public void onItemClick(int commentPosition) {
                             CommentItem commentItem = commentsDatas.get(commentPosition);
-                            if ((WoAiSiJiApp.getCurrentUserInfo() != null) && (WoAiSiJiApp.getCurrentUserInfo().getPic().equals(commentItem.getUser().getId()))) {//复制或者删除自己的评论
+                            if ((WoAiSiJiApp.getCurrentUserInfo() != null) && (WoAiSiJiApp
+                                    .getCurrentUserInfo().getPic().equals(commentItem.getUser().getId()))) {//复制或者删除自己的评论
                                 CommentDialog dialog = new CommentDialog(context, presenter, commentItem, circlePosition);
                                 dialog.show();
                             } else {//回复别人的评论

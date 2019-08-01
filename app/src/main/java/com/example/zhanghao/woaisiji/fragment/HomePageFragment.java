@@ -620,7 +620,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         for (int i = 0; i < notice.size(); i++) {
             final int position = i;
             //设置滚动的单个布局
-            LinearLayout moreView = (LinearLayout) LayoutInflater.from(Utils.getApp()).inflate(R
+            LinearLayout moreView = (LinearLayout) getActivity().getLayoutInflater().inflate(R
                     .layout.itme_upmarquee, null);
             //初始化布局的控件
             TextView tv1 = (TextView) moreView.findViewById(R.id.tv1);

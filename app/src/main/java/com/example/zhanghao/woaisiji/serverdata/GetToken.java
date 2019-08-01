@@ -55,8 +55,13 @@ public class GetToken {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                RespData tokenRsp = gson.fromJson(response, RespData.class);
-                if (tokenRsp.getCode() == 200) {
+                RespData tokenRsp = null;
+                try {
+                    tokenRsp = gson.fromJson(response, RespData.class);
+                }catch (Exception e){
+
+                }
+                if (tokenRsp != null && tokenRsp.getCode() == 200) {
                     WoAiSiJiApp.token = tokenRsp.getData();
                     SharedPreferences token = WoAiSiJiApp.getContext().getSharedPreferences("token", Context.MODE_PRIVATE);
                     token.edit().putString("token",WoAiSiJiApp.token).commit();

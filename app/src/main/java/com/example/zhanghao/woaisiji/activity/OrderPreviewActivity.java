@@ -129,12 +129,16 @@ public class OrderPreviewActivity extends BaseActivity {
         entity.addBodyParameter("uid", WoAiSiJiApp.getUid());
         entity.addBodyParameter("pay_type",( isSilver ? 4 : 3) + "");
         entity.addBodyParameter("token", WoAiSiJiApp.token);
-        for (String i : cardIdList) {
-            entity.addBodyParameter("cart_id[]", i);//1
+        String[] ids = new String[cardIdList.length];
+        for (int i = 0; i < cardIdList.length; i++) {
+            ids[i] = cardIdList[i];
         }
-        for (String i : couponList) {
-            entity.addBodyParameter("coupon", i);//1
+            entity.addBodyParameter("cart_id", Arrays.toString(ids));//1
+        ids = new String[couponIdList.size()];
+        for (int i = 0; i < couponList.size(); i++) {
+            ids[i] = couponList.get(i);
         }
+            entity.addBodyParameter("coupon", Arrays.toString(ids));//1
         //现在是2个了
         x.http().post(entity, new Callback.CommonCallback<String>() {
             @Override

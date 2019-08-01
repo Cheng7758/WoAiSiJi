@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.zhanghao.woaisiji.R;
@@ -29,6 +30,7 @@ import com.example.zhanghao.woaisiji.bean.my.PersonalCouponBean;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarGoodsInfo;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarStoreInfo;
 import com.example.zhanghao.woaisiji.resp.RespShoppingCarList;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -214,12 +216,22 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             cholder.btAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int num = goodsInfo.getNum();
+                    String number = goodsInfo.getNumber();
+                    if (++num > Integer.parseInt(StringUtils.defaultStr(number,"0"))){
+                        ToastUtils.showShort("库存不足");
+                        return;
+                    }
                     modifyCountInterface.doIncrease(groupPosition, childPosition, cholder.etNum, cholder.checkBox.isChecked());// 暴露增加接口
                 }
             });
             cholder.btReduce.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (goodsInfo.getNum() == 1){
+                        ToastUtils.showShort("至少要选择一个噢，可以点击右上方进行删除");
+                        return;
+                    }
                     modifyCountInterface.doDecrease(groupPosition, childPosition, cholder.etNum, cholder.checkBox.isChecked());// 暴露删减接口
                 }
             });

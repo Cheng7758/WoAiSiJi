@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.activity.ProductDetailActivity2;
 import com.example.zhanghao.woaisiji.activity.SliverIntegralStoreDetail;
@@ -135,10 +136,10 @@ public class SearchResultAdapter extends CommonAdapter<SearchResult.DataBean.Ite
             ll_commodity_service.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ToastUtils.showShort("点击商品");
                     Intent intent = new Intent(mLayoutInflater.getContext(), ProductDetailActivity2.class);
                     intent.putExtra("id", goodsBean.getId());
-                    mLayoutInflater.getContext().startActivity(intent);
-                    Toast.makeText(mLayoutInflater.getContext(), "点击商品", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.startActivity(intent);
                 }
             });
         }

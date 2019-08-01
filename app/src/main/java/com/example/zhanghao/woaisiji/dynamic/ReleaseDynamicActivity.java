@@ -162,8 +162,11 @@ public class ReleaseDynamicActivity extends BaseActivity {
                                         if (TextUtils.isEmpty(response))
                                             return;
                                         Gson gson = new Gson();
-                                        RespData respData = gson.fromJson(response, RespData.class);
-                                        if (respData.getCode() == 200) {
+                                        RespData respData = null;
+                                        try {
+                                            respData = gson.fromJson(response, RespData.class);
+                                        }catch (Exception e){}
+                                        if (respData != null && respData.getCode() == 200) {
                                             pictureId = respData.getData();
 //                                getImageId();
                                             releaseDynamicToServer();

@@ -42,6 +42,7 @@ import com.example.zhanghao.woaisiji.utils.PrefUtils;
 import com.example.zhanghao.woaisiji.utils.Util;
 import com.example.zhanghao.woaisiji.view.DialogChooseImage;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -366,6 +367,7 @@ public class PersonalSettingActivity extends BaseActivity implements View.OnClic
         if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             return;
         }
+        imageName = StringUtils.defaultStr(imageName,System.currentTimeMillis() + "");
         File f = new File(Environment.getExternalStorageDirectory(), imageName);
         if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();

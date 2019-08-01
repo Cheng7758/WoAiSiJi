@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.jcodecraeer.xrecyclerview.utils.StringUtils;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -115,7 +116,7 @@ public class VolleyMultipartRequest extends Request<String> {
         try {
             if (mParams != null && mParams.size() > 0) {
                 for (Map.Entry<String, String> entry : mParams.entrySet()) {
-                    entity.addPart(entry.getKey(),new StringBody(entry.getValue(), Charset
+                    entity.addPart(StringUtils.defaultStr(entry.getKey(),""),new StringBody(StringUtils.defaultStr(entry.getValue(),""), Charset
                             .forName("UTF-8")));
                 }
             }

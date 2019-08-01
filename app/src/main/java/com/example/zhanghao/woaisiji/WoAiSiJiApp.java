@@ -159,7 +159,13 @@ public class WoAiSiJiApp extends Application {
             public void onResponse(String response) {
                 if (android.text.TextUtils.isEmpty(response)) return;
                 Gson gson = new Gson();
-                RespPersonalWallet respPersonalWallet = gson.fromJson(response, RespPersonalWallet.class);
+                RespPersonalWallet respPersonalWallet = null;
+                try {
+                    respPersonalWallet = gson.fromJson(response, RespPersonalWallet.class);
+                }catch (Exception e){
+
+                }if (respPersonalWallet == null)
+                    return;
                 SharedPrefrenceUtils.remove(ActivityUtils.getTopActivity(), "yue");
                 if (respPersonalWallet.getCode() == 200) {
                     SharedPrefrenceUtils.putObject(ActivityUtils.getTopActivity(), "yue", respPersonalWallet);

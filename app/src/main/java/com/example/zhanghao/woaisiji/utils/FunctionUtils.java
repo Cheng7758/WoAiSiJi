@@ -20,7 +20,7 @@ import com.example.zhanghao.woaisiji.my.ShopsRuzhuBean;
 import com.example.zhanghao.woaisiji.utils.http.NetManager;
 import com.example.zhanghao.woaisiji.utils.http.VolleyMultipartRequest;
 import com.google.gson.Gson;
-import com.jcodecraeer.xrecyclerview.utils.StringUtils;
+import com.example.network.utils.StringUtils;
 
 import java.io.File;
 import java.util.HashMap;

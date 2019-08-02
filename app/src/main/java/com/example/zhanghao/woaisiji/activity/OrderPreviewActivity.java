@@ -28,15 +28,14 @@ import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespAddOrder;
 import com.example.zhanghao.woaisiji.resp.RespAddOrderSuccess;
-import com.example.zhanghao.woaisiji.resp.RespNull;
 import com.example.zhanghao.woaisiji.resp.RespPersonalReceiveAddressList;
-import com.example.zhanghao.woaisiji.utils.StringUtil;
 import com.google.gson.Gson;
-import com.hyphenate.easeui.utils.MGson;
+import com.example.network.utils.MGson;
 import com.jcodecraeer.xrecyclerview.gold.UserManager;
-import com.jcodecraeer.xrecyclerview.utils.StringUtils;
+import com.example.network.utils.StringUtils;
 
 import org.xutils.common.Callback;
+import org.xutils.common.util.KeyValue;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -285,15 +284,14 @@ public class OrderPreviewActivity extends BaseActivity {
         }
         RequestParams requestParams = new RequestParams(ServerAddress.URL_ORDER_PREVIEW_SUBMIT_ODER_LIST_DATA);
         requestParams.addBodyParameter("uid", WoAiSiJiApp.getUid());//
-        requestParams.addBodyParameter("pay_type", isSilver ? "4" : "3");//1
+        requestParams.addBodyParameter("pay_type", isSilver ? "4" : "0");//1
         requestParams.addBodyParameter("beizhu", "");//1
-        if (couponIdList.size()>0)
         requestParams.addBodyParameter("coupon", Arrays.toString(couponIdList.toArray()));//1
         requestParams.addBodyParameter("token", WoAiSiJiApp.token);//1
         requestParams.addBodyParameter("plcid", addressBean.getId());//1
-        ArrayList<Integer> ins = new ArrayList<>();
+        ArrayList<String> ins = new ArrayList<>();
         for (String i : cardIdList) {
-            ins.add(Integer.parseInt(i));
+            ins.add(i);
         }
         requestParams.addBodyParameter("cart_id", Arrays.toString(ins.toArray()));//1
 
@@ -302,13 +300,15 @@ public class OrderPreviewActivity extends BaseActivity {
 //                requestParams.addBodyParameter("coupon[]", couponList.get(i));//1
 //            }
 //        }else
-
+        List<KeyValue> bodyParams = requestParams.getBodyParams();
+        Log.d("requestParams", "submitOrder: " + MGson.toJson(bodyParams));
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result))
                     return;
                 Gson gson = new Gson();
+                Log.d("requestParams", "onSuccess: " + result);
                 RespAddOrderSuccess respAddOrderSuccess = gson.fromJson(result, RespAddOrderSuccess.class);
                 if (respAddOrderSuccess.getCode() == 200) {
                     Intent intent = new Intent(OrderPreviewActivity.this, PaymentMainActivity.class);

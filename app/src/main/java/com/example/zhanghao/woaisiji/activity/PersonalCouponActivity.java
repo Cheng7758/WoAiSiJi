@@ -22,7 +22,6 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
-import com.example.zhanghao.woaisiji.activity.send.JoinAutoActivity;
 import com.example.zhanghao.woaisiji.adapter.PersonalCouponAdapter;
 import com.example.zhanghao.woaisiji.bean.my.PersonalCouponBean;
 import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
@@ -30,7 +29,7 @@ import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespPersonalCoupon;
 import com.example.zhanghao.woaisiji.utils.SpacesItemDecoration;
 import com.google.gson.Gson;
-import com.hyphenate.easeui.utils.MGson;
+import com.example.network.utils.MGson;
 
 import java.util.HashMap;
 

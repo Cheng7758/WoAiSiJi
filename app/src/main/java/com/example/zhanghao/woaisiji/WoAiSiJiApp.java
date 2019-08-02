@@ -13,20 +13,18 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
-import com.bumptech.glide.Glide;
+import com.example.network.manager.NetManager;
 import com.example.zhanghao.woaisiji.bean.MemberShipInfosBean;
 import com.example.zhanghao.woaisiji.bean.my.PersonalInfoBean;
 import com.example.zhanghao.woaisiji.bean.my.PersonalWalletBean;
 import com.example.zhanghao.woaisiji.friends.DemoHelper;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
-import com.example.zhanghao.woaisiji.resp.RespGetPersonalInfo;
 import com.example.zhanghao.woaisiji.resp.RespPersonalWallet;
 import com.example.zhanghao.woaisiji.utils.PrefUtils;
 import com.example.zhanghao.woaisiji.utils.SharedPrefrenceUtils;
@@ -35,7 +33,6 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.http.Myserver;
-import com.hyphenate.easeui.http.NetManager;
 import com.hyphenate.easeui.utils.SetUserInfoUtils;
 import com.jcodecraeer.xrecyclerview.gold.UserManager;
 import com.loveplusplus.update.AppUtils;
@@ -108,7 +105,7 @@ public class WoAiSiJiApp extends Application {
             return;
         Map<String, String> params = new HashMap<>();
         params.put("uid", uid);
-        NetManager.getNetManager().getMyService(Myserver.url)
+        com.hyphenate.easeui.http.NetManager.getNetManager().getMyService(Myserver.url)
                 .getFriendsBean(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -255,6 +252,9 @@ public class WoAiSiJiApp extends Application {
         //end of red packet code
 
         initBugly();    //初始化腾讯bug管理平台
+
+        //初始化网络模块
+        NetManager.init(new NetManager.Builder(ServerAddress.URL_SERVER));
     }
 
     /**

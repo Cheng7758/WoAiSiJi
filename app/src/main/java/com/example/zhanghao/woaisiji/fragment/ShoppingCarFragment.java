@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -32,18 +31,15 @@ import com.example.zhanghao.woaisiji.bean.my.PersonalCouponBean;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarGoodsInfo;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarStoreInfo;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
-import com.example.zhanghao.woaisiji.resp.RespBase;
 import com.example.zhanghao.woaisiji.resp.RespShoppingCarList;
-import com.example.zhanghao.woaisiji.utils.StringUtil;
 import com.google.gson.Gson;
-import com.hyphenate.easeui.utils.MGson;
-import com.jcodecraeer.xrecyclerview.utils.StringUtils;
+import com.example.network.utils.MGson;
+import com.example.network.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdapter.CheckInterface,
         ShoppingCarAdapter.ModifyCountInterface {

@@ -1,37 +1,28 @@
 package com.example.zhanghao.woaisiji.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.activity.PersonalCouponActivity;
 import com.example.zhanghao.woaisiji.bean.my.PersonalCouponBean;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarGoodsInfo;
 import com.example.zhanghao.woaisiji.bean.shoppingcar.ShoppingCarStoreInfo;
-import com.example.zhanghao.woaisiji.resp.RespShoppingCarList;
-import com.jcodecraeer.xrecyclerview.utils.StringUtils;
-import com.squareup.picasso.Picasso;
+import com.example.network.utils.StringUtils;
 
 import java.util.List;
 

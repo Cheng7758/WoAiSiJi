@@ -1,1 +1,1 @@
-include ':app', ':UniversalImageLoaderLibrary', ':EaseUI', ':UpMarqueeView', ':UpdateLibrary', ':xrecyclerview', ':wheelview', ':popLongGe'
+include ':app', ':UniversalImageLoaderLibrary', ':EaseUI', ':UpMarqueeView', ':UpdateLibrary', ':xrecyclerview', ':wheelview', ':popLongGe', ':network'

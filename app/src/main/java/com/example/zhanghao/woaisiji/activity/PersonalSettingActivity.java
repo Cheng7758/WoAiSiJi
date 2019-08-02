@@ -18,23 +18,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.zhanghao.woaisiji.R;
 import com.example.zhanghao.woaisiji.WoAiSiJiApp;
-import com.example.zhanghao.woaisiji.activity.login.LoginActivity;
 import com.example.zhanghao.woaisiji.activity.main.MainActivity;
-import com.example.zhanghao.woaisiji.activity.uploadhead.FileUploadService;
-import com.example.zhanghao.woaisiji.activity.uploadhead.ImageBeen;
 import com.example.zhanghao.woaisiji.bean.my.PersonalInfoBean;
 import com.example.zhanghao.woaisiji.friends.LogoutEm;
 import com.example.zhanghao.woaisiji.friends.ui.BaseActivity;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.resp.RespData;
-import com.example.zhanghao.woaisiji.resp.RespModifyUserHv;
 import com.example.zhanghao.woaisiji.tools.CircleTransform;
 import com.example.zhanghao.woaisiji.utils.FunctionUtils;
 import com.example.zhanghao.woaisiji.utils.KeyPool;
@@ -42,7 +35,7 @@ import com.example.zhanghao.woaisiji.utils.PrefUtils;
 import com.example.zhanghao.woaisiji.utils.Util;
 import com.example.zhanghao.woaisiji.view.DialogChooseImage;
 import com.google.gson.Gson;
-import com.jcodecraeer.xrecyclerview.utils.StringUtils;
+import com.example.network.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -53,14 +46,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by admin on 2016/8/15.

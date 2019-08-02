@@ -1,4 +1,4 @@
-package com.hyphenate.easeui.utils;
+package com.example.network.utils;
 
 import com.google.gson.Gson;
 

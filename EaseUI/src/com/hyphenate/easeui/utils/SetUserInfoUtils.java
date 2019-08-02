@@ -6,17 +6,10 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.network.utils.MGson;
 import com.google.gson.Gson;
-import com.hyphenate.easeui.bean.FriendsBean;
-import com.hyphenate.easeui.domain.ImageUrlBean;
 import com.hyphenate.easeui.domain.MemberShipInfosBean;
 import com.hyphenate.easeui.http.Myserver;
 import com.hyphenate.easeui.http.NetManager;
@@ -24,7 +17,6 @@ import com.hyphenate.easeui.http.NetManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +24,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by zzz on 2016/11/30.

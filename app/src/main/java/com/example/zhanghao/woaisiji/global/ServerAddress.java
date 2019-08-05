@@ -70,6 +70,8 @@ public class ServerAddress {
 
     //我的推荐
     public final static String URL_MY_PERSONAL_INFO_MY_RECOMMENDATION = SERVER_ROOT + "/APP/Xtojoin/mybill";
+    //我的推荐会员
+    public final static String URL_MY_PERSONAL_INFO_MY_RECOMMENDATION_VIP = SERVER_ROOT + "/APP/member/one_member_list";
     //我的钱包
     public final static String URL_MY_PERSONAL_INFO_MY_WALLET = SERVER_ROOT + "/APP/Xtojoin/wallet";
     //金积分提现到余额

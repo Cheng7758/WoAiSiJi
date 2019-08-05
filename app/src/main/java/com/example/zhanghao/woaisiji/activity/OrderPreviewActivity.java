@@ -276,7 +276,8 @@ public class OrderPreviewActivity extends BaseActivity {
             String store_total_price = orderBean.getStore_total_price();
             totalPrice += Double.valueOf(StringUtils.defaultStr(store_total_price,"0.00"));
         }
-        double count = Double.parseDouble(StringUtils.defaultStr(isSilver ? UserManager.silver : UserManager.gold,"0.0"));
+        double count = Double.parseDouble(StringUtils.defaultStr(isSilver ? UserManager.silver :
+                UserManager.gold,"0.0"));
         if (totalPrice > count){
             String s = isSilver ? "银积分" : "金积分";
             ToastUtils.showShort("余额不足，请充值" + s);

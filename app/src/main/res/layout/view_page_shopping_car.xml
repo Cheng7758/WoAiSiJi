@@ -38,18 +38,18 @@
                 android:text="银积分商城"
                 android:textColor="#ffffff"
                 android:textSize="@dimen/sp_14" />
-            <!--<View
+            <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#fff"/>
             <Button
                 android:background="@null"
-                android:id="@+id/btn_view_page_shopping_car_gold_mall"
+                android:id="@+id/btn_view_page_shopping_joina_the_business"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="金积分商城"
+                android:text="加盟商家"
                 android:textColor="#ffffff"
-                android:textSize="14sp" />-->
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView

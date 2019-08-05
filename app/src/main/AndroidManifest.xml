@@ -540,7 +540,8 @@
         <activity android:name=".activity.announcement.AnnouncementDetailsActivity" />
         <activity android:name=".activity.my.MerchantLoginActivitys" />
         <activity android:name=".activity.my.MyEvaluateActivity" />
-        <activity android:name=".activity.home.BabyEvaluationActivity"></activity>
+        <activity android:name=".activity.home.BabyEvaluationActivity" />
+        <activity android:name=".activity.my.MyRecommendedActivity"></activity>
     </application>
 
 </manifest>

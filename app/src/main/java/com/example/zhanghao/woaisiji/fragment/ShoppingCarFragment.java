@@ -44,11 +44,12 @@ import java.util.Map;
 public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdapter.CheckInterface,
         ShoppingCarAdapter.ModifyCountInterface {
 
-    private Button btn_view_page_shopping_car_zhengping_mall, btn_view_page_shopping_car_sliver_mall;
+    private Button btn_view_page_shopping_car_zhengping_mall, btn_view_page_shopping_car_sliver_mall,
+            btn_view_page_shopping_joina_the_business;
     //btn_view_page_shopping_car_gold_mall;
     private TextView tv_view_page_shopping_car_editor;
     private ExpandableListView expandList_view_page_shopping_car_list_data;
-//    private CheckBox ck_view_page_shopping_car_all_choose;
+    //    private CheckBox ck_view_page_shopping_car_all_choose;
     private TextView tv_view_page_shopping_car_count_money, tv_view_page_shopping_car_settle;
     private LinearLayout ll_view_page_shopping_car_settle_root, layout_shopping_cart_empty;
     ;
@@ -66,6 +67,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
 
     private boolean isSilver;
     private int selectIndex = -1;
+
     @Override
     public View initBaseFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_page_shopping_car, container, false);
@@ -77,7 +79,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState = outState == null ? new Bundle() : outState;
-        outState.putBoolean("isSilver",isSilver);
+        outState.putBoolean("isSilver", isSilver);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState == null)
             return;
-        isSilver = savedInstanceState.getBoolean("isSilver",false);
+        isSilver = savedInstanceState.getBoolean("isSilver", false);
     }
 
     @Override
@@ -95,13 +97,13 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
         if (shoppingCarAdapter == null)
             return;
         String store_data = data.getStringExtra("store_data");
-        store_data = StringUtils.defaultStr(store_data,"{}");
+        store_data = StringUtils.defaultStr(store_data, "{}");
         String store_id = data.getStringExtra("IntentSliverDetailCommodityID");
         boolean isSilver = data.getBooleanExtra("isSilver", false);
         shoppingCarAdapter.setSilver(isSilver);
         for (ShoppingCarStoreInfo group : shoppingCarAdapter.groups) {
             String store_id1 = group.getStore_id();
-            if (com.blankj.utilcode.util.StringUtils.equals(store_id,store_id1))
+            if (com.blankj.utilcode.util.StringUtils.equals(store_id, store_id1))
                 group.couponBean = MGson.from(store_data, PersonalCouponBean.class);
         }
         shoppingCarAdapter.notifyDataSetChanged();
@@ -119,8 +121,8 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 btn_view_page_shopping_car_zhengping_mall.setTextColor(Color.parseColor("#646464"));
                 btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#00000000"));
                 btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#FFFFFF"));
-//                btn_view_page_shopping_car_gold_mall.setBackgroundColor(Color.parseColor("#00000000"));
-//                btn_view_page_shopping_car_gold_mall.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_view_page_shopping_joina_the_business.setBackgroundColor(Color.parseColor("#00000000"));
+                btn_view_page_shopping_joina_the_business.setTextColor(Color.parseColor("#FFFFFF"));
                 break;
             case 4: // 银积分商城
                 deleteGoodUrl = ServerAddress.URL_DELETEDUIHUANSHOPPINGCART;  // 删除银币商城购物车
@@ -128,15 +130,15 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 btn_view_page_shopping_car_zhengping_mall.setTextColor(Color.parseColor("#FFFFFF"));
                 btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#646464"));
-//                btn_view_page_shopping_car_gold_mall.setBackgroundColor(Color.parseColor("#00000000"));
-//                btn_view_page_shopping_car_gold_mall.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_view_page_shopping_joina_the_business.setBackgroundColor(Color.parseColor("#00000000"));
+                btn_view_page_shopping_joina_the_business.setTextColor(Color.parseColor("#FFFFFF"));
                 break;
             case 3://金积分商城
                 deleteGoodUrl = ServerAddress.URL_DELETEGOLDSHOPPINGCART;  // 删除银币商城购物车
                 btn_view_page_shopping_car_zhengping_mall.setBackgroundColor(Color.parseColor("#00000000"));
                 btn_view_page_shopping_car_zhengping_mall.setTextColor(Color.parseColor("#FFFFFF"));
-//                btn_view_page_shopping_car_gold_mall.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//                btn_view_page_shopping_car_gold_mall.setTextColor(Color.parseColor("#646464"));
+                btn_view_page_shopping_joina_the_business.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                btn_view_page_shopping_joina_the_business.setTextColor(Color.parseColor("#646464"));
                 btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#00000000"));
                 btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#FFFFFF"));
                 break;
@@ -144,11 +146,12 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     }
 
     private void initView(View rootView) {
-        //正品商城购物车
+        //福百惠商城购物车
         btn_view_page_shopping_car_zhengping_mall = (Button) rootView.findViewById(R.id.btn_view_page_shopping_car_zhengping_mall);
-        //兑换商城购物车
+        //银积分商城购物车
         btn_view_page_shopping_car_sliver_mall = (Button) rootView.findViewById(R.id.btn_view_page_shopping_car_sliver_mall);
-//        btn_view_page_shopping_car_gold_mall = (Button) rootView.findViewById(R.id.btn_view_page_shopping_car_gold_mall);
+        //加盟商家购物车
+        btn_view_page_shopping_joina_the_business = (Button) rootView.findViewById(R.id.btn_view_page_shopping_joina_the_business);
 
 //        ck_view_page_shopping_car_all_choose = (CheckBox) rootView.findViewById(R.id.ck_view_page_shopping_car_all_choose);
         tv_view_page_shopping_car_count_money = (TextView) rootView.findViewById(R.id.tv_view_page_shopping_car_count_money);
@@ -156,7 +159,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
 
         expandList_view_page_shopping_car_list_data = (ExpandableListView) rootView.findViewById(R.id.expandList_view_page_shopping_car_list_data);
         layout_shopping_cart_empty = (LinearLayout) rootView.findViewById(R.id.layout_shopping_cart_empty);
-        shoppingCarAdapter = new ShoppingCarAdapter(mData, getActivity(),isSilver);
+        shoppingCarAdapter = new ShoppingCarAdapter(mData, getActivity(), isSilver);
         shoppingCarAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
         shoppingCarAdapter.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         expandList_view_page_shopping_car_list_data.setAdapter(shoppingCarAdapter);//listview的setadapter
@@ -200,7 +203,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 if (selectStoreInfo.size() == 0)
                     if (mData == null || mData.size() == 0) {
                         Toast.makeText(getActivity(), "购物车暂无商品", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
 
                         Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT).show();
                     }
@@ -263,8 +266,8 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 btn_view_page_shopping_car_zhengping_mall.setTextColor(Color.parseColor("#646464"));
                 btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#00000000"));
                 btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#FFFFFF"));
-//                btn_view_page_shopping_car_gold_mall.setBackgroundColor(Color.parseColor("#00000000"));
-//                btn_view_page_shopping_car_gold_mall.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_view_page_shopping_joina_the_business.setBackgroundColor(Color.parseColor("#00000000"));
+                btn_view_page_shopping_joina_the_business.setTextColor(Color.parseColor("#FFFFFF"));
                 currentFlag = 0;
                 deleteGoodUrl = ServerAddress.URL_DELETEZHENGPINGSHOPPINGCART;
                 mData.clear();
@@ -281,8 +284,8 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 btn_view_page_shopping_car_zhengping_mall.setTextColor(Color.parseColor("#FFFFFF"));
                 btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#646464"));
-//                btn_view_page_shopping_car_gold_mall.setBackgroundColor(Color.parseColor("#00000000"));
-//                btn_view_page_shopping_car_gold_mall.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_view_page_shopping_joina_the_business.setBackgroundColor(Color.parseColor("#00000000"));
+                btn_view_page_shopping_joina_the_business.setTextColor(Color.parseColor("#FFFFFF"));
                 currentFlag = 4;
                 mData.clear();
                 deleteGoodUrl = ServerAddress.URL_DELETEDUIHUANSHOPPINGCART;
@@ -291,22 +294,22 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
             }
         });
 
-//        btn_view_page_shopping_car_gold_mall.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                isFirstPageShow = false;
-//                btn_view_page_shopping_car_zhengping_mall.setBackgroundColor(Color.parseColor("#00000000"));
-//                btn_view_page_shopping_car_zhengping_mall.setTextColor(Color.parseColor("#FFFFFF"));
-//                btn_view_page_shopping_car_gold_mall.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//                btn_view_page_shopping_car_gold_mall.setTextColor(Color.parseColor("#646464"));
-//                btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#00000000"));
-//                btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#FFFFFF"));
-//                currentFlag = 3;
-//                mData.clear();
-//                deleteGoodUrl = ServerAddress.URL_DELETEGOLDSHOPPINGCART;  // 删除银币商城购物车
-//                checkShoppingCardList();
-//            }
-//        });
+        btn_view_page_shopping_joina_the_business.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isFirstPageShow = false;
+                btn_view_page_shopping_car_zhengping_mall.setBackgroundColor(Color.parseColor("#00000000"));
+                btn_view_page_shopping_car_zhengping_mall.setTextColor(Color.parseColor("#FFFFFF"));
+                btn_view_page_shopping_joina_the_business.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                btn_view_page_shopping_joina_the_business.setTextColor(Color.parseColor("#646464"));
+                btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#00000000"));
+                btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#FFFFFF"));
+                currentFlag = 3;
+                mData.clear();
+                deleteGoodUrl = ServerAddress.URL_DELETEGOLDSHOPPINGCART;  // 删除银币商城购物车
+                checkShoppingCardList();
+            }
+        });
     }
 
     /**
@@ -372,7 +375,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
         if (count == 0) {
             expandList_view_page_shopping_car_list_data.setVisibility(View.GONE);
             layout_shopping_cart_empty.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             expandList_view_page_shopping_car_list_data.setVisibility(View.VISIBLE);
             layout_shopping_cart_empty.setVisibility(View.GONE);
         }
@@ -409,6 +412,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
         }
         return selectStoreInfo;
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -516,7 +520,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
         product.setNum(currentCount);
 //        ((EditText) showCountView).setText(currentCount + "");
 //        ((EditText) showCountView).setSelection(String.valueOf(currentCount).length());
-        ((EditText) showCountView).setSelection(String.valueOf( ((TextView)showCountView).getText()).length());
+        ((EditText) showCountView).setSelection(String.valueOf(((TextView) showCountView).getText()).length());
         shoppingCarAdapter.notifyDataSetChanged();
 
         calculate();
@@ -534,7 +538,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
         changeGoodsAmountRequest(product.getG_id(), String.valueOf(currentCount));
         product.setNum(currentCount);
 //        ((EditText) showCountView).setText(currentCount + "");
-        ((EditText) showCountView).setSelection(String.valueOf( ((TextView)showCountView).getText()).length());
+        ((EditText) showCountView).setSelection(String.valueOf(((TextView) showCountView).getText()).length());
         shoppingCarAdapter.notifyDataSetChanged();
         calculate();
     }
@@ -549,7 +553,6 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
 
 
                     }

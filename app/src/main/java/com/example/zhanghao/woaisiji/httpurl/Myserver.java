@@ -9,6 +9,7 @@ import com.example.zhanghao.woaisiji.bean.merchandise.MerchandiseDetails;
 import com.example.zhanghao.woaisiji.bean.my.CancelCollectionBean;
 import com.example.zhanghao.woaisiji.bean.my.CheckBogisticsBean;
 import com.example.zhanghao.woaisiji.bean.my.MyCollectionBean;
+import com.example.zhanghao.woaisiji.bean.my.MyRecommendedBean;
 import com.example.zhanghao.woaisiji.bean.my.OrderBean;
 import com.example.zhanghao.woaisiji.bean.pay.MerchantsPayBean;
 import com.example.zhanghao.woaisiji.bean.pay.PaySignBean;
@@ -128,4 +129,8 @@ public interface Myserver {
     @GET("/APP/Public/evaluate/id/{id}")
     Observable<MerchandiseDetails> getMerchandiseDetails(@Path("id") String id);
 
+    //我的推荐
+    @POST("/APP/member/one_member_list")
+    @FormUrlEncoded
+    Observable<MyRecommendedBean> getMyRecommendedBean(@FieldMap Map<String, String> map);
 }

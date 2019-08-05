@@ -51,12 +51,15 @@ public class ProductDetailActivity2 extends BaseActivity implements View.OnClick
     private String productId;
 
     private int type;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.productdetail_layout);
         type = getIntent().getIntExtra("type", 1);  //获取的参数没有传递过来的时候，返回defaultValue这个值
+        mTitle = getIntent().getStringExtra("title");
+
         initView();
         initData();
         //服务器请求
@@ -111,7 +114,11 @@ public class ProductDetailActivity2 extends BaseActivity implements View.OnClick
         iv_title_bar_view_left_left = (ImageView) findViewById(R.id.iv_title_bar_view_left_left);
         iv_title_bar_view_left_left.setVisibility(View.VISIBLE);
         tv_title_bar_view_centre_title = (TextView) findViewById(R.id.tv_title_bar_view_centre_title);
-        tv_title_bar_view_centre_title.setText("福百惠商城");
+        if (!TextUtils.isEmpty(mTitle)) {
+            tv_title_bar_view_centre_title.setText(mTitle);
+        }else {
+            tv_title_bar_view_centre_title.setText("福百惠商城");
+        }
         /*//店铺
         tv_product_detail_store = (TextView) findViewById(R.id.tv_product_detail_store);
         //客服

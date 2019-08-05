@@ -29,6 +29,7 @@ import com.example.zhanghao.woaisiji.activity.PersonalWalletActivity;
 import com.example.zhanghao.woaisiji.activity.my.MerchantLoginActivitys;
 import com.example.zhanghao.woaisiji.activity.my.MyCollectionActivity;
 import com.example.zhanghao.woaisiji.activity.my.MyOrderActivity;
+import com.example.zhanghao.woaisiji.activity.my.MyRecommendedActivity;
 import com.example.zhanghao.woaisiji.bean.ImageUrlBean;
 import com.example.zhanghao.woaisiji.global.ServerAddress;
 import com.example.zhanghao.woaisiji.tools.CircleTransform;
@@ -154,7 +155,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.rl_home_my_page_mid_recommend://我的推荐
-                startActivity(new Intent(getActivity(), PersonalMyRecommendationActivity.class));
+//                startActivity(new Intent(getActivity(), PersonalMyRecommendationActivity.class));
+                startActivity(new Intent(getActivity(), MyRecommendedActivity.class));
                 break;
             case R.id.rl_my_page_mid_referral_code://推荐码
                 startActivity(new Intent(getActivity(), PersonalRecommendCodeActivity.class));

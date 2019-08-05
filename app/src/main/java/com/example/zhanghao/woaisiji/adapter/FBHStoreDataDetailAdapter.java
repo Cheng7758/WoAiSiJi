@@ -47,6 +47,7 @@ public class FBHStoreDataDetailAdapter extends BaseQuickAdapter<RespCommodityLis
                 Intent intent = new Intent(context, ProductDetailActivity2.class);
                 intent.putExtra("id", item.getId());
                 intent.putExtra("type", mType);
+                intent.putExtra("title", item.getTitle());
                 context.startActivity(intent);
             }
         });

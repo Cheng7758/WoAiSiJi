@@ -33,7 +33,8 @@ public class PaymentMainActivity extends BaseActivity implements View.OnClickLis
     //1支付宝 2微信 3金积分 4银积分
     private TextView tv_payment_main_sliver_jifen_payment_select, tv_payment_main_gold_jifen_payment_select,
             tv_payment_main_cash_payment_select;
-    private RelativeLayout rl_payment_main_cash_payment, rl_payment_main_gold_jifen_payment, rl_payment_main_sliver_jifen_payment;
+    private RelativeLayout rl_payment_main_cash_payment, rl_payment_main_gold_jifen_payment,
+            rl_payment_main_sliver_jifen_payment;
     private TextView tv_payment_main_exist, tv_payment_main_need_pay_gold_jifen, tv_payment_main_submit_payment;
 
     private String currentPayType = "";
@@ -122,13 +123,27 @@ public class PaymentMainActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.rl_payment_main_cash_payment:
-                setViewState("0");
+                if("4".equals(orderBean.getPay_type())) {
+                    Toast.makeText(PaymentMainActivity.this, "当前支付商品只能使用银积分支付!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else  {
+                    setViewState("0");
+                }
                 break;
             case R.id.rl_payment_main_gold_jifen_payment:
-                setViewState("3");
+                if("4".equals(orderBean.getPay_type())) {
+                    Toast.makeText(PaymentMainActivity.this, "当前支付商品只能使用银积分支付!", Toast.LENGTH_SHORT).show();
+                }else {
+                    setViewState("3");
+                }
                 break;
             case R.id.rl_payment_main_sliver_jifen_payment:
-                setViewState("4");
+                if(!"4".equals(orderBean.getPay_type())) {
+                    Toast.makeText(PaymentMainActivity.this, "当前支付商品不能使用银积分支付!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    setViewState("4");
+                }
                 break;
             case R.id.tv_payment_main_submit_payment:
                 if (!TextUtils.isEmpty(currentPayType)) {
@@ -169,8 +184,8 @@ public class PaymentMainActivity extends BaseActivity implements View.OnClickLis
 //                tv_payment_main_need_pay_gold_jifen.setText("金积分" + mWallet.getData().getScore());
                 break;
             case "4":   //银积分
-                tv_payment_main_cash_payment_select.setBackgroundResource(R.drawable.checkbox_uncheck);
-                tv_payment_main_gold_jifen_payment_select.setBackgroundResource(R.drawable.checkbox_uncheck);
+                rl_payment_main_cash_payment.setVisibility(View.GONE);
+                rl_payment_main_gold_jifen_payment.setVisibility(View.GONE);
                 tv_payment_main_sliver_jifen_payment_select.setBackgroundResource(R.drawable.checkbox_checked);
 //                tv_payment_main_need_pay_gold_jifen.setText("银积分" + mWallet.getData().getSilver());
                 break;

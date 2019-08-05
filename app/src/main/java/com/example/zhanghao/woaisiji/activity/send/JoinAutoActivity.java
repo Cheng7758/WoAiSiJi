@@ -325,6 +325,7 @@ public class JoinAutoActivity extends BaseActivity {
                 else {
                     params.put("pageno", "1");
                     params.put("pagesize", "200");
+                    params.put("type", 0+"");
 
                 }
                 return params;

@@ -238,7 +238,7 @@ public class CommentFragment extends BaseFragment implements CircleContract.View
             selectCircleItemH = selectCircleItem.getHeight();
         }
 
-        if (commentConfig.commentType == CommentConfig.Type.REPLY) {
+        /*if (commentConfig.commentType == CommentConfig.Type.REPLY) {
             //回复评论的情况
             CommentListView commentLv = (CommentListView) selectCircleItem.findViewById(R.id.commentList);
             if (commentLv != null) {
@@ -257,7 +257,7 @@ public class CommentFragment extends BaseFragment implements CircleContract.View
                     } while (parentView != null && parentView != selectCircleItem);
                 }
             }
-        }
+        }*/
     }
 
     @Override

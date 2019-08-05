@@ -134,6 +134,7 @@ public class OrderPreviewActivity extends BaseActivity {
         for (String i : couponList) {
             entity.addBodyParameter("coupon", i);//1
         }
+        Log.i("qlb-response-list_data>","商品列表参数："+new Gson().toJson(entity));
         //现在是2个了
         x.http().post(entity, new Callback.CommonCallback<String>() {
             @Override
@@ -143,6 +144,7 @@ public class OrderPreviewActivity extends BaseActivity {
                     return;
                 Gson gson = new Gson();
                 RespAddOrder respAddOrder = gson.fromJson(result, RespAddOrder.class);
+                Log.i("qlb-response-list_data>","商品列表返回："+result.toString());
                 if (respAddOrder.getCode() == 200) {
                     if (respAddOrder.getData().size() > 0) {
                         int total = 0;
@@ -276,41 +278,23 @@ public class OrderPreviewActivity extends BaseActivity {
             String store_total_price = orderBean.getStore_total_price();
             totalPrice += Double.valueOf(StringUtils.defaultStr(store_total_price,"0.00"));
         }
-        double count = Double.parseDouble(StringUtils.defaultStr(isSilver ? UserManager.silver :
-                UserManager.gold,"0.0"));
+        double count = Double.parseDouble(StringUtils.defaultStr(isSilver ? UserManager.silver : UserManager.gold,"0.0"));
         if (totalPrice > count){
             String s = isSilver ? "银积分" : "金积分";
             ToastUtils.showShort("余额不足，请充值" + s);
             return;
         }
-        RequestParams requestParams = new RequestParams(ServerAddress.URL_ORDER_PREVIEW_SUBMIT_ODER_LIST_DATA);
-        requestParams.addBodyParameter("uid", WoAiSiJiApp.getUid());//
-        requestParams.addBodyParameter("pay_type", isSilver ? "4" : "0");//1
-        requestParams.addBodyParameter("beizhu", "");//1
-        requestParams.addBodyParameter("coupon", Arrays.toString(couponIdList.toArray()));//1
-        requestParams.addBodyParameter("token", WoAiSiJiApp.token);//1
-        requestParams.addBodyParameter("plcid", addressBean.getId());//1
-        ArrayList<String> ins = new ArrayList<>();
-        for (String i : cardIdList) {
-            ins.add(i);
-        }
-        requestParams.addBodyParameter("cart_id", Arrays.toString(ins.toArray()));//1
 
-//        if (couponList!=null && couponList.size() > 0){
-//            for (int i= 0 ;i<couponList.size(); i++) {
-//                requestParams.addBodyParameter("coupon[]", couponList.get(i));//1
-//            }
-//        }else
-        List<KeyValue> bodyParams = requestParams.getBodyParams();
-        Log.d("requestParams", "submitOrder: " + MGson.toJson(bodyParams));
-        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+        StringRequest oderListDataUrl = new StringRequest(Request.Method.POST,
+                ServerAddress.URL_ORDER_PREVIEW_SUBMIT_ODER_LIST_DATA, new Response.Listener<String>() {
             @Override
-            public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result))
+            public void onResponse(String response) {
+                if (TextUtils.isEmpty(response))
                     return;
                 Gson gson = new Gson();
-                Log.d("requestParams", "onSuccess: " + result);
-                RespAddOrderSuccess respAddOrderSuccess = gson.fromJson(result, RespAddOrderSuccess.class);
+                Log.d("requestParams", "onSuccess: " + response);
+                RespAddOrderSuccess respAddOrderSuccess = gson.fromJson(response, RespAddOrderSuccess.class);
+                Log.i("qlb-response-list_data>","返回："+response.toString());
                 if (respAddOrderSuccess.getCode() == 200) {
                     Intent intent = new Intent(OrderPreviewActivity.this, PaymentMainActivity.class);
                     intent.putExtra("price",String.valueOf(mPrice));
@@ -325,24 +309,37 @@ public class OrderPreviewActivity extends BaseActivity {
                     Toast.makeText(OrderPreviewActivity.this, "订单生成失败!", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(OrderPreviewActivity.this, respAddOrderSuccess.getMsg(), Toast.LENGTH_SHORT).show();
-
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
+            public void onErrorResponse(VolleyError error) {
 
             }
-
+        }) {
             @Override
-            public void onCancelled(CancelledException cex) {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("uid", WoAiSiJiApp.getUid());//
+                params.put("pay_type", isSilver ? "4" : "0");//1
+                params.put("beizhu", "");//1
 
+                params.put("token", WoAiSiJiApp.token);//1
+                params.put("plcid", addressBean.getId());//1
+                String ins = "";
+                for (String i : cardIdList) {
+                    ins+=i+",";
+                }
+                params.put("cart_id[]", ins);//1
+                String ins2 = "";
+                for (String i : couponIdList) {
+                    ins2+=i+",";
+                }
+                params.put("coupon", ins2);//1
+                Log.i("qlb-response-list_data>","返回："+params);
+                return params;
             }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+        };
+        WoAiSiJiApp.mRequestQueue.add(oderListDataUrl);
     }
 
     @Override

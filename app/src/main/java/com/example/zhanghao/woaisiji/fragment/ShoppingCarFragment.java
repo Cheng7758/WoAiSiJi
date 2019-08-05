@@ -425,8 +425,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (TextUtils.isEmpty(response))
-                            return;
+                        if (TextUtils.isEmpty(response)) return;
                         Gson gson = new Gson();
                         RespShoppingCarList respShoppingCarList = gson.fromJson(response, RespShoppingCarList.class);
                         if (respShoppingCarList.getCode() == 200) {

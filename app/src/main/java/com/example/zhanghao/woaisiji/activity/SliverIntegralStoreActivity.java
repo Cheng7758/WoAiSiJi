@@ -45,7 +45,8 @@ public class SliverIntegralStoreActivity extends BaseActivity {
 
     private LinearLayout ll_sliver_integral_store_location, ll_sliver_integral_store_province,
             ll_sliver_integral_store_city, ll_sliver_integral_store_country,
-            ll_recruitment_province_city_country_root;;
+            ll_recruitment_province_city_country_root;
+    ;
     private TextView tv_sliver_integral_store_province, tv_sliver_integral_store_city,
             tv_sliver_integral_store_country;
     private RelativeLayout relative;
@@ -391,6 +392,7 @@ public class SliverIntegralStoreActivity extends BaseActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("pageno", "1");
                 params.put("pagesize", "500");
+                params.put("type", 1 + "");
                 return params;
             }
         };

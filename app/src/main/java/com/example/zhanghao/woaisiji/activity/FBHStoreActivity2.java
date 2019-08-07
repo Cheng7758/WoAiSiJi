@@ -91,7 +91,7 @@ public class FBHStoreActivity2 extends AppCompatActivity {
 
         mCategoryListData = new ArrayList<>();
         commodityDataDetailList = new ArrayList<>();
-
+        WoAiSiJiApp.APPLICATION_SHOP_TYPE=0;
         initView();
         initListener();
         getCategoryDataFromServer();

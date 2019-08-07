@@ -60,7 +60,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
             tv_payment_method_sure_payment, tv_payment_method_recharge_gold_integral;
 
     private RespPersonalWallet respPersonalWallet;
-    private String merge;
+    private String merge, orderBean, pay_type;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -118,6 +118,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
         Intent intent = getIntent();
         intentOrderBean = (PayOrderBean) intent.getSerializableExtra("CurrentPayMethod");
         merge = intent.getStringExtra("merge");
+        pay_type = intent.getStringExtra("Pay_type");
         if (intentOrderBean != null) {
             paymentType = intentOrderBean.getPay_type();
             paymentPrice = intentOrderBean.getPrice();
@@ -154,9 +155,16 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
             respPersonalWallet = SharedPrefrenceUtils.getObject(PaymentMethodActivity.this, "yue");
             ll_payment_method_crash_payment_method_root.setVisibility(View.GONE);
             ll_payment_method_integral_payment_method_root.setVisibility(View.VISIBLE);
-            tv_payment_method_need_gold_integral.setText("所需金积分：" + paymentPrice);
-            if (respPersonalWallet != null && respPersonalWallet.getData() != null)
-                tv_payment_method_balance_gold_integral.setText("金积分余额：" + respPersonalWallet.getData().getScore());
+            if ("3".equals(pay_type)) {
+                tv_payment_method_need_gold_integral.setText("所需金积分：" + paymentPrice);
+                if (respPersonalWallet != null && respPersonalWallet.getData() != null)
+                    tv_payment_method_balance_gold_integral.setText("金积分余额：" + respPersonalWallet.getData().getScore());
+            } else if ("4".equals(pay_type)) {
+                tv_payment_method_need_gold_integral.setText("所需银积分：" + paymentPrice);
+                if (respPersonalWallet != null && respPersonalWallet.getData() != null)
+                    tv_payment_method_balance_gold_integral.setText("银积分余额：" + respPersonalWallet.getData().getSilver());
+            }
+
         }
     }
 
@@ -179,7 +187,7 @@ public class PaymentMethodActivity extends BaseActivity implements View.OnClickL
                 getWxPayParams();
                 break;
             case R.id.tv_payment_method_sure_payment:
-                paymentType = "3";
+                paymentType = pay_type == "2" ? "3" : "4";
                 paymentIndent();
                 break;
         }

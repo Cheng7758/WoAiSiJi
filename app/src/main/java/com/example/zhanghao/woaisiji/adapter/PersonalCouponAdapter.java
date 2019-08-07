@@ -84,6 +84,6 @@ public class PersonalCouponAdapter extends RecyclerView.Adapter<PersonalCouponVi
     }
 
     public interface ItemListener<T>{
-        void onItemClick(View itemView,T t);
+        void onItemClick(View itemView, T t);
     }
 }

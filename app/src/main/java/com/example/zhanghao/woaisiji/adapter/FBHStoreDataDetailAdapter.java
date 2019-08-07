@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zhanghao.woaisiji.R;
+import com.example.zhanghao.woaisiji.WoAiSiJiApp;
 import com.example.zhanghao.woaisiji.activity.ProductDetailActivity2;
 import com.example.zhanghao.woaisiji.activity.SliverIntegralStoreDetail;
 import com.example.zhanghao.woaisiji.adapter.viewholder.FBHStoreDataDetailHolder;

@@ -1,7 +1,11 @@
 package com.example.zhanghao.woaisiji.activity.login;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
@@ -67,18 +71,30 @@ public class NewRegisterActivity extends BaseActivity implements View.OnClickLis
     private String province, city, district;
     public LocationClient mLocationClient = null;
     public BaiduMapLocationListener myListener = new BaiduMapLocationListener();
-
+    private static final int PERMISSION_REQUESTCODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PublicActivityList.activityList.add(this);
         setContentView(R.layout.activity_new_register);
-        initLocation();
+        permission();
         initTitleBar();
         initView();
     }
-
+    private void permission() {
+        if (Build.VERSION.SDK_INT >= 23) { //判断是否为android6.0系统版本，如果是，需要动态添加权限
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //没有授权
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUESTCODE);
+            } else {
+                //已经授权
+                initLocation();
+            }
+        }else {
+            initLocation();
+        }
+    }
     private void initLocation() {
         mLocationClient = new LocationClient(this);
         mLocationClient.registerLocationListener(myListener);

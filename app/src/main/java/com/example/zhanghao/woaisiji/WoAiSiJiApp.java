@@ -73,6 +73,8 @@ public class WoAiSiJiApp extends Application {
     // RequestQueue请求队列对象
     public static RequestQueue mRequestQueue;
 
+    public static int APPLICATION_SHOP_TYPE ;
+
     //Token
     public static String token = null;
     //用户信息
@@ -154,7 +156,7 @@ public class WoAiSiJiApp extends Application {
                 ServerAddress.URL_MY_PERSONAL_INFO_MY_WALLET, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (android.text.TextUtils.isEmpty(response)) return;
+                if (TextUtils.isEmpty(response)) return;
                 Gson gson = new Gson();
                 RespPersonalWallet respPersonalWallet = null;
                 try {
@@ -172,7 +174,7 @@ public class WoAiSiJiApp extends Application {
                     UserManager.gold  = data.getScore();
                     UserManager.storeGold = data.getStore_score();
                 } else {
-                    if (!android.text.TextUtils.isEmpty(respPersonalWallet.getMsg()))
+                    if (!TextUtils.isEmpty(respPersonalWallet.getMsg()))
                         ToastUtils.showShort(respPersonalWallet.getMsg());
                 }
             }

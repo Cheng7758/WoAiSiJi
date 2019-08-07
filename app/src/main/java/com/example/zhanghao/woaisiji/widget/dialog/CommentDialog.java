@@ -31,7 +31,7 @@ import com.yiw.circledemo.utils.DatasUtil;*/
 *
  */
 public class CommentDialog extends Dialog implements
-		android.view.View.OnClickListener {
+		View.OnClickListener {
 
 	private Context mContext;
 	private CirclePresenter mPresenter;

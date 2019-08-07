@@ -98,6 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
         android:layout_below="@+id/relativeLayout"
+        android:visibility="gone"
         android:background="#FAFAFA"
         android:orientation="horizontal">
 

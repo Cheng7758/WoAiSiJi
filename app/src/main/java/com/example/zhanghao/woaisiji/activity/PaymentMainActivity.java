@@ -154,6 +154,7 @@ public class PaymentMainActivity extends BaseActivity implements View.OnClickLis
                     orderBean.setOrderNumber(orderNumber);
                     intent.putExtra("CurrentPayMethod", orderBean);
                     intent.putExtra("merge", merge);
+                    intent.putExtra("Pay_type", orderBean.getPay_type());
                     startActivity(intent);
                     finish();
                 }

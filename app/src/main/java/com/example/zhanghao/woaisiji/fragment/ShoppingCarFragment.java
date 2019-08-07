@@ -54,7 +54,9 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     private LinearLayout ll_view_page_shopping_car_settle_root, layout_shopping_cart_empty;
     ;
     private TextView tv_view_page_shopping_car_delete;
-
+    private int SHOPPING_CAR_FBHSC = 0;
+    private int SHOPPING_CAR_YINJIFEN = 4;
+    private int SHOPPING_CAR_JIAMEN = 5;
     private boolean isFirstPageShow = true;
     private List<ShoppingCarStoreInfo> mData;
     private int currentFlag = 0;//0-正品   3-金积分    4-银积分
@@ -66,6 +68,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     private double totalPrice = 0.00;// 购买的商品总价
 
     private boolean isSilver;
+    private  int cartList_num=0;
     private int selectIndex = -1;
 
     @Override
@@ -112,8 +115,22 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
     private void init(View rootView) {
         mData = new ArrayList<>();
         checkShoppingCardList();
-
+        Log.i("qlb","gcurrentFlag-->"+currentFlag);
         initView(rootView);
+        switch (WoAiSiJiApp.APPLICATION_SHOP_TYPE){
+            case 0:
+                currentFlag = 0;
+                cartList_num = 0;
+                break;
+            case 4:
+                currentFlag = 4;
+                cartList_num = 4;
+                break;
+            case 5:
+                currentFlag = 3;
+                cartList_num = 5;
+                break;
+        }
         switch (currentFlag) {
             case 0: // 正品商城
                 deleteGoodUrl = ServerAddress.URL_DELETEZHENGPINGSHOPPINGCART; // 删除正品商城购物车
@@ -160,6 +177,12 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
         expandList_view_page_shopping_car_list_data = (ExpandableListView) rootView.findViewById(R.id.expandList_view_page_shopping_car_list_data);
         layout_shopping_cart_empty = (LinearLayout) rootView.findViewById(R.id.layout_shopping_cart_empty);
         shoppingCarAdapter = new ShoppingCarAdapter(mData, getActivity(), isSilver);
+        for (int i = 0; i < mData.size(); i++) {
+            Log.i("qlb","shoppingCarAdapter-getStore_id->"+mData.get(i).getStore_id());
+            Log.i("qlb","shoppingCarAdapter-getStore_name->"+mData.get(i).getStore_name());
+            Log.i("qlb","shoppingCarAdapter-getGoods->"+mData.get(i).getGoods());
+        }
+        Log.i("qlb","shoppingisSilver-->"+isSilver);
         shoppingCarAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
         shoppingCarAdapter.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         expandList_view_page_shopping_car_list_data.setAdapter(shoppingCarAdapter);//listview的setadapter
@@ -257,7 +280,6 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 alert.show();
             }
         });
-
         btn_view_page_shopping_car_zhengping_mall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,6 +294,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 deleteGoodUrl = ServerAddress.URL_DELETEZHENGPINGSHOPPINGCART;
                 mData.clear();
                 isSilver = false;
+                cartList_num=SHOPPING_CAR_FBHSC;
                 checkShoppingCardList();
             }
         });
@@ -290,6 +313,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 mData.clear();
                 deleteGoodUrl = ServerAddress.URL_DELETEDUIHUANSHOPPINGCART;
                 isSilver = true;
+                cartList_num=SHOPPING_CAR_YINJIFEN;
                 checkShoppingCardList();
             }
         });
@@ -305,6 +329,7 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
                 btn_view_page_shopping_car_sliver_mall.setBackgroundColor(Color.parseColor("#00000000"));
                 btn_view_page_shopping_car_sliver_mall.setTextColor(Color.parseColor("#FFFFFF"));
                 currentFlag = 3;
+                cartList_num=SHOPPING_CAR_JIAMEN;
                 mData.clear();
                 deleteGoodUrl = ServerAddress.URL_DELETEGOLDSHOPPINGCART;  // 删除银币商城购物车
                 checkShoppingCardList();
@@ -451,8 +476,9 @@ public class ShoppingCarFragment extends BaseFragment implements ShoppingCarAdap
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
                 map.put("uid", WoAiSiJiApp.getUid());
-                map.put("type", (isSilver ? 4 : 3) + "");
+                map.put("type", cartList_num+"");
                 map.put("token", WoAiSiJiApp.token);
+                Log.i("qlb","getParamsisSilver-->"+(isSilver ? 4 : 3) + "");
                 return map;
             }
         };

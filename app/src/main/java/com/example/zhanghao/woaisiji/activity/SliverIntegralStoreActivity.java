@@ -163,7 +163,7 @@ public class SliverIntegralStoreActivity extends BaseActivity {
     private void initData() {
         currentDpflPickers = new Pickers();
         currentFlbqPickers = new Pickers();
-
+        WoAiSiJiApp.APPLICATION_SHOP_TYPE=4;
         String shengStr = PrefUtils.getString(this, "GeographicInfo", "");
         String dpfl = PrefUtils.getString(this, "RecruitDpfl", "");
         String flbq = PrefUtils.getString(this, "RecruitFlbq", "");

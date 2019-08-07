@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -384,7 +385,12 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
                     imageUri = data.getData();
                     if (imageUri != null) {
                         Bitmap bitmap = getBitmapFromUri(RecruitmentActivity.this, imageUri);
-                        startUpload(bitmap);
+                        Log.i("qlb","bitmap2222222Size"+bitmap.getByteCount());
+                        Log.i("qlb","bitmap2222222SizegetRowBytes"+bitmap.getRowBytes() * bitmap.getHeight());
+                        Bitmap bitmap1=Util.compressImage(bitmap);
+                        Log.i("qlb","bitmap3333333Size"+bitmap1.getByteCount());
+                        Log.i("qlb","bitmap3333333SizegetRowBytes"+bitmap1.getRowBytes() * bitmap.getHeight());
+                        startUpload(bitmap1);
                     }
                     break;
                 case REQUEST_TAKE_PHOTO: //拍照
@@ -393,7 +399,10 @@ public class RecruitmentActivity extends BaseActivity implements View.OnClickLis
                         imageUri = Uri.fromFile(tempFile);
                         if (imageUri != null) {
                             Bitmap bitmap = getBitmapFromUri(RecruitmentActivity.this, imageUri);
-                            startUpload(bitmap);
+                            Log.i("qlb","bitmap2222222Size"+bitmap.getByteCount());
+                            Bitmap bitmap1=Util.compressImage(bitmap);
+                            Log.i("qlb","bitmap3333333Size"+bitmap1.getByteCount());
+                            startUpload(bitmap1);
                         }
                     } else {
                         Toast.makeText(getApplication(), "没有SDCard!", Toast.LENGTH_LONG).show();
